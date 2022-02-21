@@ -2,12 +2,15 @@
 #include <Eigen/Core>
 #include <cmath>
 #include <iostream>
-
+#include <format>
 #include "line_search.h"
 
 int main(int argc, char *argv[])
 {
-    class Search :public LineSearch
+    std::string message = std::format("The answer is {}.", 42);
+    assert(message == "The answer is 42.");
+
+    /*class Search :public LineSearch
     {
     public:
         FLOAT Phi(FLOAT a)override
@@ -17,5 +20,5 @@ int main(int argc, char *argv[])
     };
 
     Search search;
-    std::cout << search.Zerosixeight(0.5, 0.2, 10e-6) << std::endl;
+    std::cout << search.Zerosixeight(0.5, 0.2, 10e-6) << std::endl;*/
 }

@@ -64,7 +64,7 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*
 {
     FLOAT a = secton_a;
     FLOAT b = secton_b;
-    FLOAT r = 0.618;
+    static const FLOAT r = (std::sqrt(5)-1)/2; //0.618
 
     while ((b - a) > epsilon)
     {

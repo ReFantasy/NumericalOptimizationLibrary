@@ -2,6 +2,6 @@
 
 #include "Eigen/Dense"
 
-using Vector = Eigen::VectorXf;
-using Matrix = Eigen::MatrixXf;
-using FLOAT = float;
+using Vector = Eigen::VectorXd;
+using Matrix = Eigen::MatrixXd;
+using FLOAT = double;
