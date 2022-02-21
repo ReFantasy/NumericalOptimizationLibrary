@@ -1,12 +1,10 @@
-#include <iostream>
-#include <cmath>
-#include <Eigen/Core>
 #include "example.h"
+#include <Eigen/Core>
+#include <cmath>
+#include <iostream>
 
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	
 
-	example_3_2();
+    example_3_2();
 }
