@@ -1,24 +1,24 @@
 #include "example.h"
+#include "line_search.h"
 #include <Eigen/Core>
 #include <cmath>
 #include <iostream>
-#include <format>
-#include "line_search.h"
 
 int main(int argc, char *argv[])
 {
-    std::string message = std::format("The answer is {}.", 42);
-    assert(message == "The answer is 42.");
-
     /*class Search :public LineSearch
     {
     public:
         FLOAT Phi(FLOAT a)override
         {
-            return std::pow(2 * a - 3, 2) - 4;
+            return -sin(a);
         }
-    };
+        FLOAT dPhi_dx(FLOAT a)override { return -cos(a); };
 
-    Search search;
-    std::cout << search.Zerosixeight(0.5, 0.2, 10e-6) << std::endl;*/
+    protected:
+        bool Armijo(FLOAT a)override { return false; };
+    };*/
+
+    // example_3_1();
+    Newton_example_3_1();
 }

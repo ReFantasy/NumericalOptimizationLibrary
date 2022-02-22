@@ -1,4 +1,5 @@
 #include "newton.h"
+#include "line_search.h"
 #include <iostream>
 
 Vector NewtonBase::gk(Vector xk)

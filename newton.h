@@ -14,4 +14,10 @@ class NewtonBase
   private:
 };
 
+// class DampedNewton :public NewtonBase
+//{
+// public:
+//    Vector Solve(Vector x0, FLOAT _gk_norm)override;
+//};
+
 #endif //__NEWTON_H__

@@ -1,18 +1,26 @@
 #include "line_search.h"
+#include <iostream>
 
-FLOAT LineSearch::Phi(FLOAT)
-{
-    return 0;
-}
-
-FLOAT LineSearch::Zerosixeight(FLOAT a0, FLOAT r0, FLOAT epsilon, FLOAT t )
+FLOAT LineSearch::Zerosixeight(FLOAT a0, FLOAT r0, FLOAT epsilon, FLOAT t)
 {
     FLOAT secton_a, secton_b;
     AdvanceandRetreat(a0, r0, t, secton_a, secton_b);
     return GoldenSection(secton_a, secton_b, epsilon);
 }
 
-void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT& secton_a, FLOAT& secton_b)
+FLOAT LineSearch::QuadraticPolynomialInterpolation(FLOAT a0)
+{
+    // 满足准则直接返回
+    if (Criterion(a0))
+        return a0;
+
+    // 不满足准则
+    FLOAT a1 = -dPhi_dx(0) * a0 * a0 / (Phi(a0) - Phi(0) - dPhi_dx(0) * a0) / 2;
+
+    return QuadraticPolynomialInterpolation(a1);
+}
+
+void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
     assert(a0 >= 0);
     assert(r0 > 0);
@@ -31,9 +39,9 @@ void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT& secton_a,
         {
             ai1 = 0;
         }
-        else if(Phi(ai1)<Phi(ai))
+        else if (Phi(ai1) < Phi(ai))
         {
-            //step 3
+            // step 3
             ri = t * ri;
             a = ai;
             ai = ai1;
@@ -55,7 +63,7 @@ void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT& secton_a,
             break;
         }
     }
-    
+
     secton_a = _a;
     secton_b = _b;
 }
@@ -64,7 +72,7 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*
 {
     FLOAT a = secton_a;
     FLOAT b = secton_b;
-    static const FLOAT r = (std::sqrt(5)-1)/2; //0.618
+    static const FLOAT r = (std::sqrt(5) - 1) / 2; // 0.618
 
     while ((b - a) > epsilon)
     {
@@ -80,6 +88,6 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*
             a = al;
         }
     }
-    
+
     return (a + b) / 2.0;
 }

@@ -42,3 +42,4 @@ class Timer
 
 void example_3_1();
 void example_3_2();
+void Newton_example_3_1();
