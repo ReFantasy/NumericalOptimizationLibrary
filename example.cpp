@@ -1,31 +1,50 @@
 #include "example.h"
+#include "global.h"
 #include "line_search.h"
 
 void example_3_1()
 {
-    Timer timer;
 
-    Vector b(2);
-    b << 2, 3;
-    float c = 10;
-    Matrix G(2, 2);
+    struct Functor :TargetFunctor
+    {
+        virtual FLOAT operator()(const Vector& x) const override
+        {
+            return true;
+        }
+        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        {
+            return (G + G.transpose())* x / 2 + b;
+        }
+        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        {
+            return G;
+        }
+
+        Matrix G{ 2, 2 };
+        Vector b{2};
+        float c = 10;
+    };
+
+    Functor functor;
 
     Vector x0(2);
     x0 << -30, 100;
 
-    G << 21, 4, 4, 15;
-    timer.ReSet();
-    SteepestDescent(G, b, c, x0);
-    int t1 = timer.Elapse();
-    // std::cout << t1 << "ms" << std::endl;
+    functor.G << 21, 4, 4, 15;
+    functor.b << 2, 3;
+   
+ 
+
+    //SteepestDescent(functor, x0);
+
 
     printf("\n\n");
 
-    G << 21, 4, 4, 1;
-    timer.ReSet();
-    std::cout << SteepestDescent(G, b, c, x0) << std::endl;
-    int t2 = timer.Elapse();
-    // std::cout << t2 << "ms" << std::endl;
+    functor.G << 21, 4, 4, 1;
+
+    std::cout << SteepestDescent(functor, x0) << std::endl;
+
+    
 }
 
 void example_3_2()

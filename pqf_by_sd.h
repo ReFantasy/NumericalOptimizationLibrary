@@ -12,8 +12,7 @@
 #include "Eigen/Dense"
 #include "global.h"
 
-FLOAT pqf(Vector x, Matrix G, Vector b, FLOAT c);
 
-Vector SteepestDescent(Matrix G, Vector b, FLOAT c, Vector x0, FLOAT gk_norm = 10e-5);
+Vector SteepestDescent(TargetFunctor &fucntor,  Vector x0, FLOAT gk_norm = 10e-5);
 
 #endif //__QPDF_BY_SD_H__
