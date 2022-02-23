@@ -18,5 +18,5 @@ find_package (Eigen3 3.4 CONFIG REQUIRED NO_MODULE HINTS "E:/eigen-3.4.0/install
 
 
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
-add_executable(opti ${SRC_LIST} pqf_by_sd.h example.h newton.h global.h line_search.h)
+add_executable(opti ${SRC_LIST} sd.h example.h newton.h global.h line_search.h)
 target_link_libraries (opti Eigen3::Eigen)#Ceres::ceres
