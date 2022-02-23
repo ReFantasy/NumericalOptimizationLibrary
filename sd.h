@@ -7,12 +7,12 @@
  * Date    : 2022-02-19
  */
 
-#ifndef __PQF_BY_SD_H__
-#define __PQF_BY_SD_H__
+#ifndef __SD_H__
+#define __SD_H__
 #include "Eigen/Dense"
 #include "global.h"
 
 
 Vector SteepestDescent(TargetFunctor &fucntor,  Vector x0, FLOAT gk_norm = 10e-5);
 
-#endif //__QPDF_BY_SD_H__
+#endif //__SD_H__

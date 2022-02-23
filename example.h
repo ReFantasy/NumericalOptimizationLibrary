@@ -1,6 +1,6 @@
 #pragma once
 #include "newton.h"
-#include "pqf_by_sd.h"
+#include "sd.h"
 #include <chrono>
 #include <iostream>
 
