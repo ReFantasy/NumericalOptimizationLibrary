@@ -16,7 +16,7 @@ class LineSearchForSD : public LineSearch
     {
         return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
     }
-    FLOAT dPhi_dx(FLOAT a) override
+    FLOAT dPhi_da(FLOAT a) override
     {
         return (_functor->SecondOrderDerivatives(xk + a * dk) * dk).transpose() * dk;
     }

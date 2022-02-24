@@ -15,7 +15,7 @@ FLOAT LineSearch::QuadraticPolynomialInterpolation(FLOAT a0)
         return a0;
 
     // 不满足准则
-    FLOAT a1 = -dPhi_dx(0) * a0 * a0 / (Phi(a0) - Phi(0) - dPhi_dx(0) * a0) / 2;
+    FLOAT a1 = -dPhi_da(0) * a0 * a0 / (Phi(a0) - Phi(0) - dPhi_da(0) * a0) / 2;
 
     return QuadraticPolynomialInterpolation(a1);
 }
@@ -25,7 +25,7 @@ FLOAT LineSearch::Phi(FLOAT a)
     return (*_functor)(xk + a * dk);
 }
 
-FLOAT LineSearch::dPhi_dx(FLOAT a)
+FLOAT LineSearch::dPhi_da(FLOAT a)
 {
     return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
 }

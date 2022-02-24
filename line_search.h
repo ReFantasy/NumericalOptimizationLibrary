@@ -4,7 +4,7 @@
  *
  * 原理：假定已得下降方向 dk，求步长 alpha 的问题为一维搜索或线搜索问题，
  *      具体来说就是求解优化的目标函数 f(x) 在 xk 位置，沿着 dk 方向，迭代到新的位置 x(k+1) = xk + alpha*dk，
- *      在 x(k+1)处时，满足 f(xk(+1)) <= f(xk)
+ *      在 x(k+1)处时，使得 alpha 满足 f(xk(+1)) <= f(xk)
  *
  * Author  : ReFantasy
  * Date    : 2022-02-21
@@ -54,7 +54,8 @@ class LineSearch
      */
     virtual FLOAT Phi(FLOAT a);
 
-    virtual FLOAT dPhi_dx(FLOAT a);
+    virtual FLOAT dPhi_da(FLOAT a);
+
     /**
      * @brief 非精确线搜索准则
      * @param a 线搜索步长
