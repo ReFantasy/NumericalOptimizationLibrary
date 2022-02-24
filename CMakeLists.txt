@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
 
 #include_directories("E:/eigen-3.4.0")
 #/usr/local/share/eigen3/cmake
-find_package (Eigen3 3.4 CONFIG REQUIRED NO_MODULE HINTS "E:/eigen-3.4.0/install/share/eigen3/cmake")
+find_package (Eigen3 REQUIRED NO_MODULE HINTS "E:/eigen-3.4.0/install/share/eigen3/cmake")
 
 #find_package(Ceres REQUIRED PATHS "E:/ceres-solver-2.0.0/install/CMake")
 
