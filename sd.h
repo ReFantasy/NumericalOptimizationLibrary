@@ -12,6 +12,6 @@
 #include "Eigen/Dense"
 #include "global.h"
 
-Vector SteepestDescent(TargetFunctor &fucntor, Vector x0, FLOAT gk_norm = 10e-5);
+TVector SteepestDescent(TargetFunctor &fucntor, Options &option);
 
 #endif //__SD_H__

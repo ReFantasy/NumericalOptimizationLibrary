@@ -12,36 +12,55 @@ class LineSearchForSD : public LineSearch
     }
 
   protected:
-    FLOAT Phi(FLOAT a) override
+    TFLOAT Phi(TFLOAT a) override
     {
         return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
     }
-    FLOAT dPhi_da(FLOAT a) override
+    TFLOAT dPhi_da(TFLOAT a) override
     {
         return (_functor->SecondOrderDerivatives(xk + a * dk) * dk).transpose() * dk;
     }
 };
 
-Vector SteepestDescent(TargetFunctor &functor, Vector x0, FLOAT _gk_norm)
+TVector SteepestDescent(TargetFunctor &functor, Options &option)
 {
     int k = 0;
-    Vector xk = x0;
+    TVector xk = option.init_x0;
 
-    double gk_norm;
-    while ((gk_norm = functor.FirstOrderDerivatives(xk).norm()) >= _gk_norm)
+    // <--------
+    option << "Steepest Descent with initial x: ";
+    option << xk.transpose() << "\n\n";
+    // -------->
+
+    double gk_norm = 0;
+    while (true)
     {
-        Vector _gk = functor.FirstOrderDerivatives(xk);
-        Vector dk = -_gk;
+        gk_norm = functor.FirstOrderDerivatives(xk).norm();
+        if (gk_norm < option.gk_norm)
+            break;
+        // <--------
+        option << "k:" << k << " "
+               << "  xk:(" << xk.transpose() << ") "
+               << "  ||gk||: " << gk_norm << "\n";
+        // -------->
+
+        TVector _gk = functor.FirstOrderDerivatives(xk);
+        TVector dk = -_gk;
 
         static LineSearchForSD line_search(&functor);
         line_search.xk = xk;
         line_search.dk = dk;
-        FLOAT alpha = line_search.Zerosixeight(1.0);
+        TFLOAT alpha = line_search.Zerosixeight(1.0);
 
         xk = xk + alpha * dk;
 
         k++;
     }
 
+    // <--------
+    option << "k:" << k << " "
+           << "  xk:(" << xk.transpose() << ") "
+           << "  ||gk||: " << gk_norm << "\n";
+    // -------->
     return xk;
 }

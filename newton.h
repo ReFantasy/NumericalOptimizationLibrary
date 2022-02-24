@@ -2,22 +2,18 @@
 #define __NEWTON_H__
 #include "Eigen/Dense"
 #include "global.h"
+#include "line_search.h"
 
 class NewtonBase
 {
   public:
-    virtual Vector gk(Vector xk);
-    virtual Matrix Gk(Vector xk);
-
-    virtual Vector Solve(Vector x0, FLOAT _gk_norm);
-
-  private:
+    virtual TVector Solve(TargetFunctor &fucntor, Options &options);
 };
 
-// class DampedNewton :public NewtonBase
-//{
-// public:
-//    Vector Solve(Vector x0, FLOAT _gk_norm)override;
-//};
+class DampedNewton : public NewtonBase
+{
+  public:
+    virtual TVector Solve(TargetFunctor &fucntor, Options &options);
+};
 
 #endif //__NEWTON_H__

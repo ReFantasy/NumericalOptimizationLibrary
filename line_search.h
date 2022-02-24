@@ -34,13 +34,13 @@ class LineSearch
      * @param t 搜索步长增长系数 assert(t>1)
      * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
      */
-    FLOAT Zerosixeight(FLOAT a0, FLOAT r0 = 1.0, FLOAT epsilon = 10e-3, FLOAT t = 1.2);
+    TFLOAT Zerosixeight(TFLOAT a0, TFLOAT r0 = 1.0, TFLOAT epsilon = 10e-3, TFLOAT t = 1.2);
 
-    FLOAT QuadraticPolynomialInterpolation(FLOAT a0);
+    TFLOAT QuadraticPolynomialInterpolation(TFLOAT a0);
 
   public:
-    Vector xk;
-    Vector dk;
+    TVector xk;
+    TVector dk;
     TargetFunctor *_functor = nullptr;
     CriterionType _criterion_type = CriterionType::Goldstein;
 
@@ -52,20 +52,20 @@ class LineSearch
      * @param a 线搜索步长
      * @return 搜索函数在步长 a 时的函数值，即待优化函数的下一个迭代点处的函数值
      */
-    virtual FLOAT Phi(FLOAT a);
+    virtual TFLOAT Phi(TFLOAT a);
 
-    virtual FLOAT dPhi_da(FLOAT a);
+    virtual TFLOAT dPhi_da(TFLOAT a);
 
     /**
      * @brief 非精确线搜索准则
      * @param a 线搜索步长
      * @return 满足准则返回 true
      */
-    virtual bool Criterion(FLOAT a);
+    virtual bool Criterion(TFLOAT a);
 
   private:
-    void AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);
-    FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);
+    void AdvanceandRetreat(TFLOAT a0, TFLOAT r0, TFLOAT t, TFLOAT &secton_a, TFLOAT &secton_b);
+    TFLOAT GoldenSection(TFLOAT secton_a, TFLOAT secton_b, TFLOAT epsilon = 10e-3);
 };
 
 #endif //__LINE_SEARCH_H__

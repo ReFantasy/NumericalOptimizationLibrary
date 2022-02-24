@@ -1,8 +1,13 @@
-#include "example.h"
 #include <iostream>
+
+#include "example.h"
+#include <sstream>
+
 int main(int argc, char **argv)
 {
-    // example_3_1();
-    Newton_example_3_1();
+    example_3_1();
+    //example_3_2();
+    //example_3_1_by_dampednewton();
+
     return 0;
 }

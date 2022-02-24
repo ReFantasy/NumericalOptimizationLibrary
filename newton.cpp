@@ -2,42 +2,99 @@
 #include "line_search.h"
 #include <iostream>
 
-Vector NewtonBase::gk(Vector xk)
-{
-    return {};
-}
-
-Matrix NewtonBase::Gk(Vector xk)
-{
-    return {};
-}
-
-Vector NewtonBase::Solve(Vector x0, FLOAT _gk_norm)
+TVector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
 {
     int k = 0;
-    Vector xk = x0;
+    TVector xk = options.init_x0;
 
-    double xk_max_norm;
+    // <--------
+    options << "Base Newton Method with initial x: ";
+    options << xk.transpose() << "\n\n";
+    // -------->
 
-    while ((xk_max_norm = gk(xk).cwiseAbs().maxCoeff()) >= _gk_norm)
+    double xk_max_norm = 0;
+    while (true)
     {
+        xk_max_norm = fucntor.FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
+        if (xk_max_norm < options.gk_norm)
+            break;
+
+        // <--------
+        options << "k:" << k << " "
+                << "  xk:(" << xk.transpose() << ") "
+                << "  ||gk||: " << xk_max_norm << "\n";
+        // -------->
 
         // compute dk
-        Matrix _GK = Gk(xk);
-        Vector _n_gk = -gk(xk);
+        TMatrix Gk = fucntor.SecondOrderDerivatives(xk);
+        TVector gk = fucntor.FirstOrderDerivatives(xk);
 
-#ifdef _DEBUG
-        std::cout << "||gk||2: " << _n_gk.norm() << std::endl;
-#endif
+        // solve Gk*dk = -gk
+        TVector dk;
+        dk = Gk.colPivHouseholderQr().solve(-gk);
 
-        // solve _GK*dk = _n_gk
-        Vector dk;
-        dk = _GK.colPivHouseholderQr().solve(_n_gk);
-
-        // iteration
+        // advance
         xk = xk + dk;
         k++;
     }
+
+    // <--------
+    options << "k:" << k << " "
+            << "  xk:(" << xk.transpose() << ") "
+            << "  ||gk||: " << xk_max_norm << "\n";
+    // -------->
+
+    return xk;
+}
+
+TVector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
+{
+    int k = 0;
+    TVector xk = options.init_x0;
+
+    LineSearch line_search{};
+    line_search._functor = &fucntor;
+
+    // <--------
+    options << "Damped Newton Method with initial x: ";
+    options << xk.transpose() << "\n\n";
+    // -------->
+
+    double xk_max_norm;
+    while (true)
+    {
+        xk_max_norm = fucntor.FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
+        if (xk_max_norm < options.gk_norm)
+            break;
+
+        // <--------
+        options << "k:" << k << " "
+                << "  xk:(" << xk.transpose() << ") "
+                << "  ||gk||: " << xk_max_norm << "\n";
+        // -------->
+
+        // compute dk
+        TMatrix Gk = fucntor.SecondOrderDerivatives(xk);
+        TVector gk = fucntor.FirstOrderDerivatives(xk);
+
+        // solve Gk*dk = -gk
+        TVector dk;
+        dk = Gk.colPivHouseholderQr().solve(-gk);
+
+        static TFLOAT alpha = 10;
+        line_search.xk = xk;
+        line_search.dk = dk;
+        alpha = line_search.QuadraticPolynomialInterpolation(alpha);
+        // advance
+        xk = xk + alpha * dk;
+        k++;
+    }
+
+    // <--------
+    options << "k:" << k << " "
+            << "  xk:(" << xk.transpose() << ") "
+            << "  ||gk||: " << xk_max_norm << "\n";
+    // -------->
 
     return xk;
 }
