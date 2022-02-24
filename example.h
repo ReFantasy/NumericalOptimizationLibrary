@@ -1,6 +1,6 @@
 #pragma once
 #include "newton.h"
-#include "sd.h"
+#include "steepest_descent.h"
 #include <iostream>
 
 void example_3_1();

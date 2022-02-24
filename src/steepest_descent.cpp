@@ -1,4 +1,4 @@
-#include "sd.h"
+#include "steepest_descent.h"
 #include "line_search.h"
 #include <iostream>
 
