@@ -4,26 +4,20 @@
 #include <iostream>
 #include <sstream>
 
-using TVector = Eigen::VectorXd;
-using TMatrix = Eigen::MatrixXd;
-using TFLOAT = double;
+namespace NOL
+{
+
+using Vector = Eigen::VectorXd;
+using Matrix = Eigen::MatrixXd;
+using FLOAT = double;
 
 class TargetFunctor
 {
   public:
-    virtual TFLOAT operator()(const TVector &x) const
-    {
-        return TFLOAT{};
-    };
+    virtual FLOAT operator()(const Vector &x) const = 0;
 
-    virtual TVector FirstOrderDerivatives(const TVector &x) const
-    {
-        return TVector{0, 0};
-    };
-    virtual TMatrix SecondOrderDerivatives(const TVector &x) const
-    {
-        return TMatrix{};
-    };
+    virtual Vector FirstOrderDerivatives(const Vector &x) const = 0;
+    virtual Matrix SecondOrderDerivatives(const Vector &x) const = 0;
 };
 
 class Options
@@ -32,7 +26,7 @@ class Options
     /**
      * Steepest Descent Options
      */
-    TVector init_x0;
+    Vector init_x0;
     double gk_norm = 10e-5;
 
     void Summary() const
@@ -64,13 +58,11 @@ class Options
     }
 };
 
-
 class OptimizationBase
 {
-public:
-    virtual TVector Solve(TargetFunctor& fucntor, Options& options) = 0;
+  public:
+    virtual Vector Solve(TargetFunctor &fucntor, Options &options) = 0;
 };
-
 
 class Timer
 {
@@ -107,3 +99,5 @@ class Timer
   private:
     std::chrono::high_resolution_clock::time_point _start_time;
 };
+
+} // namespace NOL

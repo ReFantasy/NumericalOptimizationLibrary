@@ -2,6 +2,8 @@
 #include "line_search.h"
 #include <iostream>
 
+namespace NOL
+{
 // page 19
 // search g(k+1)^T*dk=0 -> alpha
 class LineSearchForSD : public LineSearch
@@ -12,20 +14,20 @@ class LineSearchForSD : public LineSearch
     }
 
   protected:
-    TFLOAT Phi(TFLOAT a) override
+    FLOAT Phi(FLOAT a) override
     {
         return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
     }
-    TFLOAT dPhi_da(TFLOAT a) override
+    FLOAT dPhi_da(FLOAT a) override
     {
         return (_functor->SecondOrderDerivatives(xk + a * dk) * dk).transpose() * dk;
     }
 };
 
-TVector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
+Vector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
 {
     int k = 0;
-    TVector xk = option.init_x0;
+    Vector xk = option.init_x0;
 
     // <--------
     option << "Steepest Descent with initial x: ";
@@ -44,13 +46,13 @@ TVector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
                << "  ||gk||: " << gk_norm << "\n";
         // -------->
 
-        TVector _gk = functor.FirstOrderDerivatives(xk);
-        TVector dk = -_gk;
+        Vector _gk = functor.FirstOrderDerivatives(xk);
+        Vector dk = -_gk;
 
         static LineSearchForSD line_search(&functor);
         line_search.xk = xk;
         line_search.dk = dk;
-        TFLOAT alpha = line_search.Zerosixeight(1.0);
+        FLOAT alpha = line_search.Zerosixeight(1.0);
 
         xk = xk + alpha * dk;
 
@@ -64,3 +66,5 @@ TVector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
     // -------->
     return xk;
 }
+
+} // namespace NOL

@@ -12,10 +12,13 @@
 #include "Eigen/Dense"
 #include "global.h"
 
-class SteepestDescent: public OptimizationBase
+namespace NOL
 {
-public:
-    TVector Solve(TargetFunctor& fucntor, Options& options)override;
+class SteepestDescent : public OptimizationBase
+{
+  public:
+    Vector Solve(TargetFunctor &fucntor, Options &options) override;
 };
+} // namespace NOL
 
 #endif //__SD_H__

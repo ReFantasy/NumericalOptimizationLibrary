@@ -2,10 +2,12 @@
 #include "line_search.h"
 #include <iostream>
 
-TVector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
+namespace NOL
+{
+Vector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
 {
     int k = 0;
-    TVector xk = options.init_x0;
+    Vector xk = options.init_x0;
 
     // <--------
     options << "Base Newton Method with initial x: ";
@@ -26,11 +28,11 @@ TVector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
         // -------->
 
         // compute dk
-        TMatrix Gk = fucntor.SecondOrderDerivatives(xk);
-        TVector gk = fucntor.FirstOrderDerivatives(xk);
+        Matrix Gk = fucntor.SecondOrderDerivatives(xk);
+        Vector gk = fucntor.FirstOrderDerivatives(xk);
 
         // solve Gk*dk = -gk
-        TVector dk;
+        Vector dk;
         dk = Gk.colPivHouseholderQr().solve(-gk);
 
         // advance
@@ -47,10 +49,10 @@ TVector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
     return xk;
 }
 
-TVector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
+Vector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
 {
     int k = 0;
-    TVector xk = options.init_x0;
+    Vector xk = options.init_x0;
 
     LineSearch line_search{};
     line_search._functor = &fucntor;
@@ -74,14 +76,14 @@ TVector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
         // -------->
 
         // compute dk
-        TMatrix Gk = fucntor.SecondOrderDerivatives(xk);
-        TVector gk = fucntor.FirstOrderDerivatives(xk);
+        Matrix Gk = fucntor.SecondOrderDerivatives(xk);
+        Vector gk = fucntor.FirstOrderDerivatives(xk);
 
         // solve Gk*dk = -gk
-        TVector dk;
+        Vector dk;
         dk = Gk.colPivHouseholderQr().solve(-gk);
 
-        static TFLOAT alpha = 10;
+        static FLOAT alpha = 10;
         line_search.xk = xk;
         line_search.dk = dk;
         alpha = line_search.QuadraticPolynomialInterpolation(alpha);
@@ -98,3 +100,4 @@ TVector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
 
     return xk;
 }
+} // namespace NOL
