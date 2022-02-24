@@ -64,6 +64,14 @@ class Options
     }
 };
 
+
+class OptimizationBase
+{
+public:
+    virtual TVector Solve(TargetFunctor& fucntor, Options& options) = 0;
+};
+
+
 class Timer
 {
   public:

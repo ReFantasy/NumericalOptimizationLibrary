@@ -12,6 +12,10 @@
 #include "Eigen/Dense"
 #include "global.h"
 
-TVector SteepestDescent(TargetFunctor &fucntor, Options &option);
+class SteepestDescent: public OptimizationBase
+{
+public:
+    TVector Solve(TargetFunctor& fucntor, Options& options)override;
+};
 
 #endif //__SD_H__

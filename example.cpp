@@ -4,7 +4,6 @@
 
 void example_3_1()
 {
-
     struct Functor : TargetFunctor
     {
         virtual TFLOAT operator()(const TVector &x) const override
@@ -41,7 +40,8 @@ void example_3_1()
 
     Options option;
     option.init_x0 = x0;
-    SteepestDescent(functor, option);
+    SteepestDescent sd;
+    sd.Solve(functor, option);
 }
 
 void example_3_2()
@@ -128,4 +128,39 @@ void example_3_1_by_dampednewton()
     option.gk_norm = 10e-6;
     option.init_x0 = x0;
     std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
+}
+
+
+
+void example_test_1()
+{
+    struct Functor : TargetFunctor
+    {
+        virtual TFLOAT operator()(const TVector& x) const override
+        {
+            return (x(0) - 4) * (x(0) - 4) - 3;
+        }
+        virtual TVector FirstOrderDerivatives(const TVector& x) const override
+        {
+            TVector dx(1);
+            dx(0) = 2 * (x(0) - 4);
+            return dx;
+        }
+        virtual TMatrix SecondOrderDerivatives(const TVector& x) const override
+        {
+            TMatrix d2(1, 1);
+            d2(0, 0) = 2;
+            return d2;
+        }
+    };
+
+    Functor functor;
+
+    Options option;
+    TVector x0(1);
+    x0(0) = 10;
+    option.init_x0 = x0;
+    option.gk_norm = 10e-8;
+    SteepestDescent sd;
+    sd.Solve(functor, option);
 }

@@ -22,7 +22,7 @@ class LineSearchForSD : public LineSearch
     }
 };
 
-TVector SteepestDescent(TargetFunctor &functor, Options &option)
+TVector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
 {
     int k = 0;
     TVector xk = option.init_x0;

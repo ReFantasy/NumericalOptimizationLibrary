@@ -4,16 +4,16 @@
 #include "global.h"
 #include "line_search.h"
 
-class NewtonBase
+class NewtonBase :public OptimizationBase
 {
-  public:
-    virtual TVector Solve(TargetFunctor &fucntor, Options &options);
+public:
+    TVector Solve(TargetFunctor& fucntor, Options& options) override;
 };
 
 class DampedNewton : public NewtonBase
 {
-  public:
-    virtual TVector Solve(TargetFunctor &fucntor, Options &options);
+public:
+    virtual TVector Solve(TargetFunctor& fucntor, Options& options);
 };
 
 #endif //__NEWTON_H__
