@@ -20,6 +20,48 @@ FLOAT LineSearch::QuadraticPolynomialInterpolation(FLOAT a0)
     return QuadraticPolynomialInterpolation(a1);
 }
 
+FLOAT LineSearch::Phi(FLOAT a)
+{
+    return (*_functor)(xk + a * dk);
+}
+
+FLOAT LineSearch::dPhi_dx(FLOAT a)
+{
+    return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
+}
+
+bool LineSearch::Criterion(FLOAT a)
+{
+    bool res = false;
+    FLOAT p;
+    FLOAT left;
+    FLOAT right;
+    FLOAT right2;
+
+    switch (_criterion_type)
+    {
+    case CriterionType::Armijo:
+        p = (10e-3) / 2.0;
+        left = (*_functor)(xk + a * dk);
+        right = (*_functor)(xk) + p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        res = (left <= right);
+        break;
+
+    case CriterionType::Goldstein:
+        p = 0.3;
+        left = (*_functor)(xk + a * dk);
+        right = (*_functor)(xk) + p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        right2 = (*_functor)(xk) + (1 - p) * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        res = (left <= right) && (left >= right2);
+        break;
+
+    default:
+        break;
+    }
+
+    return res;
+}
+
 void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
     assert(a0 >= 0);

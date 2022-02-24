@@ -2,6 +2,10 @@
  *
  * 线搜索准则及其求步长的算法实现
  *
+ * 原理：假定已得下降方向 dk，求步长 alpha 的问题为一维搜索或线搜索问题，
+ *      具体来说就是求解优化的目标函数 f(x) 在 xk 位置，沿着 dk 方向，迭代到新的位置 x(k+1) = xk + alpha*dk，
+ *      在 x(k+1)处时，满足 f(xk(+1)) <= f(xk)
+ *
  * Author  : ReFantasy
  * Date    : 2022-02-21
  */
@@ -9,9 +13,18 @@
 #define __LINE_SEARCH_H__
 #include "global.h"
 
+enum class CriterionType
+{
+    Armijo,
+    Goldstein
+};
+
 class LineSearch
 {
   public:
+    LineSearch(TargetFunctor *functor = nullptr) : _functor(functor)
+    {
+    }
     /**
      * @brief 【0.618方法】求线搜索步长，
      * 该方法用于求近似满足精确线搜索准则的步长
@@ -26,6 +39,12 @@ class LineSearch
     FLOAT QuadraticPolynomialInterpolation(FLOAT a0);
 
   public:
+    Vector xk;
+    Vector dk;
+    TargetFunctor *_functor = nullptr;
+    CriterionType _criterion_type = CriterionType::Goldstein;
+
+  protected:
     /**
      * @brief 线搜索函数 phi(a) = f( xk + a*dk ), a>0,
      * 其中，xk 为优化函数 f(x) 当前迭代点，dk 为迭代下降方向，xk,dk可以通过类继承的方式定义为成员变量，
@@ -33,17 +52,15 @@ class LineSearch
      * @param a 线搜索步长
      * @return 搜索函数在步长 a 时的函数值，即待优化函数的下一个迭代点处的函数值
      */
-    virtual FLOAT Phi(FLOAT a) = 0;
+    virtual FLOAT Phi(FLOAT a);
 
-    virtual FLOAT dPhi_dx(FLOAT a) = 0;
-
-  protected:
+    virtual FLOAT dPhi_dx(FLOAT a);
     /**
      * @brief 非精确线搜索准则
      * @param a 线搜索步长
      * @return 满足准则返回 true
      */
-    virtual bool Criterion(FLOAT a) = 0;
+    virtual bool Criterion(FLOAT a);
 
   private:
     void AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);

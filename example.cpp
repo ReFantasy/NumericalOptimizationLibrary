@@ -5,22 +5,22 @@
 void example_3_1()
 {
 
-    struct Functor :TargetFunctor
+    struct Functor : TargetFunctor
     {
-        virtual FLOAT operator()(const Vector& x) const override
+        virtual FLOAT operator()(const Vector &x) const override
         {
             return true;
         }
-        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        virtual Vector FirstOrderDerivatives(const Vector &x) const override
         {
-            return (G + G.transpose())* x / 2 + b;
+            return (G + G.transpose()) * x / 2 + b;
         }
-        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        virtual Matrix SecondOrderDerivatives(const Vector &x) const override
         {
             return G;
         }
 
-        Matrix G{ 2, 2 };
+        Matrix G{2, 2};
         Vector b{2};
         float c = 10;
     };
@@ -32,19 +32,14 @@ void example_3_1()
 
     functor.G << 21, 4, 4, 15;
     functor.b << 2, 3;
-   
- 
 
-    //SteepestDescent(functor, x0);
-
+    // SteepestDescent(functor, x0);
 
     printf("\n\n");
 
     functor.G << 21, 4, 4, 1;
 
     std::cout << SteepestDescent(functor, x0) << std::endl;
-
-    
 }
 
 void example_3_2()
@@ -92,52 +87,26 @@ void Newton_example_3_1()
     G << 21, 4, 4, 15;
 
     // 阻尼牛顿法求解
-
-    class LS : public LineSearch
+    class Functor : public TargetFunctor
     {
       public:
-        FLOAT Phi(FLOAT a) override
-        {
-            return f(xk + a * dk);
-        }
-
-        FLOAT dPhi_dx(FLOAT a) override
-        {
-            return (G * (xk + a * dk) + b).transpose() * dk;
-        }
-
-        FLOAT f(Vector x)
+        virtual FLOAT operator()(const Vector &x) const
         {
             return (FLOAT)(x.transpose() * G * x) * 0.5 + (FLOAT)(b.transpose() * x) + c;
-        }
+        };
 
-        Vector xk;
-        Vector dk;
+        virtual Vector FirstOrderDerivatives(const Vector &x) const
+        {
+            return G * x + b;
+        }
+        virtual Matrix SecondOrderDerivatives(const Vector &x) const
+        {
+            return G;
+        };
 
         Matrix G{2, 2};
         Vector b{2};
         float c = 10;
-
-      protected:
-        bool Criterion(FLOAT a)
-        {
-            // Armijo
-            /*FLOAT p = (10e-3)/2.0;
-            FLOAT left = f(xk + a * dk);
-            FLOAT right = f(xk) + p * (FLOAT)(  (G * xk+b).transpose() * dk  ) * a;
-            return left <= right;*/
-
-            // Goldstein
-            FLOAT p = 0.3;
-            FLOAT left = f(xk + a * dk);
-            FLOAT right = f(xk) + p * (FLOAT)((G * xk).transpose() * dk) * a;
-            bool b1 = left <= right;
-
-            FLOAT right2 = f(xk) + (1 - p) * (FLOAT)((G * xk).transpose() * dk) * a;
-            bool b2 = left >= right2;
-
-            return b1 && b2;
-        }
     };
 
     class NewtonMethod : public NewtonBase
@@ -166,10 +135,6 @@ void Newton_example_3_1()
                 Matrix _GK = Gk(xk);
                 Vector _n_gk = -gk(xk);
 
-#ifdef _DEBUG
-                std::cout << "||gk||2: " << _n_gk.norm() << std::endl;
-#endif
-
                 // solve _GK*dk = _n_gk
                 Vector dk;
                 dk = _GK.colPivHouseholderQr().solve(_n_gk);
@@ -187,17 +152,20 @@ void Newton_example_3_1()
         }
 
       public:
-        LS ls;
+        LineSearch ls{};
         Matrix _G{2, 2};
         Vector _b{2};
     };
 
-    NewtonMethod newton;
+    Functor functor;
+    functor.G = G;
+    functor.b = b;
+
+    NewtonMethod newton{};
     newton._G = G;
     newton._b = b;
-    newton.ls.G = G;
-    newton.ls.b = b;
-    newton.ls.c = c;
+
+    newton.ls._functor = &functor;
 
     std::cout << newton.Solve(x0, 10e-3).transpose() << std::endl;
 }
