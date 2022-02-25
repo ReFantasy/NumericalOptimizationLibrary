@@ -36,7 +36,7 @@ TEST(HelloTest, BasicAssertions)
     functor.b << 2, 3;
 
     Options option;
-    option.init_x0 = x0;
+    option.init_x = x0;
     option.optimized_performance = true;
     SteepestDescent sd;
     Vector xk =  sd.Solve(functor, option);

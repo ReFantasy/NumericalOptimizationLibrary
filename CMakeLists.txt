@@ -17,7 +17,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-find_package (Eigen3 REQUIRED NO_MODULE HINTS ${CMAKE_SOURCE_DIR}/eigen/share/eigen3/cmake)
+find_package (Eigen3 REQUIRED NO_MODULE HINTS ${CMAKE_SOURCE_DIR}/lib/eigen/share/eigen3/cmake)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 add_subdirectory(test)

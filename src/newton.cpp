@@ -7,7 +7,7 @@ namespace NOL
 Vector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
 {
     int k = 0;
-    Vector xk = options.init_x0;
+    Vector xk = options.init_x;
 
     // <--------
     options << "Base Newton Method with initial x: ";
@@ -52,7 +52,7 @@ Vector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
 Vector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
 {
     int k = 0;
-    Vector xk = options.init_x0;
+    Vector xk = options.init_x;
 
     LineSearch line_search{};
     line_search._functor = &fucntor;

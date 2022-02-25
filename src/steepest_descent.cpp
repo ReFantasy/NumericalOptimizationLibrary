@@ -27,7 +27,7 @@ class LineSearchForSD : public LineSearch
 Vector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
 {
     int k = 0;
-    Vector xk = option.init_x0;
+    Vector xk = option.init_x;
 
     // <--------
     option << "Steepest Descent with initial x: ";

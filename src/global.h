@@ -1,3 +1,11 @@
+/**
+ * MIT License
+ * Copyright (c) 2022 ReFantasy
+ * https://github.com/ReFantasy/NumericalOptimizationLibrary
+ * 
+ * This header file defines the basic data structure of the optimization library, 
+ * including basic data types, base classes of optimization function, optimization option and other auxiliary utility.
+ */
 #pragma once
 #include "Eigen/Dense"
 #include <chrono>
@@ -6,27 +14,42 @@
 
 namespace NOL
 {
-
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 using FLOAT = double;
 
+/**
+ * @brief the base class of the function to be optimized
+*/
 class TargetFunctor
 {
   public:
+    /**
+     * @brief Overloading bracket operators to evaluate function values
+     * @param x Input value of function
+     * @return Return value of function
+    */
     virtual FLOAT operator()(const Vector &x) const = 0;
 
+    /**
+     * @brief Compute the first derivative of a function
+     * @param x The point of derivative
+     * @return Derivative value
+    */
     virtual Vector FirstOrderDerivatives(const Vector &x) const = 0;
+
+    /**
+     * @brief Compute the second derivative of a function
+     * @param x The point of derivative
+     * @return Derivative value (Jacobian)
+    */
     virtual Matrix SecondOrderDerivatives(const Vector &x) const = 0;
 };
 
 class Options
 {
   public:
-    /**
-     * Steepest Descent Options
-     */
-    Vector init_x0;
+    Vector init_x;
     double gk_norm = 10e-5;
 
     void Summary() const

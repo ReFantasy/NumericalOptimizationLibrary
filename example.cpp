@@ -41,7 +41,7 @@ void example_3_1()
     // functor.G << 21, 4, 4, 1;
 
     Options option;
-    option.init_x0 = x0;
+    option.init_x = x0;
     SteepestDescent sd;
     sd.Solve(functor, option);
 }
@@ -82,7 +82,7 @@ void example_3_2()
 
     Options option;
     option.gk_norm = 10e-6;
-    option.init_x0 = x0;
+    option.init_x = x0;
 
     std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
 }
@@ -128,7 +128,7 @@ void example_3_1_by_dampednewton()
     DampedNewton newton;
     Options option;
     option.gk_norm = 10e-6;
-    option.init_x0 = x0;
+    option.init_x = x0;
     std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
 }
 
@@ -159,7 +159,7 @@ void example_test_1()
     Options option;
     Vector x0(1);
     x0(0) = 10;
-    option.init_x0 = x0;
+    option.init_x = x0;
     option.gk_norm = 10e-8;
     SteepestDescent sd;
     sd.Solve(functor, option);
