@@ -14,7 +14,7 @@
 
 namespace NOL
 {
-class SteepestDescent : public OptimizationBase
+class SteepestDescent : public UnconstrainedOptimizationBase
 {
   public:
     Vector Solve(TargetFunctor &fucntor, Options &options) override;

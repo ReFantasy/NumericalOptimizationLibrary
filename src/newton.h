@@ -6,7 +6,7 @@
 
 namespace NOL
 {
-class NewtonBase : public OptimizationBase
+class NewtonBase : public UnconstrainedOptimizationBase
 {
   public:
     Vector Solve(TargetFunctor &fucntor, Options &options) override;

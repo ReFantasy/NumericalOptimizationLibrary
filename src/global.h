@@ -2,8 +2,8 @@
  * MIT License
  * Copyright (c) 2022 ReFantasy
  * https://github.com/ReFantasy/NumericalOptimizationLibrary
- * 
- * This header file defines the basic data structure of the optimization library, 
+ *
+ * This header file defines the basic data structure of the optimization library,
  * including basic data types, base classes of optimization function, optimization option and other auxiliary utility.
  */
 #pragma once
@@ -20,7 +20,7 @@ using FLOAT = double;
 
 /**
  * @brief the base class of the function to be optimized
-*/
+ */
 class TargetFunctor
 {
   public:
@@ -28,34 +28,44 @@ class TargetFunctor
      * @brief Overloading bracket operators to evaluate function values
      * @param x Input value of function
      * @return Return value of function
-    */
+     */
     virtual FLOAT operator()(const Vector &x) const = 0;
 
     /**
      * @brief Compute the first derivative of a function
      * @param x The point of derivative
      * @return Derivative value
-    */
+     */
     virtual Vector FirstOrderDerivatives(const Vector &x) const = 0;
 
     /**
      * @brief Compute the second derivative of a function
      * @param x The point of derivative
      * @return Derivative value (Jacobian)
-    */
+     */
     virtual Matrix SecondOrderDerivatives(const Vector &x) const = 0;
 };
 
+/**
+ * @brief Options for optimizing algorithms
+ */
 class Options
 {
   public:
     Vector init_x;
     double gk_norm = 10e-5;
 
+    /**
+     * @brief Output iteration record of optimization process
+     */
     void Summary() const
     {
         std::cout << ss.str() << std::endl;
     }
+
+    /**
+     * @brief Clear all records and logs
+     */
     void ClearLog()
     {
         ss.clear();
@@ -63,10 +73,15 @@ class Options
     }
 
   public:
+    /**
+     * @brief Output to standard I / O device
+     */
     bool print_log_to_stdio = true;
-    bool optimized_performance = false;
 
-    std::stringstream ss;
+    /**
+     * @brief if true, no optimization process data will be output and recorded
+     */
+    bool optimized_performance = false;
 
   public:
     template <typename T> Options &operator<<(T content)
@@ -79,11 +94,23 @@ class Options
 
         return *this;
     }
+
+  private:
+    std::stringstream ss;
 };
 
-class OptimizationBase
+/**
+ * @brief Base class of all unconstrained optimization algorithm classes
+ */
+class UnconstrainedOptimizationBase
 {
   public:
+    /**
+     * @brief Find the optimal solution of function
+     * @param fucntor Function object
+     * @param options Optimization parameters
+     * @return the point of the optimal solution
+     */
     virtual Vector Solve(TargetFunctor &fucntor, Options &options) = 0;
 };
 
