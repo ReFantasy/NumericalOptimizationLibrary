@@ -6,7 +6,8 @@
  * This header file defines the basic data structure of the optimization library,
  * including basic data types, base classes of optimization function, optimization option and other auxiliary utility.
  */
-#pragma once
+#ifndef __GLOBAL_H__
+#define __GLOBAL_H__
 #include "Eigen/Dense"
 #include <chrono>
 #include <iostream>
@@ -14,9 +15,9 @@
 
 namespace NOL
 {
+using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
-using FLOAT = double;
 
 /**
  * @brief the base class of the function to be optimized
@@ -151,3 +152,5 @@ class Timer
 };
 
 } // namespace NOL
+
+#endif //__GLOBAL_H__
