@@ -9,10 +9,6 @@ namespace NOL
 class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-    NewtonBase(TargetFunctor &function, Options &options) : UnconstrainedOptimizationLineSearchBase(function, options)
-    {
-    }
-
     bool IsTermination(const Vector &xk, int k) const override;
 
     Vector DescentDirection(const Vector &xk) const override;
@@ -26,10 +22,6 @@ class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 class DampedNewton : public NewtonBase
 {
   public:
-    DampedNewton(TargetFunctor &function, Options &options) : NewtonBase(function, options)
-    {
-    }
-
     FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
 };
 } // namespace NOL

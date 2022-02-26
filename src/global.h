@@ -106,18 +106,13 @@ class Options
 class UnconstrainedOptimizationLineSearchBase
 {
   public:
-    UnconstrainedOptimizationLineSearchBase(TargetFunctor &function, Options &options)
-        : _functor(function), _options(options)
-    {
-    }
-
     /**
      * @brief Find the optimal solution of function
      * @param fucntor Function object
      * @param options Optimization parameters
      * @return the point of the optimal solution
      */
-    virtual Vector Solve(TargetFunctor &fucntor, Options &options);
+    virtual Vector Solve();
 
     virtual bool IsTermination(const Vector &xk, int k) const = 0;
 
@@ -125,9 +120,8 @@ class UnconstrainedOptimizationLineSearchBase
 
     virtual FLOAT StepSize(const Vector &xk, const Vector &dk) const = 0;
 
-  protected:
-    TargetFunctor &_functor;
-    Options &_options;
+    TargetFunctor *_functor;
+    Options *_options;
 };
 
 class Timer

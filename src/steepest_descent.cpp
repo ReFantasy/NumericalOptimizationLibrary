@@ -26,14 +26,14 @@ class LineSearchForSD : public LineSearch
 
 bool SteepestDescent::IsTermination(const Vector &xk, int k) const
 {
-    FLOAT gk_norm = _functor.FirstOrderDerivatives(xk).norm();
-    if (gk_norm < _options.gk_norm)
+    FLOAT gk_norm = _functor->FirstOrderDerivatives(xk).norm();
+    if (gk_norm < _options->gk_norm)
         return true;
 
     // <--------
-    _options << "k:" << k << " "
-             << "  xk:(" << xk.transpose() << ") "
-             << "  ||gk||: " << gk_norm << "\n";
+    *_options << "k:" << k << " "
+              << "  xk:(" << xk.transpose() << ") "
+              << "  ||gk||: " << gk_norm << "\n";
     // -------->
 
     return false;
@@ -41,14 +41,14 @@ bool SteepestDescent::IsTermination(const Vector &xk, int k) const
 
 NOL::Vector SteepestDescent::DescentDirection(const Vector &xk) const
 {
-    Vector _gk = _functor.FirstOrderDerivatives(xk);
+    Vector _gk = _functor->FirstOrderDerivatives(xk);
     Vector dk = -_gk;
     return dk;
 }
 
 FLOAT SteepestDescent::StepSize(const Vector &xk, const Vector &dk) const
 {
-    static LineSearchForSD line_search(&_functor);
+    static LineSearchForSD line_search(_functor);
     line_search.xk = xk;
     line_search.dk = dk;
     FLOAT alpha = line_search.Zerosixeight(1.0);

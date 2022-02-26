@@ -4,17 +4,17 @@
 namespace NOL
 {
 
-Vector UnconstrainedOptimizationLineSearchBase::Solve(TargetFunctor &fucntor, Options &options)
+Vector UnconstrainedOptimizationLineSearchBase::Solve()
 {
     int k = 0;
-    Vector xk = options.init_x;
+    Vector xk = _options->init_x;
 
     LineSearch line_search{};
-    line_search._functor = &fucntor;
+    line_search._functor = _functor;
 
     // <--------
-    options << typeid(*this).name() << " initial x: ";
-    options << xk.transpose() << "\n\n";
+    *_options << typeid(*this).name() << " initial x: ";
+    *_options << xk.transpose() << "\n\n";
     // -------->
 
     while (true)

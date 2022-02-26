@@ -42,8 +42,10 @@ void example_3_1()
 
     Options option;
     option.init_x = x0;
-    SteepestDescent sd(functor, option);
-    std::cout << sd.Solve(functor, option) << std::endl;
+    SteepestDescent sd;
+    sd._functor = &functor;
+    sd._options = &option;
+    std::cout << sd.Solve() << std::endl;
 }
 
 void example_3_2()
@@ -84,8 +86,10 @@ void example_3_2()
     option.gk_norm = 10e-6;
     option.init_x = x0;
 
-    NewtonBase newton(functor, option);
-    std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
+    NewtonBase newton;
+    newton._functor = &functor;
+    newton._options = &option;
+    std::cout << "res:   " << newton.Solve().transpose() << std::endl;
 }
 
 void example_3_1_by_dampednewton()
@@ -130,8 +134,10 @@ void example_3_1_by_dampednewton()
     Options option;
     option.gk_norm = 10e-6;
     option.init_x = x0;
-    DampedNewton newton(functor, option);
-    Vector res = newton.Solve(functor, option);
+    DampedNewton newton;
+    newton._functor = &functor;
+    newton._options = &option;
+    Vector res = newton.Solve();
     std::cout << "res:   " << res.transpose() << std::endl;
 }
 
@@ -164,6 +170,8 @@ void example_test_1()
     x0(0) = 10;
     option.init_x = x0;
     option.gk_norm = 10e-8;
-    SteepestDescent sd(functor, option);
-    sd.Solve(functor, option);
+    SteepestDescent sd;
+    sd._functor = &functor;
+    sd._options = &option;
+    sd.Solve();
 }
