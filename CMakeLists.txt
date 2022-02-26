@@ -17,8 +17,8 @@ add_executable(main  ${SRC_LIST} example.h )
 target_link_libraries (main opti)
 
 # 是否开启测试
-option (TEST "Use provided math implementation" OFF)
-if (TEST)
+option (BUILD_TESTING "Use provided math implementation" OFF)
+if (BUILD_TESTING)
 #Google Test
 include(FetchContent)
 FetchContent_Declare(
