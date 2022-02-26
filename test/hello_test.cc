@@ -5,8 +5,8 @@
 
 using namespace NOL;
 // Demonstrate some basic assertions.
-TEST(HelloTest, BasicAssertions)
-{
+//TEST(suit1, test1)
+//{
     //struct Functor : TargetFunctor
     //{
     //    virtual FLOAT operator()(const Vector& x) const override
@@ -46,9 +46,29 @@ TEST(HelloTest, BasicAssertions)
 
     //EXPECT_LE(xk(0), valid(0));
     //EXPECT_LE(xk(1), valid(1));
-}
+//}
 
-TEST(HelloTest, BasicAssertions2)
+
+class A
 {
+public:
+    void f1() {}
+};
 
+class ATest :public ::testing::Test
+{
+protected:
+    void SetUp()override
+    {
+        
+    }
+
+    A a1;
+    A a2;
+    A a3;
+};
+
+TEST_F(ATest, test1)
+{
+    a1.f1();
 }
