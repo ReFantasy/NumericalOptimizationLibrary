@@ -14,10 +14,19 @@
 
 namespace NOL
 {
-class SteepestDescent : public UnconstrainedOptimizationBase
+class SteepestDescent : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-    Vector Solve(TargetFunctor &fucntor, Options &options) override;
+    SteepestDescent(TargetFunctor &function, Options &options)
+        : UnconstrainedOptimizationLineSearchBase(function, options)
+    {
+    }
+
+    bool IsTermination(const Vector &xk, int k) const override;
+
+    Vector DescentDirection(const Vector &xk) const override;
+
+    FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
 };
 } // namespace NOL
 

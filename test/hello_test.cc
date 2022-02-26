@@ -38,7 +38,7 @@ TEST(HelloTest, BasicAssertions)
     Options option;
     option.init_x = x0;
     option.optimized_performance = true;
-    SteepestDescent sd;
+    SteepestDescent sd(functor, option);
     Vector xk =  sd.Solve(functor, option);
     //std::cout << xk << std::endl;
     Vector valid(2);

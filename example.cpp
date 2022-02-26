@@ -42,8 +42,8 @@ void example_3_1()
 
     Options option;
     option.init_x = x0;
-    SteepestDescent sd;
-    sd.Solve(functor, option);
+    SteepestDescent sd(functor, option);
+    std::cout << sd.Solve(functor, option) << std::endl;
 }
 
 void example_3_2()
@@ -74,7 +74,7 @@ void example_3_2()
 
     Functor functor;
 
-    NewtonBase newton;
+    
     Vector x0(2);
     // x0(0) = x0(1) = 1.5;
     x0(0) = -2;
@@ -84,6 +84,7 @@ void example_3_2()
     option.gk_norm = 10e-6;
     option.init_x = x0;
 
+    NewtonBase newton(functor, option);
     std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
 }
 
@@ -125,11 +126,13 @@ void example_3_1_by_dampednewton()
     functor.c = c;
 
     // 阻尼牛顿法求解
-    DampedNewton newton;
+    
     Options option;
     option.gk_norm = 10e-6;
     option.init_x = x0;
-    std::cout << "res:   " << newton.Solve(functor, option).transpose() << std::endl;
+    DampedNewton newton(functor, option);
+    Vector res = newton.Solve(functor, option);
+    std::cout << "res:   " << res.transpose() << std::endl;
 }
 
 void example_test_1()
@@ -161,6 +164,6 @@ void example_test_1()
     x0(0) = 10;
     option.init_x = x0;
     option.gk_norm = 10e-8;
-    SteepestDescent sd;
+    SteepestDescent sd(functor, option);
     sd.Solve(functor, option);
 }

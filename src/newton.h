@@ -6,16 +6,31 @@
 
 namespace NOL
 {
-class NewtonBase : public UnconstrainedOptimizationBase
+class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-    Vector Solve(TargetFunctor &fucntor, Options &options) override;
+    NewtonBase(TargetFunctor &function, Options &options) : UnconstrainedOptimizationLineSearchBase(function, options)
+    {
+    }
+
+    bool IsTermination(const Vector &xk, int k) const override;
+
+    Vector DescentDirection(const Vector &xk) const override;
+
+    FLOAT StepSize(const Vector &xk, const Vector &dk) const override
+    {
+        return 1.0;
+    };
 };
 
 class DampedNewton : public NewtonBase
 {
   public:
-    virtual Vector Solve(TargetFunctor &fucntor, Options &options);
+    DampedNewton(TargetFunctor &function, Options &options) : NewtonBase(function, options)
+    {
+    }
+
+    FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
 };
 } // namespace NOL
 #endif //__NEWTON_H__

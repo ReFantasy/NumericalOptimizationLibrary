@@ -24,47 +24,35 @@ class LineSearchForSD : public LineSearch
     }
 };
 
-Vector SteepestDescent::Solve(TargetFunctor &functor, Options &option)
+bool SteepestDescent::IsTermination(const Vector &xk, int k) const
 {
-    int k = 0;
-    Vector xk = option.init_x;
+    FLOAT gk_norm = _functor.FirstOrderDerivatives(xk).norm();
+    if (gk_norm < _options.gk_norm)
+        return true;
 
     // <--------
-    option << "Steepest Descent with initial x: ";
-    option << xk.transpose() << "\n\n";
+    _options << "k:" << k << " "
+             << "  xk:(" << xk.transpose() << ") "
+             << "  ||gk||: " << gk_norm << "\n";
     // -------->
 
-    double gk_norm = 0;
-    while (true)
-    {
-        gk_norm = functor.FirstOrderDerivatives(xk).norm();
-        if (gk_norm < option.gk_norm)
-            break;
-        // <--------
-        option << "k:" << k << " "
-               << "  xk:(" << xk.transpose() << ") "
-               << "  ||gk||: " << gk_norm << "\n";
-        // -------->
+    return false;
+}
 
-        Vector _gk = functor.FirstOrderDerivatives(xk);
-        Vector dk = -_gk;
+NOL::Vector SteepestDescent::DescentDirection(const Vector &xk) const
+{
+    Vector _gk = _functor.FirstOrderDerivatives(xk);
+    Vector dk = -_gk;
+    return dk;
+}
 
-        static LineSearchForSD line_search(&functor);
-        line_search.xk = xk;
-        line_search.dk = dk;
-        FLOAT alpha = line_search.Zerosixeight(1.0);
-
-        xk = xk + alpha * dk;
-
-        k++;
-    }
-
-    // <--------
-    option << "k:" << k << " "
-           << "  xk:(" << xk.transpose() << ") "
-           << "  ||gk||: " << gk_norm << "\n";
-    // -------->
-    return xk;
+FLOAT SteepestDescent::StepSize(const Vector &xk, const Vector &dk) const
+{
+    static LineSearchForSD line_search(&_functor);
+    line_search.xk = xk;
+    line_search.dk = dk;
+    FLOAT alpha = line_search.Zerosixeight(1.0);
+    return alpha;
 }
 
 } // namespace NOL

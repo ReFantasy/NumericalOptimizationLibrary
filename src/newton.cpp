@@ -4,100 +4,42 @@
 
 namespace NOL
 {
-Vector NewtonBase::Solve(TargetFunctor &fucntor, Options &options)
+
+bool NewtonBase::IsTermination(const Vector &xk, int k) const
 {
-    int k = 0;
-    Vector xk = options.init_x;
-
+    FLOAT xk_max_norm = _functor.FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
+    if (xk_max_norm < _options.gk_norm)
+        return true;
     // <--------
-    options << "Base Newton Method with initial x: ";
-    options << xk.transpose() << "\n\n";
+    _options << "k:" << k << " "
+             << "  xk:(" << xk.transpose() << ") "
+             << "  ||gk||: " << xk_max_norm << "\n";
     // -------->
-
-    double xk_max_norm = 0;
-    while (true)
-    {
-        xk_max_norm = fucntor.FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-        if (xk_max_norm < options.gk_norm)
-            break;
-
-        // <--------
-        options << "k:" << k << " "
-                << "  xk:(" << xk.transpose() << ") "
-                << "  ||gk||: " << xk_max_norm << "\n";
-        // -------->
-
-        // compute dk
-        Matrix Gk = fucntor.SecondOrderDerivatives(xk);
-        Vector gk = fucntor.FirstOrderDerivatives(xk);
-
-        // solve Gk*dk = -gk
-        Vector dk;
-        dk = Gk.colPivHouseholderQr().solve(-gk);
-
-        // advance
-        xk = xk + dk;
-        k++;
-    }
-
-    // <--------
-    options << "k:" << k << " "
-            << "  xk:(" << xk.transpose() << ") "
-            << "  ||gk||: " << xk_max_norm << "\n";
-    // -------->
-
-    return xk;
+    return false;
 }
 
-Vector DampedNewton::Solve(TargetFunctor &fucntor, Options &options)
+NOL::Vector NewtonBase::DescentDirection(const Vector &xk) const
 {
-    int k = 0;
-    Vector xk = options.init_x;
+    // compute dk
+    Matrix Gk = _functor.SecondOrderDerivatives(xk);
+    Vector gk = _functor.FirstOrderDerivatives(xk);
 
+    // solve Gk*dk = -gk
+    Vector dk;
+    dk = Gk.colPivHouseholderQr().solve(-gk);
+
+    return dk;
+}
+
+FLOAT DampedNewton::StepSize(const Vector &xk, const Vector &dk) const
+{
+    static FLOAT alpha = 10;
     LineSearch line_search{};
-    line_search._functor = &fucntor;
-
-    // <--------
-    options << "Damped Newton Method with initial x: ";
-    options << xk.transpose() << "\n\n";
-    // -------->
-
-    double xk_max_norm;
-    while (true)
-    {
-        xk_max_norm = fucntor.FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-        if (xk_max_norm < options.gk_norm)
-            break;
-
-        // <--------
-        options << "k:" << k << " "
-                << "  xk:(" << xk.transpose() << ") "
-                << "  ||gk||: " << xk_max_norm << "\n";
-        // -------->
-
-        // compute dk
-        Matrix Gk = fucntor.SecondOrderDerivatives(xk);
-        Vector gk = fucntor.FirstOrderDerivatives(xk);
-
-        // solve Gk*dk = -gk
-        Vector dk;
-        dk = Gk.colPivHouseholderQr().solve(-gk);
-
-        static FLOAT alpha = 10;
-        line_search.xk = xk;
-        line_search.dk = dk;
-        alpha = line_search.QuadraticPolynomialInterpolation(alpha);
-        // advance
-        xk = xk + alpha * dk;
-        k++;
-    }
-
-    // <--------
-    options << "k:" << k << " "
-            << "  xk:(" << xk.transpose() << ") "
-            << "  ||gk||: " << xk_max_norm << "\n";
-    // -------->
-
-    return xk;
+    line_search._functor = &_functor;
+    line_search.xk = xk;
+    line_search.dk = dk;
+    alpha = line_search.QuadraticPolynomialInterpolation(alpha);
+    return alpha;
 }
+
 } // namespace NOL
