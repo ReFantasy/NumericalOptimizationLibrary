@@ -47,3 +47,8 @@ TEST(HelloTest, BasicAssertions)
     //EXPECT_LE(xk(0), valid(0));
     //EXPECT_LE(xk(1), valid(1));
 }
+
+TEST(HelloTest, BasicAssertions2)
+{
+
+}

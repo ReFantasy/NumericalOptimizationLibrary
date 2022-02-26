@@ -24,5 +24,12 @@ class DampedNewton : public NewtonBase
   public:
     FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
 };
+
+class QuasiNewton :public NewtonBase
+{
+public:
+};
+
+
 } // namespace NOL
 #endif //__NEWTON_H__

@@ -19,6 +19,8 @@ using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 
+class LineSearch;
+
 /**
  * @brief the base class of the function to be optimized
  */
@@ -101,7 +103,8 @@ class Options
 };
 
 
-class LineSearch;
+
+
 /**
  * @brief Base class of all unconstrained optimization algorithm classes
  */
