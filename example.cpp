@@ -176,6 +176,7 @@ void example_test_1()
     x0(0) = 10;
     option.init_x = x0;
     option.gk_norm = 10e-8;
+    //option.optimized_performance = true;
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
