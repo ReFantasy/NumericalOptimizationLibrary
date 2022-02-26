@@ -45,6 +45,8 @@ void example_3_1()
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
+    LineSearch line_search;
+    sd._line_search = &line_search;
     std::cout << sd.Solve() << std::endl;
 }
 
@@ -89,6 +91,8 @@ void example_3_2()
     NewtonBase newton;
     newton._functor = &functor;
     newton._options = &option;
+    LineSearch line_search;
+    newton._line_search = &line_search;
     std::cout << "res:   " << newton.Solve().transpose() << std::endl;
 }
 
@@ -137,6 +141,8 @@ void example_3_1_by_dampednewton()
     DampedNewton newton;
     newton._functor = &functor;
     newton._options = &option;
+    LineSearch line_search;
+    newton._line_search = &line_search;
     Vector res = newton.Solve();
     std::cout << "res:   " << res.transpose() << std::endl;
 }
@@ -173,5 +179,7 @@ void example_test_1()
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
+    LineSearch line_search;
+    sd._line_search = &line_search;
     sd.Solve();
 }

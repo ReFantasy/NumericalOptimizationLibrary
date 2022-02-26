@@ -34,11 +34,11 @@ NOL::Vector NewtonBase::DescentDirection(const Vector &xk) const
 FLOAT DampedNewton::StepSize(const Vector &xk, const Vector &dk) const
 {
     static FLOAT alpha = 10;
-    LineSearch line_search{};
-    line_search._functor = _functor;
-    line_search.xk = xk;
-    line_search.dk = dk;
-    alpha = line_search.QuadraticPolynomialInterpolation(alpha);
+    
+    _line_search->_functor = _functor;
+    _line_search->xk = xk;
+    _line_search->dk = dk;
+    alpha = _line_search->QuadraticPolynomialInterpolation(alpha);
     return alpha;
 }
 

@@ -48,10 +48,10 @@ NOL::Vector SteepestDescent::DescentDirection(const Vector &xk) const
 
 FLOAT SteepestDescent::StepSize(const Vector &xk, const Vector &dk) const
 {
-    static LineSearchForSD line_search(_functor);
-    line_search.xk = xk;
-    line_search.dk = dk;
-    FLOAT alpha = line_search.Zerosixeight(1.0);
+    _line_search->_functor = _functor;
+    _line_search->xk = xk;
+    _line_search->dk = dk;
+    FLOAT alpha = _line_search->Zerosixeight(1.0);
     return alpha;
 }
 
