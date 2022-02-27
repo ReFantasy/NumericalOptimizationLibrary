@@ -14,11 +14,11 @@ class LineSearchForSD : public LineSearch
     }
 
   protected:
-    FLOAT Phi(FLOAT a) override
+    FLOAT phi(FLOAT a) override
     {
         return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
     }
-    FLOAT dPhi_da(FLOAT a) override
+    FLOAT dphi_da(FLOAT a) override
     {
         return (_functor->SecondOrderDerivatives(xk + a * dk) * dk).transpose() * dk;
     }

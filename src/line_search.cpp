@@ -17,17 +17,17 @@ FLOAT LineSearch::QuadraticPolynomialInterpolation(FLOAT a0)
         return a0;
 
     // 不满足准则
-    FLOAT a1 = -dPhi_da(0) * a0 * a0 / (Phi(a0) - Phi(0) - dPhi_da(0) * a0) / 2;
+    FLOAT a1 = -dphi_da(0) * a0 * a0 / (phi(a0) - phi(0) - dphi_da(0) * a0) / 2;
 
     return QuadraticPolynomialInterpolation(a1);
 }
 
-FLOAT LineSearch::Phi(FLOAT a)
+FLOAT LineSearch::phi(FLOAT a)
 {
     return (*_functor)(xk + a * dk);
 }
 
-FLOAT LineSearch::dPhi_da(FLOAT a)
+FLOAT LineSearch::dphi_da(FLOAT a)
 {
     return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
 }
@@ -35,7 +35,7 @@ FLOAT LineSearch::dPhi_da(FLOAT a)
 bool LineSearch::Criterion(FLOAT a)
 {
     bool res = false;
-    FLOAT p;
+
     FLOAT left;
     FLOAT right;
     FLOAT right2;
@@ -43,20 +43,51 @@ bool LineSearch::Criterion(FLOAT a)
     switch (_criterion_type)
     {
     case CriterionType::Armijo:
-        p = (10e-3) / 2.0;
+        if ((_armijo_p <= 0) || (_armijo_p >= 1))
+        {
+            throw std::out_of_range("_armijo_p is out of range (0,1)");
+        }
         left = (*_functor)(xk + a * dk);
-        right = (*_functor)(xk) + p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        right = (*_functor)(xk) + _armijo_p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
         res = (left <= right);
         break;
 
     case CriterionType::Goldstein:
-        p = 0.3;
+        if ((_goldstein_p <= 0) || (_armijo_p >= 0.5))
+        {
+            throw std::out_of_range("_goldstein_p is out of range (0,1)");
+        }
         left = (*_functor)(xk + a * dk);
-        right = (*_functor)(xk) + p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
-        right2 = (*_functor)(xk) + (1 - p) * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        right = (*_functor)(xk) + _goldstein_p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
+        right2 = (*_functor)(xk) + (1 - _goldstein_p) * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a;
         res = (left <= right) && (left >= right2);
         break;
 
+    case CriterionType::Wolfe:
+        if ((_wolfe_p > 0) && (_wofe_sigma > _wolfe_p) && (_wofe_sigma < 1))
+        {
+            return (((*_functor)(xk + a * dk)) <= ((*_functor)(xk) + _wolfe_p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a))
+                &&
+                ((_functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk) >= (_wofe_sigma * _functor->FirstOrderDerivatives(xk).transpose() * dk));
+        }
+        else
+        {
+            throw std::out_of_range("wofe criterion is fail");
+        }
+        break;
+
+    case CriterionType::StrongWolfe:
+        if ((_wolfe_p > 0) && (_wofe_sigma > _wolfe_p) && (_wofe_sigma < 1))
+        {
+            return (((*_functor)(xk + a * dk)) <= ((*_functor)(xk) + _wolfe_p * (FLOAT)(_functor->FirstOrderDerivatives(xk).transpose() * dk) * a))
+                &&
+                (std::abs((_functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk)) <= (-(FLOAT)(_wofe_sigma * _functor->FirstOrderDerivatives(xk).transpose() * dk)));
+        }
+        else
+        {
+            throw std::out_of_range("wofe criterion is fail");
+        }
+        break;
     default:
         break;
     }
@@ -83,7 +114,7 @@ void LineSearch::AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a,
         {
             ai1 = 0;
         }
-        else if (Phi(ai1) < Phi(ai))
+        else if (phi(ai1) < phi(ai))
         {
             // step 3
             ri = t * ri;
@@ -123,7 +154,7 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*
         FLOAT al = a + (1.0 - r) * (b - a);
         FLOAT ar = a + r * (b - a);
 
-        if (Phi(al) < Phi(ar))
+        if (phi(al) < phi(ar))
         {
             b = ar;
         }

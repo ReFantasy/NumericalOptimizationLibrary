@@ -18,7 +18,9 @@ namespace NOL
 enum class CriterionType
 {
     Armijo,
-    Goldstein
+    Goldstein,
+    Wolfe,
+    StrongWolfe
 };
 
 class LineSearch
@@ -46,6 +48,12 @@ class LineSearch
     TargetFunctor *_functor = nullptr;
     CriterionType _criterion_type = CriterionType::Goldstein;
 
+public:
+    FLOAT _armijo_p = 0.001;
+    FLOAT _goldstein_p = 0.25;
+    FLOAT _wolfe_p = 0.3;
+    FLOAT _wofe_sigma = 0.6;
+
   protected:
     /**
      * @brief 线搜索函数 phi(a) = f( xk + a*dk ), a>0,
@@ -54,9 +62,9 @@ class LineSearch
      * @param a 线搜索步长
      * @return 搜索函数在步长 a 时的函数值，即待优化函数的下一个迭代点处的函数值
      */
-    virtual FLOAT Phi(FLOAT a);
+    virtual FLOAT phi(FLOAT a);
 
-    virtual FLOAT dPhi_da(FLOAT a);
+    virtual FLOAT dphi_da(FLOAT a);
 
     /**
      * @brief 非精确线搜索准则
