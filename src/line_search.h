@@ -41,6 +41,7 @@ class LineSearch
     FLOAT Zerosixeight(FLOAT a0, FLOAT r0 = 1.0, FLOAT epsilon = 10e-3, FLOAT t = 1.2);
 
     FLOAT QuadraticPolynomialInterpolation(FLOAT a0);
+    FLOAT CubicPolynomialInterpolation(FLOAT a0);
 
   public:
     Vector xk;
@@ -65,6 +66,8 @@ public:
     virtual FLOAT phi(FLOAT a);
 
     virtual FLOAT dphi_da(FLOAT a);
+
+    FLOAT CubicPolynomial(FLOAT a0, FLOAT a1);
 
     /**
      * @brief 非精确线搜索准则

@@ -39,6 +39,7 @@ FLOAT DampedNewton::StepSize(const Vector &xk, const Vector &dk) const
     _line_search->xk = xk;
     _line_search->dk = dk;
     alpha = _line_search->QuadraticPolynomialInterpolation(alpha);
+    //alpha = _line_search->CubicPolynomialInterpolation(alpha);
     return alpha;
 }
 

@@ -22,6 +22,17 @@ FLOAT LineSearch::QuadraticPolynomialInterpolation(FLOAT a0)
     return QuadraticPolynomialInterpolation(a1);
 }
 
+FLOAT LineSearch::CubicPolynomialInterpolation(FLOAT a0)
+{
+	if (Criterion(a0))
+		return a0;
+
+	// 不满足准则
+	FLOAT a1 = -dphi_da(0) * a0 * a0 / (phi(a0) - phi(0) - dphi_da(0) * a0) / 2;
+
+	return CubicPolynomial(std::min(a0, a1), std::max(a0, a1));
+}
+
 FLOAT LineSearch::phi(FLOAT a)
 {
     return (*_functor)(xk + a * dk);
@@ -30,6 +41,32 @@ FLOAT LineSearch::phi(FLOAT a)
 FLOAT LineSearch::dphi_da(FLOAT a)
 {
     return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
+}
+
+FLOAT LineSearch::CubicPolynomial(FLOAT a0, FLOAT a1)
+{
+    FLOAT c = dphi_da(0);
+    FLOAT d = phi(0);
+
+    Matrix m(2, 2);
+    m << a0 * a0, -a1 * a1, -a0 * a0 * a0, a1* a1* a1;
+    Vector v(2);
+    v << (phi(a1) - phi(0) - dphi_da(0) * a1), (phi(a0) - phi(0) - dphi_da(0) * a0);
+    Vector res = m * v / (a0 * a0 * a1 * a1 * (a1 - a0));
+    FLOAT a = res(0);
+    FLOAT b = res(1);
+
+    FLOAT zero1 = (-b - std::sqrt(b * b - 3 * a * c)) / 3 / a;
+    FLOAT zero2 = (-b + std::sqrt(b * b - 3 * a * c)) / 3 / a;
+
+    FLOAT z = std::min(zero1, zero2);
+    if (z < 0)
+        z = std::max(zero1, zero2);
+
+	if (Criterion(z))
+		return z;
+	else
+		return CubicPolynomial(std::min(a1, z), std::max(a1, z));
 }
 
 bool LineSearch::Criterion(FLOAT a)
