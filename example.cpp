@@ -123,7 +123,7 @@ void example_3_1_by_dampednewton()
     b << 2, 3;
     float c = 10;
     Matrix G(2, 2);
-    // G << 21, 4, 4, 1;
+    //G << 21, 4, 4, 1;
     G << 21, 4, 4, 15;
 
     Vector x0(2);
