@@ -24,6 +24,11 @@ class LineSearchForSD : public LineSearch
     }
 };
 
+SteepestDescent::SteepestDescent()
+{
+    _line_search = new LineSearchForSD;
+}
+
 bool SteepestDescent::IsTermination(const Vector &xk, int k) const
 {
     FLOAT gk_norm = _functor->FirstOrderDerivatives(xk).norm();
@@ -51,7 +56,8 @@ FLOAT SteepestDescent::StepSize(const Vector &xk, const Vector &dk) const
     _line_search->_functor = _functor;
     _line_search->xk = xk;
     _line_search->dk = dk;
-    FLOAT alpha = _line_search->Zerosixeight(1.0);
+    //FLOAT alpha = _line_search->Zerosixeight(1.0);
+    FLOAT alpha = _line_search->Search(1.0, _options->_line_search_type);
     return alpha;
 }
 

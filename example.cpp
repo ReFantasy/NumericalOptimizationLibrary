@@ -42,11 +42,12 @@ void example_3_1()
 
     Options option;
     option.init_x = x0;
+    option._line_search_type = LineSearchType::ZEROSIXONEEIGHT;
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
-    LineSearch line_search;
-    sd._line_search = &line_search;
+    //LineSearchForSD line_search;
+    //sd._line_search = &line_search;
     std::cout << sd.Solve() << std::endl;
 }
 
@@ -88,10 +89,14 @@ void example_3_2()
     option.gk_norm = 10e-6;
     option.init_x = x0;
 
-    NewtonBase newton;
+    //NewtonBase newton;
+    QuasiNewton newton;
+    //DampedNewton newton;
+
     newton._functor = &functor;
     newton._options = &option;
     LineSearch line_search;
+    line_search._criterion_type = CriterionType::StrongWolfe;
     newton._line_search = &line_search;
     std::cout << "res:   " << newton.Solve().transpose() << std::endl;
 }
@@ -138,7 +143,11 @@ void example_3_1_by_dampednewton()
     Options option;
     option.gk_norm = 10e-6;
     option.init_x = x0;
-    DampedNewton newton;
+    option._quasi_newton_type = QuasiNewtonType::BFGS;
+    
+    //DampedNewton newton;
+    QuasiNewton newton;
+
     newton._functor = &functor;
     newton._options = &option;
     LineSearch line_search;

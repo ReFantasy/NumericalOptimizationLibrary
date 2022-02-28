@@ -49,6 +49,20 @@ class TargetFunctor
     virtual Matrix SecondOrderDerivatives(const Vector &x) const = 0;
 };
 
+enum class LineSearchType
+{
+    ZEROSIXONEEIGHT,
+    QUADRATIC,
+    CUBIC
+};
+
+enum class QuasiNewtonType
+{
+    SR1,
+    DFP,
+    BFGS
+};
+
 /**
  * @brief Options for optimizing algorithms
  */
@@ -57,7 +71,8 @@ class Options
   public:
     Vector init_x;
     double gk_norm = 10e-5;
-
+    LineSearchType _line_search_type = LineSearchType::QUADRATIC;
+    QuasiNewtonType _quasi_newton_type = QuasiNewtonType::DFP;
     /**
      * @brief Output iteration record of optimization process
      */
