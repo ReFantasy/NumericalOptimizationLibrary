@@ -7,8 +7,9 @@ namespace NOL
 
 bool NewtonBase::IsTermination(const Vector &xk, int k) const
 {
-    FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-    if (xk_max_norm < _options->gk_norm)
+    // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
+    FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).norm();
+    if (xk_max_norm <= _options->gk_norm)
         return true;
     // <--------
     *_options << "k:" << k << " "
@@ -33,7 +34,7 @@ NOL::Vector NewtonBase::DescentDirection(const Vector &xk) const
 
 FLOAT DampedNewton::StepSize(const Vector &xk, const Vector &dk) const
 {
-    static FLOAT alpha = 10;
+    FLOAT alpha = 1.0;
 
     _line_search->_functor = _functor;
     _line_search->xk = xk;
@@ -47,9 +48,6 @@ NOL::Vector QuasiNewton::Solve()
     int k = 0;
     Vector xk = _options->init_x;
     _Hk = Matrix::Identity(xk.size(), xk.size());
-
-    LineSearch line_search{};
-    line_search._functor = _functor;
 
     // <--------
     *_options << typeid(*this).name() << " initial x: ";
@@ -85,12 +83,6 @@ NOL::Vector QuasiNewton::DescentDirection(const Vector &xk) const
     Vector gk = _functor->FirstOrderDerivatives(xk);
     Vector dk = -_Hk * gk;
     return dk;
-
-    /*Matrix Gk = _functor->SecondOrderDerivatives(xk);
-    Vector gk = _functor->FirstOrderDerivatives(xk);
-    Vector dk;
-    dk = Gk.colPivHouseholderQr().solve(-gk);
-    return dk;*/
 }
 
 Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
@@ -109,12 +101,7 @@ Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
     }
     else if (_options->_quasi_newton_type == QuasiNewtonType::BFGS)
     {
-        // BDGS
-        /*return (
-            Hk+(Matrix::Identity(sk.size(),sk.size())+(yk.transpose()*Hk*yk)/(yk.transpose()*sk))*((sk *
-           sk.transpose())/(yk.transpose()*sk))
-            -((sk*yk.transpose()*Hk+Hk*yk*sk.transpose())/(yk.transpose()*sk))
-            );*/
+        // BFGS
         FLOAT a = 1.0 + (FLOAT)(yk.transpose() * Hk * yk) / (yk.transpose() * sk);
         Matrix b = (sk * sk.transpose()) / (yk.transpose() * sk);
         Matrix c = sk * yk.transpose() * Hk + Hk * yk * sk.transpose();

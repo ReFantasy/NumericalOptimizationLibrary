@@ -4,24 +4,61 @@
 #include <sstream>
 #include "global.h"
 
+using namespace NOL;
+
 int main(int argc, char **argv)
 {
     //example_3_1();
     //example_3_2();
-    example_3_1_by_dampednewton();
-
-    /*NOL::Matrix m = NOL::Matrix::Identity(3,3);
-    std::cout << m.cols() << std::endl;*/
-
-    //example_test_1();
-
-    /*NOL::Vector v(4);
-    NOL::Matrix m(v.size(), v.size());
-    std::cout << v.size() << std::endl;*/
+    //example_3_1_by_dampednewton();
 
 
-    //NOL::Matrix m(3, 3);
-    //std::cout << NOL::Matrix::Identity(4, 4) << std::endl;
+    struct Functor : public TargetFunctor
+    {
+    public:
+        virtual FLOAT operator()(const Vector& x) const override
+        {
+            //return 100 * std::pow(2 * x(0) * x(0) + 2, 2) + x(1) * x(1);
+            return 100 *  std::pow((x(0) * x(0) - x(1)),2) + std::pow(x(0) - 1,2);
+        }
+        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        {
+            Vector v(2);
+            v(0) = 400 * x(0) * (x(0)*x(0) - x(1)) + 2 * (x(0) - 1);
+            v(1) = -200 * (x(0) *x(0) - x(1));
+            return v;
+        }
+        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        {
+            Matrix m = Matrix::Identity(2, 2);
+            m(0, 0) = 16 * (3 * x(0) * x(0) + 1);
+            m(1, 1) = 2;
+            return m;
+        }
+
+    };
+
+    Functor functor;
+    Vector x0(2);
+    x0 << -1.2, 1;
+
+    Options option;
+    option.gk_norm = 1e-5;
+    option.init_x = x0;
+    //option.optimized_performance = true;
+    option._quasi_newton_type = QuasiNewtonType::SR1;
+    option._line_search_type = LineSearchType::ZEROSIXONEEIGHT;
+
+    NewtonBase *newton = new QuasiNewton;
+
+    newton->_functor = &functor;
+    newton->_options = &option;
+    LineSearch line_search;
+    line_search._criterion_type = CriterionType::Wolfe;
+    newton->_line_search = &line_search;
+
+
+    std::cout << functor(newton->Solve()) << std::endl;
 
     return 0;
 }

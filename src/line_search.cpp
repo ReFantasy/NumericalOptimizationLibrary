@@ -55,8 +55,6 @@ FLOAT LineSearch::CubicPolynomial(FLOAT a0, FLOAT a1)
     m << a0 * a0, -a1 * a1, -a0 * a0 * a0, a1 * a1 * a1;
     Vector v(2);
     v << (phi(a1) - phi(0) - dphi_da(0) * a1), (phi(a0) - phi(0) - dphi_da(0) * a0);
-    std::cout << m << std::endl;
-    std::cout << v << std::endl;
     Vector res = (m * v) / (a0 * a0 * a1 * a1 * (a1 - a0));
     FLOAT a = res(0);
     FLOAT b = res(1);
