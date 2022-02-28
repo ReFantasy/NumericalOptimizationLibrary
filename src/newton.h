@@ -25,19 +25,19 @@ class DampedNewton : public NewtonBase
     FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
 };
 
-class QuasiNewton :public DampedNewton
+class QuasiNewton : public DampedNewton
 {
-public:
-    Vector Solve()override;
+  public:
+    Vector Solve() override;
 
-    Vector DescentDirection(const Vector& xk) const override;
+    Vector DescentDirection(const Vector &xk) const override;
 
-protected:
+  protected:
     Matrix CorrectHk(Matrix Hk, Vector sk, Vector yk);
-private:
+
+  private:
     Matrix _Hk;
 };
-
 
 } // namespace NOL
 #endif //__NEWTON_H__

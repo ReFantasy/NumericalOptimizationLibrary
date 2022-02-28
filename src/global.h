@@ -117,9 +117,6 @@ class Options
     std::stringstream ss;
 };
 
-
-
-
 /**
  * @brief Base class of all unconstrained optimization algorithm classes
  */
@@ -142,7 +139,7 @@ class UnconstrainedOptimizationLineSearchBase
 
     TargetFunctor *_functor;
     Options *_options;
-    LineSearch* _line_search;
+    LineSearch *_line_search;
 };
 
 class Timer
