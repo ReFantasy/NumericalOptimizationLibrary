@@ -12,16 +12,11 @@
 #ifndef __LINE_SEARCH_H__
 #define __LINE_SEARCH_H__
 #include "global.h"
+#include <limits>
 
 namespace NOL
 {
-enum class CriterionType
-{
-    Armijo,
-    Goldstein,
-    Wolfe,
-    StrongWolfe
-};
+
 
 class LineSearch
 {
@@ -30,19 +25,26 @@ class LineSearch
     {
     }
 
-    FLOAT Search(FLOAT a0, LineSearchType type)
+    FLOAT Search(FLOAT alpha, const Options & options)
     {
-        FLOAT step_length = a0;
-        switch (type)
+        FLOAT step_length = alpha;
+
+        switch (options._line_search_type)
         {
         case LineSearchType::ZEROSIXONEEIGHT:
-            step_length = Zerosixeight(a0);
+            step_length = ZeroSixOneEight(alpha);
             break;
         case LineSearchType::QUADRATIC:
-            step_length = QuadraticPolynomialInterpolation(a0);
+            step_length = QuadraticInterpolation(alpha);
             break;
         case LineSearchType::CUBIC:
-            step_length = CubicPolynomialInterpolation(a0);
+            step_length = CubicPolynomialInterpolation(alpha);
+            break;
+        case  LineSearchType::ARMIJO:
+            step_length = Armijo(alpha, options);
+            break;
+        case  LineSearchType::GOLDSTEIN:
+            step_length = Goldstein(alpha, options);
             break;
         default:
             step_length = 1.0;
@@ -54,27 +56,25 @@ class LineSearch
     Vector xk;
     Vector dk;
     TargetFunctor *_functor = nullptr;
-    CriterionType _criterion_type = CriterionType::Goldstein;
 
-  public:
-    FLOAT _armijo_p = 0.001;
-    FLOAT _goldstein_p = 0.25;
-    FLOAT _wolfe_p = 0.3;
-    FLOAT _wofe_sigma = 0.6;
+    
 
   protected:
     /**
-     * @brief 【0.618方法】求线搜索步长，
+     * @brief 【0.618方法】[精确线搜索]求线搜索步长，
      * 该方法用于求近似满足精确线搜索准则的步长
      * @param a0 线搜索初始步长
-     * @param r0 0.618方法搜索步长，r0>0
+     * @param h0 0.618方法搜索步长，h0>0
      * @param epsilon 搜索停止条件，当搜索区间小于 epsilon 时，停止搜索
      * @param t 搜索步长增长系数 assert(t>1)
      * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
      */
-    FLOAT Zerosixeight(FLOAT a0, FLOAT r0 = 1.0, FLOAT epsilon = 10e-3, FLOAT t = 1.2);
-    FLOAT QuadraticPolynomialInterpolation(FLOAT a0);
-    FLOAT CubicPolynomialInterpolation(FLOAT a0);
+    FLOAT ZeroSixOneEight(FLOAT a0, FLOAT h0 = 1.0, FLOAT epsilon = 1e-5, FLOAT t = 1.5);
+    FLOAT QuadraticInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
+    FLOAT CubicPolynomialInterpolation(FLOAT a0,FLOAT h0 = 1.0, FLOAT t = 1.5);
+
+    FLOAT Armijo(FLOAT alpha, const Options& options);
+    FLOAT Goldstein(FLOAT alpha, const Options& options);
 
   protected:
     /**
@@ -88,18 +88,12 @@ class LineSearch
 
     virtual FLOAT dphi_da(FLOAT a);
 
-    FLOAT CubicPolynomial(FLOAT a0, FLOAT a1);
-
-    /**
-     * @brief 非精确线搜索准则
-     * @param a 线搜索步长
-     * @return 满足准则返回 true
-     */
-    virtual bool Criterion(FLOAT a);
-
   private:
-    void AdvanceandRetreat(FLOAT a0, FLOAT r0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);
+    void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);
     FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);
+
+    // 二次插值极小值点
+    FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
 };
 } // namespace NOL
 #endif //__LINE_SEARCH_H__

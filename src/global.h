@@ -53,7 +53,9 @@ enum class LineSearchType
 {
     ZEROSIXONEEIGHT,
     QUADRATIC,
-    CUBIC
+    CUBIC,
+    ARMIJO,
+    GOLDSTEIN
 };
 
 enum class QuasiNewtonType
@@ -90,6 +92,10 @@ class Options
         ss.str("");
     }
 
+public:
+    FLOAT parameter_line_search_armijo_rho = 0.001;
+    FLOAT parameter_line_search_armijo_t = 2.0; // >1
+    FLOAT parameter_line_search_goldstein_p = 0.25;
   public:
     /**
      * @brief Output to standard I / O device

@@ -96,7 +96,6 @@ void example_3_2()
     newton._functor = &functor;
     newton._options = &option;
     LineSearch line_search;
-    line_search._criterion_type = CriterionType::StrongWolfe;
     newton._line_search = &line_search;
     std::cout << "res:   " << newton.Solve().transpose() << std::endl;
 }

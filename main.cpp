@@ -6,8 +6,26 @@
 
 using namespace NOL;
 
+FLOAT phi(FLOAT x)
+{
+    return x * x - 4;
+}
+
+FLOAT dphi_da(FLOAT x)
+{
+    return 2 * x;
+}
+
+FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
+{
+    return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
+
+}
+
 int main(int argc, char **argv)
 {
+ 
+    //std::cout << QuadraticInterpolationMinimum(-4, 2) << std::endl;
     //example_3_1();
     //example_3_2();
     //example_3_1_by_dampednewton();
@@ -46,15 +64,14 @@ int main(int argc, char **argv)
     option.gk_norm = 1e-5;
     option.init_x = x0;
     //option.optimized_performance = true;
-    option._quasi_newton_type = QuasiNewtonType::SR1;
-    option._line_search_type = LineSearchType::ZEROSIXONEEIGHT;
+    option._quasi_newton_type = QuasiNewtonType::BFGS;
+    option._line_search_type = LineSearchType::ARMIJO;
 
     NewtonBase *newton = new QuasiNewton;
 
     newton->_functor = &functor;
     newton->_options = &option;
     LineSearch line_search;
-    line_search._criterion_type = CriterionType::Wolfe;
     newton->_line_search = &line_search;
 
 
