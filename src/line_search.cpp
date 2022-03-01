@@ -17,12 +17,6 @@ FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, FLOAT h0, FLOAT t)
     return QuadraticInterpolationMinimum(std::max(0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
 }
 
-FLOAT LineSearch::CubicPolynomialInterpolation(FLOAT alpha, FLOAT h0, FLOAT t)
-{
-    // TODO
-    return 1.0;
-}
-
 FLOAT LineSearch::Armijo(FLOAT alpha, const Options &options)
 {
     FLOAT phi0 = phi(0.0);
@@ -74,6 +68,35 @@ FLOAT LineSearch::Goldstein(FLOAT alpha, const Options &options)
     }
 
     return alpha;
+}
+
+FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
+{
+    auto choose = [](FLOAT a, FLOAT b) { return (a + b) / 2.0; };
+
+    FLOAT a0 = 0;
+    FLOAT amax = options.parameter_line_search_strong_wolfe_alpha_max;
+    FLOAT a1 = alpha;
+    if ((a1 < 0) || a1 >= amax)
+        a1 = choose(0, amax);
+
+    FLOAT c1 = options.parameter_line_search_strong_wolfe_c1;
+    FLOAT c2 = options.parameter_line_search_strong_wolfe_c2;
+
+    int i = 1;
+    while (true)
+    {
+        if ((phi(a1) > phi(0) + c1 * a1 * dphi_da(0)) || ((phi(a1) >= phi(0)) && (i > 1)))
+            return Zoom(a0, a1, options);
+        if (std::abs(dphi_da(a1)) <= (-c2 * dphi_da(0)))
+            return a1;
+        if (dphi_da(a1) >= 0)
+            return Zoom(a1, a0, options);
+
+        a0 = a1;
+        a1 = choose(a1, amax);
+        i++;
+    }
 }
 
 FLOAT LineSearch::phi(FLOAT a)
@@ -165,6 +188,31 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*
 FLOAT LineSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
 {
     return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
+}
+
+FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
+{
+    FLOAT c1 = options.parameter_line_search_strong_wolfe_c1;
+    FLOAT c2 = options.parameter_line_search_strong_wolfe_c2;
+
+    while (true)
+    {
+        FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
+        FLOAT phi_aj = phi(alpha_j);
+
+        FLOAT tmp = phi(0) + c1 * alpha_j * dphi_da(0);
+        if ((phi_aj > tmp) && (tmp > phi(alpha_lo)))
+            alpha_hi = alpha_j;
+        else
+        {
+            FLOAT dphi_aj = dphi_da(alpha_j);
+            if (std::abs(dphi_aj) <= (-c2 * dphi_da(0)))
+                return alpha_j;
+            if (dphi_aj * (alpha_hi - alpha_lo) >= 0)
+                alpha_hi = alpha_lo;
+            alpha_lo = alpha_j;
+        }
+    }
 }
 
 } // namespace NOL

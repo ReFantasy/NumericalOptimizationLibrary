@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     option.init_x = x0;
     //option.optimized_performance = true;
     option._quasi_newton_type = QuasiNewtonType::BFGS;
-    option._line_search_type = LineSearchType::ARMIJO;
+    option._line_search_type = LineSearchType::STRONGWOLFE;
 
     NewtonBase *newton = new QuasiNewton;
 

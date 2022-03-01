@@ -36,14 +36,14 @@ class LineSearch
         case LineSearchType::QUADRATIC:
             step_length = QuadraticInterpolation(alpha);
             break;
-        case LineSearchType::CUBIC:
-            step_length = CubicPolynomialInterpolation(alpha);
-            break;
         case LineSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
         case LineSearchType::GOLDSTEIN:
             step_length = Goldstein(alpha, options);
+            break;
+        case LineSearchType::STRONGWOLFE:
+            step_length = StrongWolfe(alpha, options);
             break;
         default:
             step_length = 1.0;
@@ -68,10 +68,10 @@ class LineSearch
      */
     FLOAT ZeroSixOneEight(FLOAT a0, FLOAT h0 = 1.0, FLOAT epsilon = 1e-5, FLOAT t = 1.5);
     FLOAT QuadraticInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
-    FLOAT CubicPolynomialInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
 
     FLOAT Armijo(FLOAT alpha, const Options &options);
     FLOAT Goldstein(FLOAT alpha, const Options &options);
+    FLOAT StrongWolfe(FLOAT alpha, const Options &options);
 
   protected:
     /**
@@ -91,6 +91,8 @@ class LineSearch
 
     // 二次插值极小值点
     FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
+
+    FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options);
 };
 } // namespace NOL
 #endif //__LINE_SEARCH_H__
