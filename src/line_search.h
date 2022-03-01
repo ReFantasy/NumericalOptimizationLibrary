@@ -17,7 +17,6 @@
 namespace NOL
 {
 
-
 class LineSearch
 {
   public:
@@ -25,7 +24,7 @@ class LineSearch
     {
     }
 
-    FLOAT Search(FLOAT alpha, const Options & options)
+    FLOAT Search(FLOAT alpha, const Options &options)
     {
         FLOAT step_length = alpha;
 
@@ -40,10 +39,10 @@ class LineSearch
         case LineSearchType::CUBIC:
             step_length = CubicPolynomialInterpolation(alpha);
             break;
-        case  LineSearchType::ARMIJO:
+        case LineSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
-        case  LineSearchType::GOLDSTEIN:
+        case LineSearchType::GOLDSTEIN:
             step_length = Goldstein(alpha, options);
             break;
         default:
@@ -57,8 +56,6 @@ class LineSearch
     Vector dk;
     TargetFunctor *_functor = nullptr;
 
-    
-
   protected:
     /**
      * @brief 【0.618方法】[精确线搜索]求线搜索步长，
@@ -71,10 +68,10 @@ class LineSearch
      */
     FLOAT ZeroSixOneEight(FLOAT a0, FLOAT h0 = 1.0, FLOAT epsilon = 1e-5, FLOAT t = 1.5);
     FLOAT QuadraticInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
-    FLOAT CubicPolynomialInterpolation(FLOAT a0,FLOAT h0 = 1.0, FLOAT t = 1.5);
+    FLOAT CubicPolynomialInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
 
-    FLOAT Armijo(FLOAT alpha, const Options& options);
-    FLOAT Goldstein(FLOAT alpha, const Options& options);
+    FLOAT Armijo(FLOAT alpha, const Options &options);
+    FLOAT Goldstein(FLOAT alpha, const Options &options);
 
   protected:
     /**
