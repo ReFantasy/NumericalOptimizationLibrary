@@ -6,21 +6,7 @@
 
 using namespace NOL;
 
-FLOAT phi(FLOAT x)
-{
-    return x * x - 4;
-}
 
-FLOAT dphi_da(FLOAT x)
-{
-    return 2 * x;
-}
-
-FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
-{
-    return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
-
-}
 
 int main(int argc, char **argv)
 {
@@ -64,8 +50,8 @@ int main(int argc, char **argv)
     option.gk_norm = 1e-5;
     option.init_x = x0;
     //option.optimized_performance = true;
-    option._quasi_newton_type = QuasiNewtonType::BFGS;
-    option._line_search_type = LineSearchType::STRONGWOLFE;
+    option.quasi_newton_type = QuasiNewtonType::BFGS;
+    option.line_search_type = LineSearchType::STRONGWOLFE;
 
     NewtonBase *newton = new QuasiNewton;
 

@@ -3,7 +3,7 @@
 
 namespace NOL
 {
-FLOAT LineSearch::ZeroSixOneEight(FLOAT a0, FLOAT h0, FLOAT epsilon, FLOAT t)
+FLOAT LineSearch::GoldenMethod(FLOAT a0, FLOAT h0, FLOAT epsilon, FLOAT t)
 {
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(a0, h0, t, secton_a, secton_b);
@@ -112,44 +112,41 @@ FLOAT LineSearch::dphi_da(FLOAT a)
 // Reference https://blog.csdn.net/cclethe/article/details/77621440?utm_source=blogxgwz2
 void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
-    // assert(h0 > 0);
     assert(t > 1);
 
-    FLOAT h1;
     FLOAT alpha;
     FLOAT alpha1;
 
     // step 1
-    FLOAT f0 = phi(alpha0);
-    FLOAT f1;
+    FLOAT phi0 = phi(alpha0);
+    FLOAT phi1;
     int k = 0;
 
     while (true)
     {
         // step 2
         alpha1 = alpha0 + h0;
-        f1 = phi(alpha1);
-        if (f1 < f0)
+        phi1 = phi(alpha1);
+
+        if (phi1 < phi0)
         {
             // step 3
-            h1 = t * h0;
+            h0 = t * h0;
             alpha = alpha0;
             alpha0 = alpha1;
-            f0 = f1;
+            phi0 = phi1;
             k++;
-            h0 = h1;
         }
         else
         {
             // step 4
             if (k == 0)
             {
-                h1 = -h0;
+                h0 = -h0;
                 alpha = alpha1;
                 alpha1 = alpha0;
-                f1 = f0;
+                phi1 = phi0;
                 k = 1;
-                h0 = h1;
             }
             else
             {

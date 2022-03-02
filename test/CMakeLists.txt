@@ -1,13 +1,15 @@
 enable_testing()
 
+AUX_SOURCE_DIRECTORY(. TEST_SRCS)
+
 add_executable(
-  hello_test
-  hello_test.cc
+  unit_test
+  ${TEST_SRCS}
 )
 target_link_libraries(
-  hello_test
+  unit_test
   gtest_main
   opti
 )
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(unit_test)

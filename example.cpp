@@ -42,7 +42,7 @@ void example_3_1()
 
     Options option;
     option.init_x = x0;
-    option._line_search_type = LineSearchType::ZEROSIXONEEIGHT;
+    option.line_search_type = LineSearchType::GOLDENSECTION;
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
@@ -142,7 +142,7 @@ void example_3_1_by_dampednewton()
     Options option;
     option.gk_norm = 10e-6;
     option.init_x = x0;
-    option._quasi_newton_type = QuasiNewtonType::BFGS;
+    option.quasi_newton_type = QuasiNewtonType::BFGS;
     
     //DampedNewton newton;
     QuasiNewton newton;

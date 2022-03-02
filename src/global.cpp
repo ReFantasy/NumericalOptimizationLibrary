@@ -9,9 +9,6 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
     int k = 0;
     Vector xk = _options->init_x;
 
-    LineSearch line_search{};
-    line_search._functor = _functor;
-
     // <--------
     *_options << typeid(*this).name() << " initial x: ";
     *_options << xk.transpose() << "\n\n";
@@ -19,12 +16,12 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
 
     while (true)
     {
-        if (IsTermination(xk, k))
+        if (IsTerminated(xk, k))
             break;
 
-        Vector dk = DescentDirection(xk);
+        Vector dk = SearchDirection(xk);
 
-        double alpha = StepSize(xk, dk);
+        double alpha = Step(xk, dk);
 
         xk = xk + alpha * dk;
         k++;

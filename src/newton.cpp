@@ -5,7 +5,7 @@
 namespace NOL
 {
 
-bool NewtonBase::IsTermination(const Vector &xk, int k) const
+bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 {
     // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
     FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).norm();
@@ -19,7 +19,7 @@ bool NewtonBase::IsTermination(const Vector &xk, int k) const
     return false;
 }
 
-NOL::Vector NewtonBase::DescentDirection(const Vector &xk) const
+NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 {
     // compute dk
     Matrix Gk = _functor->SecondOrderDerivatives(xk);
@@ -32,7 +32,7 @@ NOL::Vector NewtonBase::DescentDirection(const Vector &xk) const
     return dk;
 }
 
-FLOAT DampedNewton::StepSize(const Vector &xk, const Vector &dk) const
+FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
 {
     FLOAT alpha = 1.0;
 
@@ -56,12 +56,12 @@ NOL::Vector QuasiNewton::Solve()
 
     while (true)
     {
-        if (IsTermination(xk, k))
+        if (IsTerminated(xk, k))
             break;
 
-        Vector dk = DescentDirection(xk);
+        Vector dk = SearchDirection(xk);
 
-        double alpha = StepSize(xk, dk);
+        double alpha = Step(xk, dk);
 
         Vector yk1 = _functor->FirstOrderDerivatives(xk);
         Vector yk2 = _functor->FirstOrderDerivatives(xk + alpha * dk);
@@ -78,7 +78,7 @@ NOL::Vector QuasiNewton::Solve()
     return xk;
 }
 
-NOL::Vector QuasiNewton::DescentDirection(const Vector &xk) const
+NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
 {
     Vector gk = _functor->FirstOrderDerivatives(xk);
     Vector dk = -_Hk * gk;
@@ -87,19 +87,19 @@ NOL::Vector QuasiNewton::DescentDirection(const Vector &xk) const
 
 Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
 {
-    if (_options->_quasi_newton_type == QuasiNewtonType::SR1)
+    if (_options->quasi_newton_type == QuasiNewtonType::SR1)
     {
         // SR1
         Vector tmp = sk - Hk * yk;
         return Hk + (tmp * tmp.transpose()) / (tmp.transpose() * yk);
     }
-    else if (_options->_quasi_newton_type == QuasiNewtonType::DFP)
+    else if (_options->quasi_newton_type == QuasiNewtonType::DFP)
     {
         // DFP
         return Hk + (sk * sk.transpose()) / (sk.transpose() * yk) -
                (Hk * yk * yk.transpose() * Hk) / (yk.transpose() * Hk * yk);
     }
-    else if (_options->_quasi_newton_type == QuasiNewtonType::BFGS)
+    else if (_options->quasi_newton_type == QuasiNewtonType::BFGS)
     {
         // BFGS
         FLOAT a = 1.0 + (FLOAT)(yk.transpose() * Hk * yk) / (yk.transpose() * sk);

@@ -33,26 +33,26 @@ class TargetFunctor
      * @param x Input value of function
      * @return Return value of function
      */
-    virtual FLOAT operator()(const Vector &x) const = 0;
+    virtual FLOAT operator()(const Vector &xk) const = 0;
 
     /**
      * @brief Compute the first derivative of a function
      * @param x The point of derivative
      * @return Derivative value
      */
-    virtual Vector FirstOrderDerivatives(const Vector &x) const = 0;
+    virtual Vector FirstOrderDerivatives(const Vector &xk) const = 0;
 
     /**
      * @brief Compute the second derivative of a function
      * @param x The point of derivative
      * @return Derivative value (Jacobian)
      */
-    virtual Matrix SecondOrderDerivatives(const Vector &x) const = 0;
+    virtual Matrix SecondOrderDerivatives(const Vector &xk) const = 0;
 };
 
 enum class LineSearchType
 {
-    ZEROSIXONEEIGHT,
+    GOLDENSECTION,
     QUADRATIC,
     ARMIJO,
     GOLDSTEIN,
@@ -73,25 +73,10 @@ class Options
 {
   public:
     Vector init_x;
-    double gk_norm = 10e-5;
-    LineSearchType _line_search_type = LineSearchType::QUADRATIC;
-    QuasiNewtonType _quasi_newton_type = QuasiNewtonType::DFP;
-    /**
-     * @brief Output iteration record of optimization process
-     */
-    void Summary() const
-    {
-        std::cout << ss.str() << std::endl;
-    }
+    FLOAT gk_norm = 1e-6;
 
-    /**
-     * @brief Clear all records and logs
-     */
-    void ClearLog()
-    {
-        ss.clear();
-        ss.str("");
-    }
+    LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
+    QuasiNewtonType quasi_newton_type = QuasiNewtonType::DFP;
 
   public:
     FLOAT parameter_line_search_armijo_rho = 0.001;
@@ -113,6 +98,22 @@ class Options
     bool optimized_performance = false;
 
   public:
+    /**
+     * @brief Output iteration record of optimization process
+     */
+    void Summary() const
+    {
+        std::cout << ss.str() << std::endl;
+    }
+
+    /**
+     * @brief Clear all records and logs
+     */
+    void ClearLog()
+    {
+        ss.clear();
+        ss.str("");
+    }
     template <typename T> Options &operator<<(T content)
     {
         if (optimized_performance)
@@ -142,11 +143,11 @@ class UnconstrainedOptimizationLineSearchBase
      */
     virtual Vector Solve();
 
-    virtual bool IsTermination(const Vector &xk, int k) const = 0;
+    virtual bool IsTerminated(const Vector &xk, int k) const = 0;
 
-    virtual Vector DescentDirection(const Vector &xk) const = 0;
+    virtual Vector SearchDirection(const Vector &xk) const = 0;
 
-    virtual FLOAT StepSize(const Vector &xk, const Vector &dk) const = 0;
+    virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
     TargetFunctor *_functor;
     Options *_options;

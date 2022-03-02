@@ -28,10 +28,10 @@ class LineSearch
     {
         FLOAT step_length = alpha;
 
-        switch (options._line_search_type)
+        switch (options.line_search_type)
         {
-        case LineSearchType::ZEROSIXONEEIGHT:
-            step_length = ZeroSixOneEight(alpha);
+        case LineSearchType::GOLDENSECTION:
+            step_length = GoldenMethod(alpha);
             break;
         case LineSearchType::QUADRATIC:
             step_length = QuadraticInterpolation(alpha);
@@ -66,7 +66,7 @@ class LineSearch
      * @param t 搜索步长增长系数 assert(t>1)
      * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
      */
-    FLOAT ZeroSixOneEight(FLOAT a0, FLOAT h0 = 1.0, FLOAT epsilon = 1e-5, FLOAT t = 1.5);
+    FLOAT GoldenMethod(FLOAT a0, FLOAT h0 = 1.0, FLOAT epsilon = 1e-5, FLOAT t = 1.5);
     FLOAT QuadraticInterpolation(FLOAT a0, FLOAT h0 = 1.0, FLOAT t = 1.5);
 
     FLOAT Armijo(FLOAT alpha, const Options &options);
@@ -85,7 +85,7 @@ class LineSearch
 
     virtual FLOAT dphi_da(FLOAT a);
 
-  private:
+  protected:
     void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);
     FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);
 

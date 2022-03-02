@@ -18,11 +18,11 @@ class SteepestDescent : public UnconstrainedOptimizationLineSearchBase
 {
   public:
     SteepestDescent();
-    bool IsTermination(const Vector &xk, int k) const override;
+    bool IsTerminated(const Vector &xk, int k) const override;
 
-    Vector DescentDirection(const Vector &xk) const override;
+    Vector SearchDirection(const Vector &xk) const override;
 
-    FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
+    FLOAT Step(const Vector &xk, const Vector &dk) const override;
 };
 } // namespace NOL
 

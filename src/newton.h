@@ -9,11 +9,11 @@ namespace NOL
 class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-    bool IsTermination(const Vector &xk, int k) const override;
+    bool IsTerminated(const Vector &xk, int k) const override;
 
-    Vector DescentDirection(const Vector &xk) const override;
+    Vector SearchDirection(const Vector &xk) const override;
 
-    FLOAT StepSize(const Vector &xk, const Vector &dk) const override
+    FLOAT Step(const Vector &xk, const Vector &dk) const override
     {
         return 1.0;
     };
@@ -22,7 +22,7 @@ class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 class DampedNewton : public NewtonBase
 {
   public:
-    FLOAT StepSize(const Vector &xk, const Vector &dk) const override;
+    FLOAT Step(const Vector &xk, const Vector &dk) const override;
 };
 
 class QuasiNewton : public DampedNewton
@@ -30,7 +30,7 @@ class QuasiNewton : public DampedNewton
   public:
     Vector Solve() override;
 
-    Vector DescentDirection(const Vector &xk) const override;
+    Vector SearchDirection(const Vector &xk) const override;
 
   protected:
     Matrix CorrectHk(Matrix Hk, Vector sk, Vector yk);

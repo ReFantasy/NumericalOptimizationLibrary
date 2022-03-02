@@ -29,7 +29,7 @@ SteepestDescent::SteepestDescent()
     _line_search = new LineSearchForSD;
 }
 
-bool SteepestDescent::IsTermination(const Vector &xk, int k) const
+bool SteepestDescent::IsTerminated(const Vector &xk, int k) const
 {
     FLOAT gk_norm = _functor->FirstOrderDerivatives(xk).norm();
     if (gk_norm < _options->gk_norm)
@@ -44,14 +44,14 @@ bool SteepestDescent::IsTermination(const Vector &xk, int k) const
     return false;
 }
 
-NOL::Vector SteepestDescent::DescentDirection(const Vector &xk) const
+NOL::Vector SteepestDescent::SearchDirection(const Vector &xk) const
 {
     Vector _gk = _functor->FirstOrderDerivatives(xk);
     Vector dk = -_gk;
     return dk;
 }
 
-FLOAT SteepestDescent::StepSize(const Vector &xk, const Vector &dk) const
+FLOAT SteepestDescent::Step(const Vector &xk, const Vector &dk) const
 {
     _line_search->_functor = _functor;
     _line_search->xk = xk;
