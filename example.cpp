@@ -46,8 +46,7 @@ void example_3_1()
     SteepestDescent sd;
     sd._functor = &functor;
     sd._options = &option;
-    //LineSearchForSD line_search;
-    //sd._line_search = &line_search;
+
     std::cout << sd.Solve() << std::endl;
 }
 

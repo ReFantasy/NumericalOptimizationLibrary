@@ -9,7 +9,7 @@ add_executable(
 target_link_libraries(
   unit_test
   gtest_main
-  opti
+  ${OptimizationLibraryName}
 )
 include(GoogleTest)
 gtest_discover_tests(unit_test)

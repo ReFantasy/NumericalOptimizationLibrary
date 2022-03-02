@@ -39,7 +39,7 @@ FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
     _line_search->_functor = _functor;
     _line_search->xk = xk;
     _line_search->dk = dk;
-    alpha = _line_search->Search(alpha, *_options);
+    alpha = _line_search->Search(1.0, *_options);
     return alpha;
 }
 
