@@ -158,8 +158,8 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LineSearchType::STRONGWOLFE;
-    options.quasi_newton_type = QuasiNewtonType::DFP;
+    options.line_search_type = LineSearchType::GOLDSTEIN;
+    options.quasi_newton_type = QuasiNewtonType::BFGS;
     options.parameter_line_search_armijo_rho = 10e-4;
     options.parameter_line_search_strong_wolfe_sigma = 0.1;
     //options.parameter_line_search_strong_wolfe_alpha_max = 1;

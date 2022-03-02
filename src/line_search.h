@@ -66,8 +66,8 @@ class LineSearch
      * @param t 搜索步长增长系数 assert(t>1)
      * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
      */
-    FLOAT GoldenMethod(FLOAT a0, const Options& options);
-    FLOAT QuadraticInterpolation(FLOAT a0, const Options& options);
+    FLOAT GoldenMethod(FLOAT a0, const Options &options);
+    FLOAT QuadraticInterpolation(FLOAT a0, const Options &options);
 
     FLOAT Armijo(FLOAT alpha, const Options &options);
     FLOAT Goldstein(FLOAT alpha, const Options &options);

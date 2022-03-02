@@ -3,19 +3,19 @@
 
 namespace NOL
 {
-FLOAT LineSearch::GoldenMethod(FLOAT a0, const Options& options)
+FLOAT LineSearch::GoldenMethod(FLOAT a0, const Options &options)
 {
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(a0, options.parameter_line_search_advance_and_retreat_h,
-        options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
+                      options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
     return GoldenSection(secton_a, secton_b, options.parameter_line_search_golden_section_size);
 }
 
-FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, const Options& options)
+FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
 {
     FLOAT secton_a, secton_b;
-    AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h, 
-        options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
+    AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
+                      options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
     return QuadraticInterpolationMinimum(std::max(0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
 }
 
