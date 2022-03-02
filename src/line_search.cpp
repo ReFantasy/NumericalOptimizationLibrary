@@ -88,7 +88,7 @@ FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
     int i = 1;
     while (true)
     {
-        if ((phi(a1) > phi(0) + c1 * a1 * dphi_da(0)) || ((phi(a1) >= phi(0)) && (i > 1)))
+        if ((phi(a1) > ( phi(0) + c1 * a1 * dphi_da(0) )) || ( (phi(a1) >= phi(a0)) && (i > 1)))
             return Zoom(a0, a1, options);
         if (std::abs(dphi_da(a1)) <= (-c2 * dphi_da(0)))
             return a1;
@@ -191,11 +191,15 @@ FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
 
     while (true)
     {
-        FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
+        //FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
+        FLOAT alpha_j = (alpha_lo+ alpha_hi)/2.0;
+
         FLOAT phi_aj = phi(alpha_j);
 
         FLOAT tmp = phi(0) + c1 * alpha_j * dphi_da(0);
-        if ((phi_aj > tmp) && (tmp > phi(alpha_lo)))
+        /*if ((phi_aj > tmp) && (tmp > phi(alpha_lo)))
+            alpha_hi = alpha_j;*/
+        if ((phi_aj > tmp) || (phi_aj >= phi(alpha_lo)))
             alpha_hi = alpha_j;
         else
         {

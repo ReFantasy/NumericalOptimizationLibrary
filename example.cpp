@@ -139,17 +139,26 @@ void example()
 
     Functor functor;
 
-    int n = 4;
+    int n = 2;
     Vector x(n);
     for (int i = 0; i < x.size(); i++)
     {
-        if (i % 2 == 0)
+        /*if (i % 2 == 0)
         {
-            x(i) = -2.2;
+            x(i) = 5.2;
         }
         else
         {
-            x(i) = 3.1;
+            x(i) = -6.1;
+        }*/
+
+        if (i % 2 == 0)
+        {
+            x(i) = -1.2;
+        }
+        else
+        {
+            x(i) = -1.0;
         }
     }
 
@@ -158,11 +167,11 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LineSearchType::GOLDSTEIN;
+    options.line_search_type = LineSearchType::STRONGWOLFE;
     options.quasi_newton_type = QuasiNewtonType::BFGS;
     options.parameter_line_search_armijo_rho = 10e-4;
     options.parameter_line_search_strong_wolfe_sigma = 0.1;
-    //options.parameter_line_search_strong_wolfe_alpha_max = 1;
+    options.parameter_line_search_strong_wolfe_alpha_max = 20000;
     options.init_x = x;
 
     LineSearch line_search;
@@ -188,7 +197,7 @@ void example()
             // <--------
             *_options << "k:" << k << " "
                 << "  xk:(" << xk.transpose() << ") "
-                << "  ||gk_max_norm||: " << xk_max_norm << "\n";
+                << "  ||gk_max_norm||: " << xk_max_norm <<"   fvalue:"<< (*_functor)(xk) << "\n";
             // -------->
             return false;
         }
