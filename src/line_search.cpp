@@ -82,8 +82,8 @@ FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
     if ((a1 < 0) || a1 >= amax)
         a1 = choose(0, amax);
 
-    FLOAT c1 = options.parameter_line_search_strong_wolfe_c1;
-    FLOAT c2 = options.parameter_line_search_strong_wolfe_c2;
+    FLOAT c1 = options.parameter_line_search_strong_wolfe_rho;
+    FLOAT c2 = options.parameter_line_search_strong_wolfe_sigma;
 
     int i = 1;
     while (true)
@@ -186,8 +186,8 @@ FLOAT LineSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
 
 FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
 {
-    FLOAT c1 = options.parameter_line_search_strong_wolfe_c1;
-    FLOAT c2 = options.parameter_line_search_strong_wolfe_c2;
+    FLOAT c1 = options.parameter_line_search_strong_wolfe_rho;
+    FLOAT c2 = options.parameter_line_search_strong_wolfe_sigma;
 
     while (true)
     {

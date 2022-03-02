@@ -12,8 +12,9 @@ int main(int argc, char **argv)
 {
  
     //std::cout << QuadraticInterpolationMinimum(-4, 2) << std::endl;
-    example_3_1();
+    //example_3_1();
     //example_3_2();
+    example();
     //example_3_1_by_dampednewton();
 
 
