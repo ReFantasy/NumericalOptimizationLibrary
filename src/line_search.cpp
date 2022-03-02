@@ -111,53 +111,48 @@ FLOAT LineSearch::dphi_da(FLOAT a)
     return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
 }
 
-// Reference https://blog.csdn.net/cclethe/article/details/77621440?utm_source=blogxgwz2
 void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
-    assert(t > 1);
+    int i = 0;
+    FLOAT a, ai, ai1, ri;
+    a = ai = alpha0;
+    ri = h0;
 
-    FLOAT alpha;
-    FLOAT alpha1;
-
-    // step 1
-    FLOAT phi0 = phi(alpha0);
-    FLOAT phi1;
-    int k = 0;
-
+    FLOAT _a, _b;
     while (true)
     {
-        // step 2
-        alpha1 = alpha0 + h0;
-        phi1 = phi(alpha1);
-
-        if (phi1 < phi0)
+        ai1 = ai + ri;
+        if (ai1 <= 0)
+        {
+            ai1 = 0;
+        }
+        else if (phi(ai1) < phi(ai))
         {
             // step 3
-            h0 = t * h0;
-            alpha = alpha0;
-            alpha0 = alpha1;
-            phi0 = phi1;
-            k++;
+            ri = t * ri;
+            a = ai;
+            ai = ai1;
+            i++;
+            continue;
+        }
+
+        // step 4
+        if (i == 0)
+        {
+            ri = -ri;
+            a = ai1;
+            i++;
         }
         else
         {
-            // step 4
-            if (k == 0)
-            {
-                h0 = -h0;
-                alpha = alpha1;
-                alpha1 = alpha0;
-                phi1 = phi0;
-                k = 1;
-            }
-            else
-            {
-                secton_a = std::min(alpha, alpha1);
-                secton_b = std::max(alpha, alpha1);
-                break;
-            }
+            _a = std::min(a, ai1);
+            _b = std::max(a, ai1);
+            break;
         }
     }
+
+    secton_a = _a;
+    secton_b = _b;
 }
 
 FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*= 10e-3*/)
