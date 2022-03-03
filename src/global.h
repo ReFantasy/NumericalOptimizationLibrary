@@ -56,6 +56,7 @@ enum class LineSearchType
     QUADRATIC,
     ARMIJO,
     GOLDSTEIN,
+    WOLFE,
     STRONGWOLFE
 };
 
@@ -87,9 +88,9 @@ class Options
     FLOAT parameter_line_search_armijo_rho = 0.001;
     FLOAT parameter_line_search_armijo_t = 2.0; // >1
     FLOAT parameter_line_search_goldstein_p = 0.25;
-    FLOAT parameter_line_search_strong_wolfe_rho = 0.35;
-    FLOAT parameter_line_search_strong_wolfe_sigma = 0.75;
-    FLOAT parameter_line_search_strong_wolfe_alpha_max = 100;
+    FLOAT parameter_line_search_wolfe_rho = 0.35;
+    FLOAT parameter_line_search_wolfe_sigma = 0.75;
+    FLOAT parameter_line_search_wolfe_alpha_max = 100;
 
   public:
     /**

@@ -42,6 +42,9 @@ class LineSearch
         case LineSearchType::GOLDSTEIN:
             step_length = Goldstein(alpha, options);
             break;
+        case LineSearchType::WOLFE:
+            step_length = Wolfe(alpha, options);
+            break;
         case LineSearchType::STRONGWOLFE:
             step_length = StrongWolfe(alpha, options);
             break;
@@ -71,6 +74,7 @@ class LineSearch
 
     FLOAT Armijo(FLOAT alpha, const Options &options);
     FLOAT Goldstein(FLOAT alpha, const Options &options);
+    FLOAT Wolfe(FLOAT alpha, const Options& options);
     FLOAT StrongWolfe(FLOAT alpha, const Options &options);
 
   protected:

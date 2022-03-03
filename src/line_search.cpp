@@ -16,7 +16,7 @@ FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
                       options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
-    return QuadraticInterpolationMinimum(std::max(0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
+    return QuadraticInterpolationMinimum(std::max((FLOAT)0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
 }
 
 FLOAT LineSearch::Armijo(FLOAT alpha, const Options &options)
@@ -31,6 +31,7 @@ FLOAT LineSearch::Armijo(FLOAT alpha, const Options &options)
         if (phi_alpha > (phi0 + options.parameter_line_search_armijo_rho * dphi0 * alpha))
         {
             alpha = alpha / options.parameter_line_search_armijo_t;
+            continue;
         }
         break;
     }
@@ -72,18 +73,52 @@ FLOAT LineSearch::Goldstein(FLOAT alpha, const Options &options)
     return alpha;
 }
 
+FLOAT LineSearch::Wolfe(FLOAT alpha, const Options& options)
+{
+    FLOAT a = 0.0;
+    FLOAT b = std::numeric_limits<FLOAT>::max();
+    FLOAT phi0 = phi(0.0);
+    FLOAT dphi0 = dphi_da(0.0);
+    int k = 0;
+
+    while (true)
+    {
+        if (phi(alpha) > (phi0 + options.parameter_line_search_wolfe_rho * dphi0 * alpha))
+        {
+            b = alpha;
+            alpha = (a + b) / 2.0;
+            k++;
+            continue;
+        }
+        if (dphi_da(alpha) < options.parameter_line_search_wolfe_sigma*dphi0)
+        {
+            a = alpha;
+            if (b == std::numeric_limits<FLOAT>::max())
+                alpha = a * 2;
+            else
+                alpha = std::min(2.0*alpha, (a + b) / 2.0) ;
+
+            k++;
+            continue;
+        }
+
+        break;
+    }
+
+    return alpha;
+}
+
 FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
 {
+    FLOAT c1 = options.parameter_line_search_wolfe_rho;
+    FLOAT c2 = options.parameter_line_search_wolfe_sigma;
     auto choose = [](FLOAT a, FLOAT b) { return (a + b) / 2.0; };
 
     FLOAT a0 = 0;
-    FLOAT amax = options.parameter_line_search_strong_wolfe_alpha_max;
+    FLOAT amax = options.parameter_line_search_wolfe_alpha_max;
     FLOAT a1 = alpha;
     if ((a1 < 0) || a1 >= amax)
         a1 = choose(0, amax);
-
-    FLOAT c1 = options.parameter_line_search_strong_wolfe_rho;
-    FLOAT c2 = options.parameter_line_search_strong_wolfe_sigma;
 
     int i = 1;
     while (true)
@@ -114,24 +149,24 @@ FLOAT LineSearch::dphi_da(FLOAT a)
 void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
     int i = 0;
-    FLOAT a, ai, ai1, ri;
-    a = ai = alpha0;
-    ri = h0;
+    FLOAT alpha, alpha_i, alpha_i_1, hi;
+    alpha = alpha_i = alpha0;
+    hi = h0;
 
     FLOAT _a, _b;
     while (true)
     {
-        ai1 = ai + ri;
-        if (ai1 <= 0)
+        alpha_i_1 = alpha_i + hi;
+        if (alpha_i_1 <= 0)
         {
-            ai1 = 0;
+            alpha_i_1 = 0;
         }
-        else if (phi(ai1) < phi(ai))
+        else if (phi(alpha_i_1) < phi(alpha_i))
         {
             // step 3
-            ri = t * ri;
-            a = ai;
-            ai = ai1;
+            hi = t * hi;
+            alpha = alpha_i;
+            alpha_i = alpha_i_1;
             i++;
             continue;
         }
@@ -139,14 +174,14 @@ void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secto
         // step 4
         if (i == 0)
         {
-            ri = -ri;
-            a = ai1;
+            hi = -hi;
+            alpha = alpha_i_1;
             i++;
         }
         else
         {
-            _a = std::min(a, ai1);
-            _b = std::max(a, ai1);
+            _a = std::min(alpha, alpha_i_1);
+            _b = std::max(alpha, alpha_i_1);
             break;
         }
     }
@@ -155,25 +190,25 @@ void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secto
     secton_b = _b;
 }
 
-FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon /*= 10e-3*/)
+/**
+ * @brief convergence rate: k > log_r{epsilon/(b-a)}
+*/
+FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
 {
     FLOAT a = secton_a;
     FLOAT b = secton_b;
     static const FLOAT r = (std::sqrt(5) - 1) / 2; // 0.618
 
+    // TODO Optimization
     while ((b - a) > epsilon)
     {
-        FLOAT al = a + (1.0 - r) * (b - a);
-        FLOAT ar = a + r * (b - a);
+        FLOAT alpha_left = a + (1.0 - r) * (b - a);
+        FLOAT alpha_right = a + r * (b - a);
 
-        if (phi(al) < phi(ar))
-        {
-            b = ar;
-        }
+        if (phi(alpha_left) < phi(alpha_right))
+            b = alpha_right;
         else
-        {
-            a = al;
-        }
+            a = alpha_left;
     }
 
     return (a + b) / 2.0;
@@ -186,29 +221,28 @@ FLOAT LineSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
 
 FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
 {
-    FLOAT c1 = options.parameter_line_search_strong_wolfe_rho;
-    FLOAT c2 = options.parameter_line_search_strong_wolfe_sigma;
+    FLOAT c1 = options.parameter_line_search_wolfe_rho;
+    FLOAT c2 = options.parameter_line_search_wolfe_sigma;
 
     while (true)
     {
         //FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
-        FLOAT alpha_j = (alpha_lo+ alpha_hi)/2.0;
+        FLOAT aj = (alpha_lo+ alpha_hi)/2.0;
 
-        FLOAT phi_aj = phi(alpha_j);
-
-        FLOAT tmp = phi(0) + c1 * alpha_j * dphi_da(0);
-        /*if ((phi_aj > tmp) && (tmp > phi(alpha_lo)))
-            alpha_hi = alpha_j;*/
-        if ((phi_aj > tmp) || (phi_aj >= phi(alpha_lo)))
-            alpha_hi = alpha_j;
+        FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
+        if ((phi(aj) > tmp) ||
+            (phi(aj) >= phi(alpha_lo)))
+        {
+            alpha_hi = aj;
+        }
         else
         {
-            FLOAT dphi_aj = dphi_da(alpha_j);
+            FLOAT dphi_aj = dphi_da(aj);
             if (std::abs(dphi_aj) <= (-c2 * dphi_da(0)))
-                return alpha_j;
+                return aj;
             if (dphi_aj * (alpha_hi - alpha_lo) >= 0)
                 alpha_hi = alpha_lo;
-            alpha_lo = alpha_j;
+            alpha_lo = aj;
         }
     }
 }

@@ -34,13 +34,10 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 
 FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
 {
-    FLOAT alpha = 1.0;
-
     _line_search->_functor = _functor;
     _line_search->xk = xk;
     _line_search->dk = dk;
-    alpha = _line_search->Search(1.0, *_options);
-    return alpha;
+    return  _line_search->Search(1.0, *_options);
 }
 
 NOL::Vector QuasiNewton::Solve()
@@ -102,11 +99,11 @@ Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
     else if (_options->quasi_newton_type == QuasiNewtonType::BFGS)
     {
         // BFGS
-        FLOAT a = 1.0 + (FLOAT)(yk.transpose() * Hk * yk) / (yk.transpose() * sk);
-        Matrix b = (sk * sk.transpose()) / (yk.transpose() * sk);
-        Matrix c = sk * yk.transpose() * Hk + Hk * yk * sk.transpose();
         FLOAT d = yk.transpose() * sk;
-
+        FLOAT a = 1.0 + (FLOAT)(yk.transpose() * Hk * yk) / d;
+        Matrix b = (sk * sk.transpose()) / d;
+        Matrix c = sk * yk.transpose() * Hk + Hk * yk * sk.transpose();
+        
         return Hk + a * b - c / d;
     }
 
