@@ -219,7 +219,7 @@ FLOAT LineSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
     return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
 }
 
-FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
+FLOAT LineSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;
@@ -227,22 +227,21 @@ FLOAT LineSearch::Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options)
     while (true)
     {
         //FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
-        FLOAT aj = (alpha_lo+ alpha_hi)/2.0;
-
+        FLOAT aj = (alo+ ahi)/2.0;
         FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
         if ((phi(aj) > tmp) ||
-            (phi(aj) >= phi(alpha_lo)))
+            (phi(aj) >= phi(alo)))
         {
-            alpha_hi = aj;
+            ahi = aj;
         }
         else
         {
             FLOAT dphi_aj = dphi_da(aj);
             if (std::abs(dphi_aj) <= (-c2 * dphi_da(0)))
                 return aj;
-            if (dphi_aj * (alpha_hi - alpha_lo) >= 0)
-                alpha_hi = alpha_lo;
-            alpha_lo = aj;
+            if (dphi_aj * (ahi - alo) >= 0)
+                ahi = alo;
+            alo = aj;
         }
     }
 }
