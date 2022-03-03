@@ -102,21 +102,21 @@ void example()
     {
         virtual FLOAT operator()(const Vector& x) const override
         {
-            /*int n = x.size();
+            int n = x.size();
             FLOAT sum = 0;
             for (int i = 1; i < n; i += 2)
             {
                 sum = sum + 100 * std::pow(x(i - 1) * x(i - 1) - x(i), 2) + std::pow(x(i - 1) - 1, 2);
             }
-            return sum;*/
+            return sum;
 
-            return 100 * std::pow((x(1) - x(0)* x(0)),2)  + std::pow((1 - x(0)),2);
+            //return 100 * std::pow((x(1) - x(0)* x(0)),2)  + std::pow((1 - x(0)),2);
         }
         virtual Vector FirstOrderDerivatives(const Vector& x) const override
         {
             Vector v(x.size());
 
-            /*int n = x.size();
+            int n = x.size();
             for (int i = 1; i <= n; i++)
             {
                 if (i % 2 == 0)
@@ -127,10 +127,10 @@ void example()
                 {
                     v(i - 1) = 400 * (std::pow(x(i - 1), 2) - x(i)) * x(i - 1) + 2 * x(i - 1) - 2;
                 }
-            }*/
+            }
             
-            v(0) = -400 * x(0) * x(1) + 400 * std::pow(x(0), 3) + 2 * x(0) - 2;
-            v(1) = 200 * x(1) - 200 * x(0) * x(0);
+            //v(0) = -400 * x(0) * x(1) + 400 * std::pow(x(0), 3) + 2 * x(0) - 2;
+            //v(1) = 200 * x(1) - 200 * x(0) * x(0);
 
             return v;
         }
@@ -143,20 +143,20 @@ void example()
 
     Functor functor;
 
-    int n = 2;
+    int n = 4;
     Vector x(n);
-    x << -10, 10;
-    /*for (int i = 0; i < x.size(); i++)
+    //x << -10, 10;
+    for (int i = 0; i < x.size(); i++)
     {
         if (i % 2 == 0)
         {
-            x(i) = 10;
+            x(i) = rand()%100;
         }
         else
         {
-            x(i) = -10;
+            x(i) = -rand()%100;
         }
-    }*/
+    }
 
     /*Vector x(2);
     x(0) =  1;
@@ -168,7 +168,7 @@ void example()
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_armijo_t = 3.0;
     options.parameter_line_search_wolfe_rho = 1e-3;
-    options.parameter_line_search_wolfe_sigma = 0.9;
+    options.parameter_line_search_wolfe_sigma = 0.3;
     options.parameter_line_search_wolfe_alpha_max = 200000;
     //options.optimized_performance = true;
     options.init_x = x;
@@ -190,7 +190,7 @@ void example()
                     return true;*/
                 /*if ((*_functor)(xk) < 1e-5)
                     return true;*/
-                if (_functor->FirstOrderDerivatives(xk).norm() < 1e-5)
+                if (_functor->FirstOrderDerivatives(xk).norm() < 1e-7)
                     return true;
                 last_xk = xk;
             }
@@ -210,9 +210,6 @@ void example()
     newton->_functor = &functor;
     newton->_line_search = &line_search;
     newton->_options = &options;
-
-
-
 
     std::cout << functor(newton->Solve()) << std::endl;
 }
