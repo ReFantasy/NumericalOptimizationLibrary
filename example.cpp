@@ -143,18 +143,18 @@ void example()
 
     Functor functor;
 
-    int n = 4;
+    int n = 500;
     Vector x(n);
     //x << -10, 10;
     for (int i = 0; i < x.size(); i++)
     {
         if (i % 2 == 0)
         {
-            x(i) = rand()%100;
+            x(i) = rand()%1000;
         }
         else
         {
-            x(i) = -rand()%100;
+            x(i) = -rand()%1000;
         }
     }
 
@@ -170,7 +170,7 @@ void example()
     options.parameter_line_search_wolfe_rho = 1e-3;
     options.parameter_line_search_wolfe_sigma = 0.3;
     options.parameter_line_search_wolfe_alpha_max = 200000;
-    //options.optimized_performance = true;
+    options.optimized_performance = true;
     options.init_x = x;
 
     LineSearch line_search;
@@ -211,5 +211,8 @@ void example()
     newton->_line_search = &line_search;
     newton->_options = &options;
 
-    std::cout << functor(newton->Solve()) << std::endl;
+	Timer timer;
+	Vector res = newton->Solve();
+	std::cout<<timer.Elapse()<<"ms"<<std::endl;
+    //std::cout << functor(newton->Solve()) << std::endl;
 }
