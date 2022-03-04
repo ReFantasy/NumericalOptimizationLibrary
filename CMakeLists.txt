@@ -5,7 +5,7 @@ ADD_DEFINITIONS(-DUNICODE)
 ADD_DEFINITIONS(-D_UNICODE) 
 
 set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Release)
 
 set(OptimizationLibraryName OptimizationLibrary)
 
