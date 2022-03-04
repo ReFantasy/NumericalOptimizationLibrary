@@ -28,8 +28,8 @@ void example_3_1()
 
     Functor functor;
 
-    Vector x0(2);
-    x0 << -30, 100;
+    Vector init_x(2);
+    init_x << -30, 100;
 
     functor.G << 21, 4, 4, 15;
     //functor.G << 21, 4, 4, 1;
@@ -37,7 +37,7 @@ void example_3_1()
 
 
     Options options;
-    options.init_x = x0;
+    options.init_x = init_x;
     options.line_search_type = LineSearchType::GOLDENSECTION;
     options.parameter_line_search_advance_and_retreat_h = 1.5;
     options.parameter_line_search_advance_and_retreat_t = 1.5;
