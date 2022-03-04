@@ -20,7 +20,7 @@ using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 
-class LineSearch;
+class LinearSearch;
 
 /**
  * @brief the base class of the function to be optimized
@@ -50,7 +50,7 @@ class TargetFunctor
     virtual Matrix SecondOrderDerivatives(const Vector &xk) const = 0;
 };
 
-enum class LineSearchType
+enum class LinearSearchType
 {
     GOLDENSECTION,
     QUADRATIC,
@@ -76,7 +76,7 @@ class Options
     Vector init_x;
     FLOAT gk_norm = 1e-6;
 
-    LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
+    LinearSearchType line_search_type = LinearSearchType::GOLDSTEIN;
     QuasiNewtonType quasi_newton_type = QuasiNewtonType::DFP;
 
   public:
@@ -157,7 +157,7 @@ class UnconstrainedOptimizationLineSearchBase
 
     TargetFunctor *_functor;
     Options *_options;
-    LineSearch *_line_search;
+    LinearSearch *_line_search;
 };
 
 class Timer

@@ -6,10 +6,10 @@ namespace NOL
 {
 // page 19
 // search g(k+1)^T*dk=0 -> alpha
-class LineSearchForSD : public LineSearch
+class LineSearchForSD : public LinearSearch
 {
   public:
-    LineSearchForSD(TargetFunctor *functor = nullptr) : LineSearch(functor)
+    LineSearchForSD(TargetFunctor *functor = nullptr) : LinearSearch(functor)
     {
     }
 

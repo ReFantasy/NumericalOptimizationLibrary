@@ -3,7 +3,7 @@
 
 namespace NOL
 {
-FLOAT LineSearch::GoldenMethod(FLOAT a0, const Options &options)
+FLOAT LinearSearch::GoldenMethod(FLOAT a0, const Options &options)
 {
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(a0, options.parameter_line_search_advance_and_retreat_h,
@@ -11,7 +11,7 @@ FLOAT LineSearch::GoldenMethod(FLOAT a0, const Options &options)
     return GoldenSection(secton_a, secton_b, options.parameter_line_search_golden_section_size);
 }
 
-FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
+FLOAT LinearSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
 {
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
@@ -19,7 +19,7 @@ FLOAT LineSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
     return QuadraticInterpolationMinimum(std::max((FLOAT)0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
 }
 
-FLOAT LineSearch::Armijo(FLOAT alpha, const Options &options)
+FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
 {
     FLOAT phi0 = phi(0.0);
     FLOAT dphi0 = dphi_da(0.0);
@@ -38,7 +38,7 @@ FLOAT LineSearch::Armijo(FLOAT alpha, const Options &options)
     return alpha;
 }
 
-FLOAT LineSearch::Goldstein(FLOAT alpha, const Options &options)
+FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
 {
     FLOAT a = 0.0;
     FLOAT b = std::numeric_limits<FLOAT>::max();
@@ -73,7 +73,7 @@ FLOAT LineSearch::Goldstein(FLOAT alpha, const Options &options)
     return alpha;
 }
 
-FLOAT LineSearch::Wolfe(FLOAT alpha, const Options& options)
+FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options& options)
 {
     FLOAT a = 0.0;
     FLOAT b = std::numeric_limits<FLOAT>::max();
@@ -108,7 +108,7 @@ FLOAT LineSearch::Wolfe(FLOAT alpha, const Options& options)
     return alpha;
 }
 
-FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
+FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;
@@ -136,17 +136,17 @@ FLOAT LineSearch::StrongWolfe(FLOAT alpha, const Options &options)
     }
 }
 
-FLOAT LineSearch::phi(FLOAT a)
+FLOAT LinearSearch::phi(FLOAT a)
 {
     return (*_functor)(xk + a * dk);
 }
 
-FLOAT LineSearch::dphi_da(FLOAT a)
+FLOAT LinearSearch::dphi_da(FLOAT a)
 {
     return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
 }
 
-void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
+void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
 {
     int i = 0;
     FLOAT alpha, alpha_i, alpha_i_1, hi;
@@ -193,7 +193,7 @@ void LineSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secto
 /**
  * @brief convergence rate: k > log_r{epsilon/(b-a)}
 */
-FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
+FLOAT LinearSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
 {
     FLOAT a = secton_a;
     FLOAT b = secton_b;
@@ -214,12 +214,12 @@ FLOAT LineSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
     return (a + b) / 2.0;
 }
 
-FLOAT LineSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
+FLOAT LinearSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
 {
     return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
 }
 
-FLOAT LineSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
+FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;

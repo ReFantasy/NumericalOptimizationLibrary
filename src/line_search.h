@@ -17,10 +17,10 @@
 namespace NOL
 {
 
-class LineSearch
+class LinearSearch
 {
   public:
-    LineSearch(TargetFunctor *functor = nullptr) : _functor(functor)
+      LinearSearch(TargetFunctor *functor = nullptr) : _functor(functor)
     {
     }
 
@@ -30,22 +30,22 @@ class LineSearch
 
         switch (options.line_search_type)
         {
-        case LineSearchType::GOLDENSECTION:
+        case LinearSearchType::GOLDENSECTION:
             step_length = GoldenMethod(alpha, options);
             break;
-        case LineSearchType::QUADRATIC:
+        case LinearSearchType::QUADRATIC:
             step_length = QuadraticInterpolation(alpha, options);
             break;
-        case LineSearchType::ARMIJO:
+        case LinearSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
-        case LineSearchType::GOLDSTEIN:
+        case LinearSearchType::GOLDSTEIN:
             step_length = Goldstein(alpha, options);
             break;
-        case LineSearchType::WOLFE:
+        case LinearSearchType::WOLFE:
             step_length = Wolfe(alpha, options);
             break;
-        case LineSearchType::STRONGWOLFE:
+        case LinearSearchType::STRONGWOLFE:
             step_length = StrongWolfe(alpha, options);
             break;
         default:

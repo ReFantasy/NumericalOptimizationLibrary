@@ -38,7 +38,7 @@ void example_3_1()
 
     Options options;
     options.init_x = init_x;
-    options.line_search_type = LineSearchType::GOLDENSECTION;
+    options.line_search_type = LinearSearchType::GOLDENSECTION;
     options.parameter_line_search_advance_and_retreat_h = 1.5;
     options.parameter_line_search_advance_and_retreat_t = 1.5;
     options.optimized_performance = true;
@@ -91,7 +91,7 @@ void example_3_2()
 
     newton._functor = &functor;
     newton._options = &option;
-    LineSearch line_search;
+    LinearSearch line_search;
     newton._line_search = &line_search;
     std::cout << "res:   " << newton.Solve().transpose() << std::endl;
 }
@@ -166,7 +166,7 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LineSearchType::WOLFE;
+    options.line_search_type = LinearSearchType::WOLFE;
     options.quasi_newton_type = QuasiNewtonType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_armijo_t = 3.0;
@@ -176,7 +176,7 @@ void example()
     options.optimized_performance = true;
     options.init_x = x;
 
-    LineSearch line_search;
+    LinearSearch line_search;
 
 
     class TQuasiNewton :public QuasiNewton
