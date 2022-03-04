@@ -50,7 +50,7 @@ class TargetFunctor
     virtual Matrix SecondOrderDerivatives(const Vector &xk) const = 0;
 };
 
-enum class LinearSearchType
+enum class LineSearchType
 {
     GOLDENSECTION,
     QUADRATIC,
@@ -60,7 +60,7 @@ enum class LinearSearchType
     STRONGWOLFE
 };
 
-enum class QuasiNewtonType
+enum class QuasiNewtonSearchType
 {
     SR1,
     DFP,
@@ -76,8 +76,8 @@ class Options
     Vector init_x;
     FLOAT gk_norm = 1e-6;
 
-    LinearSearchType line_search_type = LinearSearchType::GOLDSTEIN;
-    QuasiNewtonType quasi_newton_type = QuasiNewtonType::DFP;
+    LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
+    QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
 
   public:
     FLOAT parameter_line_search_advance_and_retreat_alpha = 1.0;

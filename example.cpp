@@ -38,7 +38,7 @@ void example_3_1()
 
     Options options;
     options.init_x = init_x;
-    options.line_search_type = LinearSearchType::GOLDENSECTION;
+    options.line_search_type = LineSearchType::GOLDENSECTION;
     options.parameter_line_search_advance_and_retreat_h = 1.5;
     options.parameter_line_search_advance_and_retreat_t = 1.5;
     options.optimized_performance = true;
@@ -166,8 +166,8 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LinearSearchType::WOLFE;
-    options.quasi_newton_type = QuasiNewtonType::BFGS;
+    options.line_search_type = LineSearchType::WOLFE;
+    options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_armijo_t = 3.0;
     options.parameter_line_search_wolfe_rho = 1e-3;

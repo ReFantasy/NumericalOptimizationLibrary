@@ -30,22 +30,22 @@ class LinearSearch
 
         switch (options.line_search_type)
         {
-        case LinearSearchType::GOLDENSECTION:
+        case LineSearchType::GOLDENSECTION:
             step_length = GoldenMethod(alpha, options);
             break;
-        case LinearSearchType::QUADRATIC:
+        case LineSearchType::QUADRATIC:
             step_length = QuadraticInterpolation(alpha, options);
             break;
-        case LinearSearchType::ARMIJO:
+        case LineSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
-        case LinearSearchType::GOLDSTEIN:
+        case LineSearchType::GOLDSTEIN:
             step_length = Goldstein(alpha, options);
             break;
-        case LinearSearchType::WOLFE:
+        case LineSearchType::WOLFE:
             step_length = Wolfe(alpha, options);
             break;
-        case LinearSearchType::STRONGWOLFE:
+        case LineSearchType::STRONGWOLFE:
             step_length = StrongWolfe(alpha, options);
             break;
         default:

@@ -84,19 +84,19 @@ NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
 
 Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
 {
-    if (_options->quasi_newton_type == QuasiNewtonType::SR1)
+    if (_options->quasi_newton_type == QuasiNewtonSearchType::SR1)
     {
         // SR1
         Vector tmp = sk - Hk * yk;
         return Hk + (tmp * tmp.transpose()) / (tmp.transpose() * yk);
     }
-    else if (_options->quasi_newton_type == QuasiNewtonType::DFP)
+    else if (_options->quasi_newton_type == QuasiNewtonSearchType::DFP)
     {
         // DFP
         return Hk + (sk * sk.transpose()) / (sk.transpose() * yk) -
                (Hk * yk * yk.transpose() * Hk) / (yk.transpose() * Hk * yk);
     }
-    else if (_options->quasi_newton_type == QuasiNewtonType::BFGS)
+    else if (_options->quasi_newton_type == QuasiNewtonSearchType::BFGS)
     {
         // BFGS
         FLOAT d = yk.transpose() * sk;
