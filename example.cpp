@@ -156,7 +156,9 @@ void example()
         {
             x(i) = -rand()%100;
         }
+        std::cout << x(i) << " ";
     }
+    std::cout << std::endl;
 
     /*Vector x(2);
     x(0) =  1;
