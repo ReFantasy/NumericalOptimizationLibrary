@@ -143,7 +143,7 @@ void example()
 
     Functor functor;
 
-    int n = 20;
+    int n = 200;
     Vector x(n);
     //x << -10, 10;
     for (int i = 0; i < x.size(); i++)
@@ -156,9 +156,10 @@ void example()
         {
             x(i) = -rand()%100;
         }
-        std::cout << x(i) << " ";
+        std::cout << x(i) << ", " ;
     }
     std::cout << std::endl;
+    
 
     /*Vector x(2);
     x(0) =  1;
