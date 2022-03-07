@@ -4,6 +4,11 @@
 namespace NOL
 {
 
+    LinearSearch::LinearSearch(TargetFunctor* functor ) : _functor(functor)
+    {
+
+    }
+
     FLOAT LinearSearch::Search(FLOAT alpha, const Options& options)
     {
         FLOAT step_length = alpha;

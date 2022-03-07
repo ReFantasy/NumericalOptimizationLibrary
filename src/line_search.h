@@ -20,16 +20,50 @@ namespace NOL
 class LinearSearch
 {
   public:
-    LinearSearch(TargetFunctor *functor = nullptr) : _functor(functor)
-    {
-    }
+    LinearSearch(TargetFunctor* functor = nullptr);
 
+    /**
+     * @brief 线搜索
+     * @param alpha 初始步长
+     * @param options 搜索选项
+     * @return 线搜索的步长结果
+    */
     FLOAT Search(FLOAT alpha, const Options& options);
+
+    /**
+     * @brief 设置当前迭代点
+     * @param xk 迭代点位置
+    */
     void SetXk(Vector xk) { _xk = xk; }
+
+    /**
+     * @brief 设置线目标函数下降方向
+     * @param dk 下降方向
+    */
     void SetDk(Vector dk) { _dk = dk; }
+
+    /**
+     * @brief 获取当前迭代位置
+     * @return 
+    */
     Vector Xk()const { return _xk; }
+
+    /**
+     * @brief 获取当前目标函数下降方向
+     * @return 
+    */
     Vector Dk()const { return _dk; }
+
+    /**
+     * @brief 设置目标函数
+     * @param functor 目标函数指针
+    */
     void SetTargetFunctor(TargetFunctor* functor) { _functor = functor; }
+
+    /**
+     * @brief 获取目标函数
+     * @return 目标函数指针
+    */
     const TargetFunctor* TargetFunctorPointer()const { return _functor; }
 
   protected:
