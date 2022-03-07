@@ -20,7 +20,7 @@ class LineSearchForSD : public LinearSearch
     }
     FLOAT dphi_da(FLOAT a) override
     {
-        return (_functor->SecondOrderDerivatives(xk + a * dk) * dk).transpose() * dk;
+        return (_functor->Hesse(xk + a * dk) * dk).transpose() * dk;
     }
 };
 

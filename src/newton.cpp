@@ -22,7 +22,7 @@ bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 {
     // compute dk
-    Matrix Gk = _functor->SecondOrderDerivatives(xk);
+    Matrix Gk = _functor->Hesse(xk);
     Vector gk = _functor->Gradient(xk);
 
     // solve Gk*dk = -gk

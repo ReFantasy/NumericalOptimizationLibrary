@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     //        v(1) = -200 * (x(0) *x(0) - x(1));
     //        return v;
     //    }
-    //    virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+    //    virtual Matrix Hesse(const Vector& x) const override
     //    {
     //        Matrix m = Matrix::Identity(2, 2);
     //        m(0, 0) = 16 * (3 * x(0) * x(0) + 1);

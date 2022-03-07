@@ -16,7 +16,7 @@ void example_3_1()
         {
             return (G + G.transpose()) * x / 2 + b;
         }
-        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        virtual Matrix Hesse(const Vector& x) const override
         {
             return G;
         }
@@ -64,7 +64,7 @@ void example_3_2()
             dx(1) = 6 * x(1) - x(0) * x(0);
             return dx;
         }
-        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        virtual Matrix Hesse(const Vector& x) const override
         {
             Matrix J(2, 2);
             J(0, 0) = 6 - 2 * x(1);
@@ -134,7 +134,7 @@ void example()
 
             return v;
         }
-        virtual Matrix SecondOrderDerivatives(const Vector& x) const override
+        virtual Matrix Hesse(const Vector& x) const override
         {
             return Matrix{};
         }

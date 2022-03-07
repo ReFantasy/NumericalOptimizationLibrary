@@ -47,7 +47,7 @@ class TargetFunctor
      * @param x The point of derivative
      * @return Derivative value (Jacobian)
      */
-    virtual Matrix SecondOrderDerivatives(const Vector &xk) const = 0;
+    virtual Matrix Hesse(const Vector &xk) const = 0;
 };
 
 enum class LineSearchType
