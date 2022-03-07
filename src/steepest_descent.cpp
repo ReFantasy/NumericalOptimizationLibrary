@@ -16,11 +16,11 @@ class LineSearchForSD : public LinearSearch
   protected:
     FLOAT phi(FLOAT a) override
     {
-        return _functor->Gradient(xk + a * dk).transpose() * dk;
+        return TargetFunctorPointer()->Gradient(Xk() + a * Dk()).transpose() * Dk();
     }
     FLOAT dphi_da(FLOAT a) override
     {
-        return (_functor->Hesse(xk + a * dk) * dk).transpose() * dk;
+        return (TargetFunctorPointer()->Hesse(Xk() + a * Dk()) * Dk()).transpose() * Dk();
     }
 };
 
@@ -53,9 +53,9 @@ NOL::Vector SteepestDescent::SearchDirection(const Vector &xk) const
 
 FLOAT SteepestDescent::Step(const Vector &xk, const Vector &dk) const
 {
-    _line_search->_functor = _functor;
-    _line_search->xk = xk;
-    _line_search->dk = dk;
+    _line_search->SetTargetFunctor(_functor);
+    _line_search->SetXk(xk);
+    _line_search->SetDk(dk);
 
     FLOAT alpha = _line_search->Search(1.0, *_options);
     return alpha;

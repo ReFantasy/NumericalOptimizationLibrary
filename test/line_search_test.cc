@@ -6,11 +6,14 @@
 using namespace NOL;
 
 
-TEST(TestLineSearch, AdvanceAndRetreat)
+TEST(UnitTestLineSearch, AdvanceAndRetreat)
 {
-    class TLineSearch :public LineSearch
+    class TLineSearch :public LinearSearch
     {
     public:
+        TLineSearch(TargetFunctor* functor = nullptr) : LinearSearch(functor)
+        {
+        }
         void advance_and_retreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT& secton_a, FLOAT& secton_b)
         {
             AdvanceAndRetreat(a0, h0, t, secton_a, secton_b);
@@ -29,7 +32,7 @@ TEST(TestLineSearch, AdvanceAndRetreat)
     };
 
 
-    TLineSearch line_search;
+    TLineSearch line_search{nullptr};
 
 
     FLOAT a0 = 0;
@@ -41,17 +44,31 @@ TEST(TestLineSearch, AdvanceAndRetreat)
     ASSERT_GE(b, 3.0);
 
     a0 = 1;
-    h0 = 4;
+    h0 = 1;
     line_search.advance_and_retreat(a0, h0, t, a, b);
     ASSERT_LE(a, 3.0);
     ASSERT_GE(b, 3.0);
 
-    a0 = 6;
-    line_search.advance_and_retreat(a0, h0, t, a, b);
-    ASSERT_LE(a, 3.0);
-    ASSERT_GE(b, 3.0);
-
+    a0 = 1;
     h0 = -1;
+    line_search.advance_and_retreat(a0, h0, t, a, b);
+    ASSERT_LE(a, 3.0);
+    ASSERT_GE(b, 3.0);
+
+    a0 = 5;
+    h0 = 1;
+    line_search.advance_and_retreat(a0, h0, t, a, b);
+    ASSERT_LE(a, 3.0);
+    ASSERT_GE(b, 3.0);
+
+    a0 = 7;
+    h0 = -1;
+    line_search.advance_and_retreat(a0, h0, t, a, b);
+    ASSERT_LE(a, 3.0);
+    ASSERT_GE(b, 3.0);
+
+    a0 = 3;
+    h0 = 1;
     line_search.advance_and_retreat(a0, h0, t, a, b);
     ASSERT_LE(a, 3.0);
     ASSERT_GE(b, 3.0);

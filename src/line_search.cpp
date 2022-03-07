@@ -3,10 +3,41 @@
 
 namespace NOL
 {
-FLOAT LinearSearch::GoldenMethod(FLOAT a0, const Options &options)
+
+    FLOAT LinearSearch::Search(FLOAT alpha, const Options& options)
+    {
+        FLOAT step_length = alpha;
+
+        switch (options.line_search_type)
+        {
+        case LineSearchType::GOLDENSECTION:
+            step_length = GoldenMethod(alpha, options);
+            break;
+        case LineSearchType::QUADRATIC:
+            step_length = QuadraticInterpolation(alpha, options);
+            break;
+        case LineSearchType::ARMIJO:
+            step_length = Armijo(alpha, options);
+            break;
+        case LineSearchType::GOLDSTEIN:
+            step_length = Goldstein(alpha, options);
+            break;
+        case LineSearchType::WOLFE:
+            step_length = Wolfe(alpha, options);
+            break;
+        case LineSearchType::STRONGWOLFE:
+            step_length = StrongWolfe(alpha, options);
+            break;
+        default:
+            step_length = 1.0;
+        }
+        return step_length;
+    }
+
+FLOAT LinearSearch::GoldenMethod(FLOAT alpha, const Options &options)
 {
     FLOAT secton_a, secton_b;
-    AdvanceAndRetreat(a0, options.parameter_line_search_advance_and_retreat_h,
+    AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
                       options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
     return GoldenSection(secton_a, secton_b, options.parameter_line_search_golden_section_size);
 }
@@ -138,12 +169,12 @@ FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options &options)
 
 FLOAT LinearSearch::phi(FLOAT a)
 {
-    return (*_functor)(xk + a * dk);
+    return (*_functor)(_xk + a * _dk);
 }
 
 FLOAT LinearSearch::dphi_da(FLOAT a)
 {
-    return _functor->Gradient(xk + a * dk).transpose() * dk;
+    return _functor->Gradient(_xk + a * _dk).transpose() * _dk;
 }
 
 void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
