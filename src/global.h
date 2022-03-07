@@ -40,7 +40,7 @@ class TargetFunctor
      * @param x The point of derivative
      * @return Derivative value
      */
-    virtual Vector FirstOrderDerivatives(const Vector &xk) const = 0;
+    virtual Vector Gradient(const Vector &xk) const = 0;
 
     /**
      * @brief Compute the second derivative of a function

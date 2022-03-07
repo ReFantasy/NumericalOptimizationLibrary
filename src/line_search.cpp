@@ -143,7 +143,7 @@ FLOAT LinearSearch::phi(FLOAT a)
 
 FLOAT LinearSearch::dphi_da(FLOAT a)
 {
-    return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
+    return _functor->Gradient(xk + a * dk).transpose() * dk;
 }
 
 void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)

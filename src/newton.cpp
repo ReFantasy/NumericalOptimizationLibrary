@@ -8,7 +8,7 @@ namespace NOL
 bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 {
     // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-    FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).norm();
+    FLOAT xk_max_norm = _functor->Gradient(xk).norm();
     if (xk_max_norm <= _options->gk_norm)
         return true;
     // <--------
@@ -23,7 +23,7 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 {
     // compute dk
     Matrix Gk = _functor->SecondOrderDerivatives(xk);
-    Vector gk = _functor->FirstOrderDerivatives(xk);
+    Vector gk = _functor->Gradient(xk);
 
     // solve Gk*dk = -gk
     Vector dk;
@@ -60,8 +60,8 @@ NOL::Vector QuasiNewton::Solve()
 
         double alpha = Step(xk, dk);
 
-        Vector yk1 = _functor->FirstOrderDerivatives(xk);
-        Vector yk2 = _functor->FirstOrderDerivatives(xk + alpha * dk);
+        Vector yk1 = _functor->Gradient(xk);
+        Vector yk2 = _functor->Gradient(xk + alpha * dk);
         xk = xk + alpha * dk;
 
         // Hk->Hk+1
@@ -77,7 +77,7 @@ NOL::Vector QuasiNewton::Solve()
 
 NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
 {
-    Vector gk = _functor->FirstOrderDerivatives(xk);
+    Vector gk = _functor->Gradient(xk);
     Vector dk = -_Hk * gk;
     return dk;
 }

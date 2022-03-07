@@ -12,7 +12,7 @@ void example_3_1()
         {
             return true;
         }
-        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        virtual Vector Gradient(const Vector& x) const override
         {
             return (G + G.transpose()) * x / 2 + b;
         }
@@ -57,7 +57,7 @@ void example_3_2()
         {
             return 3 * x(0) * x(0) + 3 * x(1) * x(1) - x(0) * x(0) * x(1);
         }
-        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        virtual Vector Gradient(const Vector& x) const override
         {
             Vector dx(2);
             dx(0) = 6 * x(0) - 2 * x(0) * x(1);
@@ -112,7 +112,7 @@ void example()
 
             //return 100 * std::pow((x(1) - x(0)* x(0)),2)  + std::pow((1 - x(0)),2);
         }
-        virtual Vector FirstOrderDerivatives(const Vector& x) const override
+        virtual Vector Gradient(const Vector& x) const override
         {
             Vector v(x.size());
 
@@ -193,12 +193,12 @@ void example()
                     return true;*/
                 /*if ((*_functor)(xk) < 1e-5)
                     return true;*/
-                if (_functor->FirstOrderDerivatives(xk).norm() < 1e-7)
+                if (_functor->Gradient(xk).norm() < 1e-7)
                     return true;
                 last_xk = xk;
             }
 
-            FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
+            FLOAT xk_max_norm = _functor->Gradient(xk).cwiseAbs().maxCoeff();
 
             // <--------
             *_options << "k:" << k << " "

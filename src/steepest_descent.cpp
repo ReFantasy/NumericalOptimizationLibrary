@@ -16,7 +16,7 @@ class LineSearchForSD : public LinearSearch
   protected:
     FLOAT phi(FLOAT a) override
     {
-        return _functor->FirstOrderDerivatives(xk + a * dk).transpose() * dk;
+        return _functor->Gradient(xk + a * dk).transpose() * dk;
     }
     FLOAT dphi_da(FLOAT a) override
     {
@@ -31,7 +31,7 @@ SteepestDescent::SteepestDescent()
 
 bool SteepestDescent::IsTerminated(const Vector &xk, int k) const
 {
-    FLOAT gk_norm = _functor->FirstOrderDerivatives(xk).norm();
+    FLOAT gk_norm = _functor->Gradient(xk).norm();
     if (gk_norm < _options->gk_norm)
         return true;
 
@@ -46,7 +46,7 @@ bool SteepestDescent::IsTerminated(const Vector &xk, int k) const
 
 NOL::Vector SteepestDescent::SearchDirection(const Vector &xk) const
 {
-    Vector _gk = _functor->FirstOrderDerivatives(xk);
+    Vector _gk = _functor->Gradient(xk);
     Vector dk = -_gk;
     return dk;
 }
