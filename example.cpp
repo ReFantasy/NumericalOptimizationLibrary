@@ -166,7 +166,7 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LineSearchType::GOLDSTEIN;
+    options.line_search_type = LineSearchType::WOLFE;
     options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_armijo_t = 3.0;
