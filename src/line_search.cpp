@@ -99,7 +99,6 @@ FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
                 alpha = a * 2;
             else
                 alpha = (a + b) / 2.0;
-
             k++;
             continue;
         }
@@ -144,33 +143,7 @@ FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options& options)
     return alpha;
 }
 
-FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options &options)
-{
-    FLOAT c1 = options.parameter_line_search_wolfe_rho;
-    FLOAT c2 = options.parameter_line_search_wolfe_sigma;
-    auto choose = [](FLOAT a, FLOAT b) { return (a + b) / 2.0; };
 
-    FLOAT a0 = 0;
-    FLOAT amax = options.parameter_line_search_wolfe_alpha_max;
-    FLOAT a1 = alpha;
-    if ((a1 < 0) || a1 >= amax)
-        a1 = choose(0, amax);
-
-    int i = 1;
-    while (true)
-    {
-        if ((phi(a1) > ( phi(0) + c1 * a1 * dphi_da(0) )) || ( (phi(a1) >= phi(a0)) && (i > 1)))
-            return Zoom(a0, a1, options);
-        if (std::abs(dphi_da(a1)) <= (-c2 * dphi_da(0)))
-            return a1;
-        if (dphi_da(a1) >= 0)
-            return Zoom(a1, a0, options);
-
-        a0 = a1;
-        a1 = choose(a1, amax);
-        i++;
-    }
-}
 
 FLOAT LinearSearch::phi(FLOAT a)
 {
@@ -255,6 +228,35 @@ FLOAT LinearSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
     return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
 }
 
+
+FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options& options)
+{
+    FLOAT c1 = options.parameter_line_search_wolfe_rho;
+    FLOAT c2 = options.parameter_line_search_wolfe_sigma;
+    auto choose = [](FLOAT a, FLOAT b) { return (a + b) / 2.0; };
+
+    FLOAT a0 = 0;
+    FLOAT amax = options.parameter_line_search_wolfe_alpha_max;
+    FLOAT a1 = alpha;
+    if ((a1 < 0) || a1 >= amax)
+        a1 = choose(0, amax);
+
+    int i = 1;
+    while (true)
+    {
+        if ((phi(a1) > (phi(0) + c1 * a1 * dphi_da(0))) || ((phi(a1) >= phi(a0)) && (i > 1)))
+            return Zoom(a0, a1, options);
+        if (std::abs(dphi_da(a1)) <= (-c2 * dphi_da(0)))
+            return a1;
+        if (dphi_da(a1) >= 0)
+            return Zoom(a1, a0, options);
+
+        a0 = a1;
+        a1 = choose(a1, amax);
+        i++;
+    }
+}
+
 FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
@@ -262,7 +264,6 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 
     while (true)
     {
-        //FLOAT alpha_j = QuadraticInterpolationMinimum(alpha_lo, alpha_hi);
         FLOAT aj = (alo+ ahi)/2.0;
         FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
         if ((phi(aj) > tmp) ||
@@ -275,7 +276,7 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
             FLOAT dphi_aj = dphi_da(aj);
             if (std::abs(dphi_aj) <= (-c2 * dphi_da(0)))
                 return aj;
-            if (dphi_aj * (ahi - alo) >= 0)
+            if ((dphi_aj * (ahi - alo)) >= 0)
                 ahi = alo;
             alo = aj;
         }
