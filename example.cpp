@@ -143,7 +143,7 @@ void example()
 
     Functor functor;
 
-    int n = 8;
+    int n = 4;
     Vector x(n);
     //x << -10, 10;
     for (int i = 0; i < x.size(); i++)
@@ -166,7 +166,7 @@ void example()
     x(1) = 2;
     std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
-    options.line_search_type = LineSearchType::STRONGWOLFE;
+    options.line_search_type = LineSearchType::GOLDSTEIN;
     options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_armijo_t = 3.0;

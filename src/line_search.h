@@ -89,10 +89,10 @@ class LinearSearch
     
     FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);//√
 
-
-    // TODO FIX
-    FLOAT QuadraticInterpolation(FLOAT a0, const Options& options);
     FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
+    FLOAT CubicInterpolationMinimum(FLOAT last_alpha, FLOAT alpha);
+
+    FLOAT Interpolation(FLOAT last_alpha, FLOAT alpha, int k = 0);
     
 
 protected:
@@ -108,6 +108,7 @@ protected:
     virtual FLOAT dphi_da(FLOAT a);
 
     FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options& options);
+   
 private:
     Vector _xk;
     Vector _dk;

@@ -18,9 +18,6 @@ namespace NOL
         case LineSearchType::GOLDENSECTION:
             step_length = GoldenMethod(alpha, options);
             break;
-        /*case LineSearchType::QUADRATIC:
-            step_length = QuadraticInterpolation(alpha, options);
-            break;*/
         case LineSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
@@ -47,31 +44,61 @@ FLOAT LinearSearch::GoldenMethod(FLOAT alpha, const Options &options)
     return GoldenSection(secton_a, secton_b, options.parameter_line_search_golden_section_size);
 }
 
-FLOAT LinearSearch::QuadraticInterpolation(FLOAT alpha, const Options &options)
-{
-    FLOAT secton_a, secton_b;
-    AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
-                      options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
-    return QuadraticInterpolationMinimum(std::max((FLOAT)0.0, secton_a), (secton_b < 0) ? 1.0 : secton_b);
-}
-
 FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
 {
+
+    FLOAT rho = options.parameter_line_search_armijo_rho;
+
+    // p58
     FLOAT phi0 = phi(0.0);
     FLOAT dphi0 = dphi_da(0.0);
-
+    FLOAT last_alpha = 0;
+    int k = 0;
     while (true)
     {
         FLOAT phi_alpha = phi(alpha);
 
-        if (phi_alpha > (phi0 + options.parameter_line_search_armijo_rho * dphi0 * alpha))
+        if (phi_alpha < (phi0 +  rho* dphi0 * alpha))
         {
-            alpha = alpha / options.parameter_line_search_armijo_t;
-            continue;
+           break;
         }
-        break;
+        FLOAT tmp = alpha;
+        alpha = Interpolation(last_alpha, alpha, k);
+        last_alpha = tmp;
+        k++;
     }
     return alpha;
+}
+
+FLOAT LinearSearch::CubicInterpolationMinimum(FLOAT last_alpha, FLOAT alpha)
+{
+    FLOAT c = dphi_da(0.0);
+    Matrix m(2, 2);
+    m << last_alpha * last_alpha, -alpha * alpha,
+        -last_alpha * last_alpha * last_alpha, alpha* alpha* alpha;
+
+    Vector v(2);
+    v << (phi(alpha) - phi(0) - dphi_da(0) * alpha),
+        (phi(last_alpha) - phi(0) - dphi_da(0) * last_alpha);
+    Vector res = (m * v) / (last_alpha * last_alpha * alpha * alpha * (alpha - last_alpha));
+    FLOAT a = res(0);
+    FLOAT b = res(1);
+    last_alpha = alpha;
+    alpha = (-b + std::sqrt(b * b - 3 * a * c)) / 3.0 / a;
+    return alpha;
+}
+
+FLOAT LinearSearch::Interpolation(FLOAT last_alpha, FLOAT alpha, int k /*= 0*/)
+{
+    if (k == 0)
+    {
+       
+        return QuadraticInterpolationMinimum(0, alpha);
+    }
+    else
+    {
+        return CubicInterpolationMinimum(last_alpha, alpha);
+    }
 }
 
 FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
@@ -267,6 +294,9 @@ FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options& options)
     }
 }
 
+
+
+
 FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
@@ -297,5 +327,7 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
         }
     }
 }
+
+
 
 } // namespace NOL

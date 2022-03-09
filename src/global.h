@@ -67,12 +67,12 @@ class TargetFunctor
 enum class LineSearchType
 {
     GOLDENSECTION,
-    //QUADRATIC,
     ARMIJO,
     GOLDSTEIN,
     WOLFE,
     STRONGWOLFE
 };
+
 
 enum class QuasiNewtonSearchType
 {
@@ -96,6 +96,7 @@ class Options
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
+
 
   public:
     FLOAT parameter_line_search_advance_and_retreat_alpha = 1.0;
