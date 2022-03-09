@@ -6,9 +6,54 @@
 
 using namespace NOL;
 
+//template <typename Type>
+//class GetLeftSize
+//{
+//public:
+//    constexpr double a = 3.1;
+//};
+//
+//template <>
+//class GetLeftSize<float>
+//{
+//public:
+//    constexpr float a = 3.1;
+//};
+
+//template<typename T>
+//T Fuc()
+//{
+//    return 2.1;
+//}
+//
+//template<>
+//float Fuc<float>()
+//{
+//    return 1.1;
+//}
+
+//template<typename T>
+//struct Va : std::integral_constant<int, 1>
+//{
+//
+//};
+
 
 int main(int argc, char **argv)
 {
+
+    //Va<float>::value;
+    //std::cout << MinStepSize<FLOAT>::value << std::endl;
+    //std::enable_if<std::is_same<double, FLOAT>::value, FLOAT>::type nv;
+    //std::cout << GetLeftSize<int>::value << std::endl;
+    //std::conditional<std::is_same<float, FLOAT>::value, float, double>::type d = 1.2;
+
+    //std::conditional<std::is_same<float, FLOAT>::value, float, double>::type d = 1.2;
+
+    //FLOAT a = Fuc<FLOAT>();
+    //std::cout << a << std::endl;
+
+    //std::cout << nf << std::endl;
     //std::cout << QuadraticInterpolationMinimum(-4, 2) << std::endl;
     //example_3_1();
     //example_3_2();

@@ -18,9 +18,9 @@ namespace NOL
         case LineSearchType::GOLDENSECTION:
             step_length = GoldenMethod(alpha, options);
             break;
-        case LineSearchType::QUADRATIC:
+        /*case LineSearchType::QUADRATIC:
             step_length = QuadraticInterpolation(alpha, options);
-            break;
+            break;*/
         case LineSearchType::ARMIJO:
             step_length = Armijo(alpha, options);
             break;
@@ -233,7 +233,17 @@ FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options& options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;
-    auto choose = [](FLOAT a, FLOAT b) { return (a + b) / 2.0; };
+    auto choose = [](FLOAT a, FLOAT b)
+    {
+        if (std::max(a,b) != std::numeric_limits<FLOAT>::max())
+        {
+            return (a + b) / 2.0;
+        }
+        else
+        {
+            return std::min(a, b) * 2.0;
+        }
+    };
 
     FLOAT a0 = 0;
     FLOAT amax = options.parameter_line_search_wolfe_alpha_max;
@@ -264,6 +274,11 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 
     while (true)
     {
+        if (std::abs(ahi - alo) < options.min_step_size)
+        {
+            // assert(phi(ahi) < phi(0));
+            return std::max(ahi, alo);
+        }
         FLOAT aj = (alo+ ahi)/2.0;
         FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
         if ((phi(aj) > tmp) ||

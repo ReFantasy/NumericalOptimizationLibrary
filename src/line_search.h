@@ -82,7 +82,8 @@ class LinearSearch
     FLOAT Armijo(FLOAT alpha, const Options &options);
     FLOAT Goldstein(FLOAT alpha, const Options &options);
     FLOAT Wolfe(FLOAT alpha, const Options& options);
-    
+    FLOAT StrongWolfe(FLOAT alpha, const Options& options);
+
   protected:
     void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);//√
     
@@ -90,10 +91,9 @@ class LinearSearch
 
 
     // TODO FIX
-    FLOAT StrongWolfe(FLOAT alpha, const Options& options);
     FLOAT QuadraticInterpolation(FLOAT a0, const Options& options);
     FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
-    FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options);
+    
 
 protected:
     /**
@@ -106,6 +106,8 @@ protected:
     virtual FLOAT phi(FLOAT a);
 
     virtual FLOAT dphi_da(FLOAT a);
+
+    FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options& options);
 private:
     Vector _xk;
     Vector _dk;

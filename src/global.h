@@ -20,6 +20,20 @@ using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 
+template<typename T>
+class MinStepSize
+{
+public:
+    static constexpr T value = 1e-9;
+};
+
+template<>
+class MinStepSize<float>
+{
+public:
+    static constexpr float value = 1e-5;
+};
+
 class LinearSearch;
 
 /**
@@ -53,7 +67,7 @@ class TargetFunctor
 enum class LineSearchType
 {
     GOLDENSECTION,
-    QUADRATIC,
+    //QUADRATIC,
     ARMIJO,
     GOLDSTEIN,
     WOLFE,
@@ -76,6 +90,10 @@ class Options
     Vector init_x;
     FLOAT gk_norm = 1e-6;
 
+    // If during the line search, the step_size falls below this
+    // value, it is truncated to zero.
+    FLOAT min_step_size = MinStepSize<FLOAT>::value;
+
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
 
@@ -88,9 +106,9 @@ class Options
     FLOAT parameter_line_search_armijo_rho = 0.001;
     FLOAT parameter_line_search_armijo_t = 2.0; // >1
     FLOAT parameter_line_search_goldstein_p = 0.25;
-    FLOAT parameter_line_search_wolfe_rho = 0.35;
-    FLOAT parameter_line_search_wolfe_sigma = 0.75;
-    FLOAT parameter_line_search_wolfe_alpha_max = 100;
+    FLOAT parameter_line_search_wolfe_rho = 0.1;
+    FLOAT parameter_line_search_wolfe_sigma = 0.5;
+    FLOAT parameter_line_search_wolfe_alpha_max = std::numeric_limits<FLOAT>::max();
 
   public:
     /**
