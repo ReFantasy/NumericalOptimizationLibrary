@@ -9,7 +9,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 set(OptimizationLibraryName OptimizationLibrary)
 
-find_package (Eigen3 REQUIRED NO_MODULE HINTS ${CMAKE_SOURCE_DIR}/lib/eigen/share/eigen3/cmake)
+find_package (Eigen3 REQUIRED NO_MODULE HINTS ${CMAKE_SOURCE_DIR}/extern/eigen/share/eigen3/cmake)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 add_subdirectory(src)
@@ -20,7 +20,7 @@ if(BUILD_TEST)
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL         ${CMAKE_SOURCE_DIR}/lib/googletest-release-1.11.0.zip
+  URL         ${CMAKE_SOURCE_DIR}/extern/googletest-release-1.11.0.zip
   #GIT_REPOSITORY https://github.com/google/googletest.git
   #GIT_TAG        e2239ee6043f73722e7aa812a459f54a28552929
 )
