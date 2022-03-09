@@ -11,9 +11,9 @@
 
 ## Implement List
 
-- Line Search:  GOLDEN SECTION                :white_check_mark:
-- Line Search:  ARMIJO                                   :white_check_mark:
-- Line Search:  GOLDSTEIN                            :white_check_mark:
-- Line Search:  WOLFE                                    :white_check_mark:
-- Line Search:  STRONG WOLFE                    :white_check_mark:
+- :white_check_mark:Line Search:  GOLDEN SECTION            
+- :white_check_mark:Line Search:  ARMIJO                                  
+- :white_check_mark:Line Search:  GOLDSTEIN                  
+- :white_check_mark:Line Search:  WOLFE                               
+- :white_check_mark:Line Search:  STRONG WOLFE                 
 
