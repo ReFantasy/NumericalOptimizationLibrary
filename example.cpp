@@ -143,7 +143,7 @@ void example()
 
     Functor functor;
 
-    int n = 6;
+    int n = 8;
     Vector x(n);
     //x << -10, 10;
     for (int i = 0; i < x.size(); i++)
