@@ -40,8 +40,9 @@ void example_3_1()
 
     
     SteepestDescent sd(&functor, &options);
-    //sd._options = &options;
-    std::cout << sd.Solve() << std::endl;
+    Vector res = sd.Solve();
+
+    std::cout << std::endl << "Optimal solution : " << res.transpose() << std::endl;
 }
 
 void example_3_2()
