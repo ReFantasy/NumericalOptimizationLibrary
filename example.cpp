@@ -169,7 +169,6 @@ void example()
     options.line_search_type = LineSearchType::GOLDSTEIN;
     options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
-    options.parameter_line_search_armijo_t = 3.0;
     options.parameter_line_search_wolfe_rho = 1e-3;
     options.parameter_line_search_wolfe_sigma = 0.01;
     //options.parameter_line_search_wolfe_alpha_max = 2000;

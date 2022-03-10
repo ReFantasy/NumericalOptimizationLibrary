@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['optimized_5fperformance_0',['optimized_performance',['../class_n_o_l_1_1_options.html#a3cbf40db744e5fa7ec8cee0825f75dad',1,'NOL::Options']]]
+  ['min_5fstep_5fsize_0',['min_step_size',['../class_n_o_l_1_1_options.html#a36bc4687effc086cc4f15c064dc97bb2',1,'NOL::Options']]]
 ];

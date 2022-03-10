@@ -35,7 +35,7 @@ class LinearSearch
 
     /**
      * @brief 设置当前迭代点
-     * @param xk 迭代点位置
+     * @param \f$ x_k \f$ 迭代点位置
      */
     void SetXk(Vector xk)
     {
@@ -44,7 +44,7 @@ class LinearSearch
 
     /**
      * @brief 设置线目标函数下降方向
-     * @param dk 下降方向
+     * @param \f$ d_k \f$ 下降方向
      */
     void SetDk(Vector dk)
     {
@@ -71,7 +71,7 @@ class LinearSearch
 
     /**
      * @brief 设置目标函数
-     * @param functor 目标函数指针
+     * @param \f$ functor \f$ 目标函数指针
      */
     void SetTargetFunctor(TargetFunctor *functor)
     {
@@ -80,7 +80,7 @@ class LinearSearch
 
     /**
      * @brief 获取目标函数
-     * @return 目标函数指针
+     * @return 目标函数指针\f$ f \f$
      */
     const TargetFunctor *TargetFunctorPointer() const
     {
@@ -89,15 +89,12 @@ class LinearSearch
 
   protected:
     /**
-     * @brief 【0.618方法】[精确线搜索]求线搜索步长，
-     * 该方法用于求近似满足精确线搜索准则的步长
-     * @param a0 线搜索初始步长
-     * @param h0 0.618方法搜索步长，h0>0
-     * @param epsilon 搜索停止条件，当搜索区间小于 epsilon 时，停止搜索
-     * @param t 搜索步长增长系数 assert(t>1)
-     * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
+     * @brief 黄金分割精确线搜索，
+     * @param alpha 线搜索初始步长
+     * @param options 参数选项
+     * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的步长
      */
-    FLOAT GoldenMethod(FLOAT alpha, const Options &options); //√
+    FLOAT GoldenMethod(FLOAT alpha, const Options &options);
 
     /**
      * @brief 非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间
@@ -109,13 +106,19 @@ class LinearSearch
     FLOAT Armijo(FLOAT alpha, const Options &options);
 
     /**
-     * @brief 非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间
+     * @brief 非精确线搜索 Goldstein 准则
      * @param alpha 步长
      * @param options 参数选项
      * @return 一维搜索的步长
      */
     FLOAT Goldstein(FLOAT alpha, const Options &options);
 
+	/**
+     * @brief 非精确线搜索 Wolfe 准则
+     * @param alpha 步长
+     * @param options 参数选项
+     * @return 一维搜索的步长
+     */
     FLOAT Wolfe(FLOAT alpha, const Options &options);
 
     /**
@@ -130,19 +133,18 @@ class LinearSearch
     FLOAT StrongWolfe(FLOAT alpha, const Options &options);
 
   protected:
-    void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b); //√
-    FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);            //√
+    void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);
+    FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-4);
     FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
     FLOAT CubicInterpolationMinimum(FLOAT last_alpha, FLOAT alpha);
     FLOAT Interpolation(FLOAT last_alpha, FLOAT alpha, int k = 0);
 
   protected:
     /**
-     * @brief 线搜索函数 phi(a) = f( xk + a*dk ), a>0,
-     * 其中，xk 为优化函数 f(x) 当前迭代点，dk 为迭代下降方向，xk,dk可以通过类继承的方式定义为成员变量，
-     * 然后针对具体问题，自定义并重载 float Phi(float) 函数
-     * @param a 线搜索步长
-     * @return 搜索函数在步长 a 时的函数值，即待优化函数的下一个迭代点处的函数值
+     * @brief 线搜索函数 \f$ \varphi (\alpha) = f( x_k + \alpha * d_k ), \alpha >0 \f$
+     * 其中，\f$ x_k \f$ 为优化函数 \f$ f(x)\f$ 当前迭代点，\f$ d_k \f$ 为迭代下降方向
+     * @param \f$ \alpha \f$ 线搜索步长
+     * @return 搜索函数在步长 \f$ \alpha \f$ 时的函数值
      */
     virtual FLOAT phi(FLOAT a);
 

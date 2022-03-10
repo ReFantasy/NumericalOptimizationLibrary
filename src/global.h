@@ -97,19 +97,15 @@ class Options
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
 
   public:
-    FLOAT parameter_line_search_advance_and_retreat_alpha = 1.0;
     FLOAT parameter_line_search_advance_and_retreat_h = 1.0;
-    FLOAT parameter_line_search_advance_and_retreat_t = 2;
+    FLOAT parameter_line_search_advance_and_retreat_t = 1.5;
 
-    FLOAT parameter_line_search_golden_section_size = 1e-3;
+    FLOAT parameter_line_search_armijo_rho = 10e-3;
 
-    FLOAT parameter_line_search_armijo_rho = 0.001;
-    FLOAT parameter_line_search_armijo_t = 2.0; 
+    FLOAT parameter_line_search_goldstein_rho = 0.15;
 
-    FLOAT parameter_line_search_goldstein_p = 0.25;
-
-    FLOAT parameter_line_search_wolfe_rho = 0.1;
-    FLOAT parameter_line_search_wolfe_sigma = 0.5;
+    FLOAT parameter_line_search_wolfe_rho = 10e-4;
+    FLOAT parameter_line_search_wolfe_sigma = 0.6;
     FLOAT parameter_line_search_wolfe_alpha_max = std::numeric_limits<FLOAT>::max();
 
   public:
@@ -175,9 +171,9 @@ class UnconstrainedOptimizationLineSearchBase
 
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
-    TargetFunctor *_functor;
-    Options *_options;
-    LinearSearch *_line_search;
+    TargetFunctor *_functor = nullptr;
+    Options *_options = nullptr;
+    LinearSearch *_line_search = nullptr;
 };
 
 class Timer

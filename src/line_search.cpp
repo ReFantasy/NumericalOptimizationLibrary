@@ -40,7 +40,7 @@ FLOAT LinearSearch::GoldenMethod(FLOAT alpha, const Options &options)
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
                       options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
-    return GoldenSection(secton_a, secton_b, options.parameter_line_search_golden_section_size);
+    return GoldenSection(secton_a, secton_b, MinStepSize<FLOAT>::value);
 }
 
 FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
@@ -109,14 +109,14 @@ FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
     while (true)
     {
         FLOAT phi_alpha = phi(alpha);
-        if (phi_alpha > (phi0 + options.parameter_line_search_goldstein_p * dphi0 * alpha))
+        if (phi_alpha > (phi0 + options.parameter_line_search_goldstein_rho * dphi0 * alpha))
         {
             b = alpha;
             alpha = (a + b) / 2.0;
             k++;
             continue;
         }
-        if (phi_alpha < (phi0 + (1 - options.parameter_line_search_goldstein_p) * dphi0 * alpha))
+        if (phi_alpha < (phi0 + (1 - options.parameter_line_search_goldstein_rho) * dphi0 * alpha))
         {
             a = alpha;
             if (b == std::numeric_limits<FLOAT>::max())

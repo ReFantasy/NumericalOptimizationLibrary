@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['minstepsize_0',['MinStepSize',['../class_n_o_l_1_1_min_step_size.html',1,'NOL']]],
-  ['minstepsize_3c_20float_20_3e_1',['MinStepSize&lt; float &gt;',['../class_n_o_l_1_1_min_step_size_3_01float_01_4.html',1,'NOL']]]
+  ['min_5fstep_5fsize_0',['min_step_size',['../class_n_o_l_1_1_options.html#a36bc4687effc086cc4f15c064dc97bb2',1,'NOL::Options']]],
+  ['minstepsize_1',['MinStepSize',['../class_n_o_l_1_1_min_step_size.html',1,'NOL']]],
+  ['minstepsize_3c_20float_20_3e_2',['MinStepSize&lt; float &gt;',['../class_n_o_l_1_1_min_step_size_3_01float_01_4.html',1,'NOL']]]
 ];
