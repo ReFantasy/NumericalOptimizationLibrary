@@ -100,6 +100,8 @@ class Options
     FLOAT parameter_line_search_advance_and_retreat_h = 1.0;
     FLOAT parameter_line_search_advance_and_retreat_t = 1.5;
 
+    FLOAT parameter_line_search_min_gold_section = 10e-3;
+
     FLOAT parameter_line_search_armijo_rho = 10e-3;
 
     FLOAT parameter_line_search_goldstein_rho = 0.15;
@@ -157,6 +159,7 @@ class Options
 class UnconstrainedOptimizationLineSearchBase
 {
   public:
+      virtual ~UnconstrainedOptimizationLineSearchBase() {}
     /**
      * @brief Find the optimal solution of function
      * @param fucntor Function object

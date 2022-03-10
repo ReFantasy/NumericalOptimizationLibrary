@@ -10,7 +10,7 @@ void example_3_1()
     {
         virtual FLOAT operator()(const Vector& x) const override
         {
-            return true;
+            return x.transpose() * G * x + (FLOAT)(b.transpose() * x) + c;
         }
         virtual Vector Gradient(const Vector& x) const override
         {
@@ -27,25 +27,20 @@ void example_3_1()
     };
 
     Functor functor;
-
-    Vector init_x(2);
-    init_x << -30, 100;
-
+    functor.b << 2, 3;
     functor.G << 21, 4, 4, 15;
     //functor.G << 21, 4, 4, 1;
-    functor.b << 2, 3;
-
 
     Options options;
-    options.init_x = init_x;
-    options.line_search_type = LineSearchType::GOLDENSECTION;
-    options.parameter_line_search_advance_and_retreat_h = 1.5;
-    options.parameter_line_search_advance_and_retreat_t = 1.5;
-    options.optimized_performance = true;
-    SteepestDescent sd;
-    sd._functor = &functor;
-    sd._options = &options;
 
+    Vector x(2);
+    x << -30, 100;
+    options.init_x = x;
+    options.gk_norm = 10e-5;
+
+    
+    SteepestDescent sd(&functor, &options);
+    //sd._options = &options;
     std::cout << sd.Solve() << std::endl;
 }
 

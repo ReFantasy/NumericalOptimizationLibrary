@@ -17,7 +17,9 @@ namespace NOL
 class SteepestDescent : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-    SteepestDescent();
+    SteepestDescent(TargetFunctor *functor);
+    SteepestDescent(TargetFunctor* functor, Options *);
+    ~SteepestDescent()override;
     bool IsTerminated(const Vector &xk, int k) const override;
 
     Vector SearchDirection(const Vector &xk) const override;

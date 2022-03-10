@@ -40,7 +40,7 @@ FLOAT LinearSearch::GoldenMethod(FLOAT alpha, const Options &options)
     FLOAT secton_a, secton_b;
     AdvanceAndRetreat(alpha, options.parameter_line_search_advance_and_retreat_h,
                       options.parameter_line_search_advance_and_retreat_t, secton_a, secton_b);
-    return GoldenSection(secton_a, secton_b, MinStepSize<FLOAT>::value);
+    return GoldenSection(secton_a, secton_b, options.parameter_line_search_min_gold_section);
 }
 
 FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
