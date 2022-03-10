@@ -37,7 +37,7 @@ FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
     _line_search->SetTargetFunctor(_functor);
     _line_search->SetXk(xk);
     _line_search->SetDk(dk);
-    return  _line_search->Search(1.0, *_options);
+    return _line_search->Search(1.0, *_options);
 }
 
 NOL::Vector QuasiNewton::Solve()
@@ -103,7 +103,7 @@ Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
         FLOAT a = 1.0 + (FLOAT)(yk.transpose() * Hk * yk) / d;
         Matrix b = (sk * sk.transpose()) / d;
         Matrix c = sk * yk.transpose() * Hk + Hk * yk * sk.transpose();
-        
+
         return Hk + a * b - c / d;
     }
 

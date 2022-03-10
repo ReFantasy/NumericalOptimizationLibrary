@@ -4,37 +4,36 @@
 namespace NOL
 {
 
-    LinearSearch::LinearSearch(TargetFunctor* functor ) : _functor(functor)
+LinearSearch::LinearSearch(TargetFunctor *functor) : _functor(functor)
+{
+}
+
+FLOAT LinearSearch::Search(FLOAT alpha, const Options &options)
+{
+    FLOAT step_length = alpha;
+
+    switch (options.line_search_type)
     {
-
+    case LineSearchType::GOLDENSECTION:
+        step_length = GoldenMethod(alpha, options);
+        break;
+    case LineSearchType::ARMIJO:
+        step_length = Armijo(alpha, options);
+        break;
+    case LineSearchType::GOLDSTEIN:
+        step_length = Goldstein(alpha, options);
+        break;
+    case LineSearchType::WOLFE:
+        step_length = Wolfe(alpha, options);
+        break;
+    case LineSearchType::STRONGWOLFE:
+        step_length = StrongWolfe(alpha, options);
+        break;
+    default:
+        step_length = 1.0;
     }
-
-    FLOAT LinearSearch::Search(FLOAT alpha, const Options& options)
-    {
-        FLOAT step_length = alpha;
-
-        switch (options.line_search_type)
-        {
-        case LineSearchType::GOLDENSECTION:
-            step_length = GoldenMethod(alpha, options);
-            break;
-        case LineSearchType::ARMIJO:
-            step_length = Armijo(alpha, options);
-            break;
-        case LineSearchType::GOLDSTEIN:
-            step_length = Goldstein(alpha, options);
-            break;
-        case LineSearchType::WOLFE:
-            step_length = Wolfe(alpha, options);
-            break;
-        case LineSearchType::STRONGWOLFE:
-            step_length = StrongWolfe(alpha, options);
-            break;
-        default:
-            step_length = 1.0;
-        }
-        return step_length;
-    }
+    return step_length;
+}
 
 FLOAT LinearSearch::GoldenMethod(FLOAT alpha, const Options &options)
 {
@@ -58,9 +57,9 @@ FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
     {
         FLOAT phi_alpha = phi(alpha);
 
-        if (phi_alpha < (phi0 +  rho* dphi0 * alpha))
+        if (phi_alpha < (phi0 + rho * dphi0 * alpha))
         {
-           break;
+            break;
         }
         FLOAT tmp = alpha;
         alpha = Interpolation(last_alpha, alpha, k);
@@ -74,12 +73,10 @@ FLOAT LinearSearch::CubicInterpolationMinimum(FLOAT last_alpha, FLOAT alpha)
 {
     FLOAT c = dphi_da(0.0);
     Matrix m(2, 2);
-    m << last_alpha * last_alpha, -alpha * alpha,
-        -last_alpha * last_alpha * last_alpha, alpha* alpha* alpha;
+    m << last_alpha * last_alpha, -alpha * alpha, -last_alpha * last_alpha * last_alpha, alpha * alpha * alpha;
 
     Vector v(2);
-    v << (phi(alpha) - phi(0) - dphi_da(0) * alpha),
-        (phi(last_alpha) - phi(0) - dphi_da(0) * last_alpha);
+    v << (phi(alpha) - phi(0) - dphi_da(0) * alpha), (phi(last_alpha) - phi(0) - dphi_da(0) * last_alpha);
     Vector res = (m * v) / (last_alpha * last_alpha * alpha * alpha * (alpha - last_alpha));
     FLOAT a = res(0);
     FLOAT b = res(1);
@@ -92,7 +89,7 @@ FLOAT LinearSearch::Interpolation(FLOAT last_alpha, FLOAT alpha, int k /*= 0*/)
 {
     if (k == 0)
     {
-       
+
         return QuadraticInterpolationMinimum(0, alpha);
     }
     else
@@ -135,7 +132,7 @@ FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
     return alpha;
 }
 
-FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options& options)
+FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options &options)
 {
     FLOAT a = 0.0;
     FLOAT b = std::numeric_limits<FLOAT>::max();
@@ -152,13 +149,13 @@ FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options& options)
             k++;
             continue;
         }
-        if (dphi_da(alpha) < options.parameter_line_search_wolfe_sigma*dphi0)
+        if (dphi_da(alpha) < options.parameter_line_search_wolfe_sigma * dphi0)
         {
             a = alpha;
             if (b == std::numeric_limits<FLOAT>::max())
                 alpha = a * 2;
             else
-                alpha = std::min(2.0*alpha, (a + b) / 2.0) ;
+                alpha = std::min(2.0 * alpha, (a + b) / 2.0);
 
             k++;
             continue;
@@ -169,8 +166,6 @@ FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options& options)
 
     return alpha;
 }
-
-
 
 FLOAT LinearSearch::phi(FLOAT a)
 {
@@ -228,7 +223,7 @@ void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &sec
 
 /**
  * @brief convergence rate: k > log_r{epsilon/(b-a)}
-*/
+ */
 FLOAT LinearSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
 {
     FLOAT a = secton_a;
@@ -255,14 +250,12 @@ FLOAT LinearSearch::QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2)
     return a1 - (a1 - a2) / 2.0 / (1 - (phi(a1) - phi(a2)) / ((a1 - a2) * dphi_da(a1)));
 }
 
-
-FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options& options)
+FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;
-    auto choose = [](FLOAT a, FLOAT b)
-    {
-        if (std::max(a,b) != std::numeric_limits<FLOAT>::max())
+    auto choose = [](FLOAT a, FLOAT b) {
+        if (std::max(a, b) != std::numeric_limits<FLOAT>::max())
         {
             return (a + b) / 2.0;
         }
@@ -294,9 +287,6 @@ FLOAT LinearSearch::StrongWolfe(FLOAT alpha, const Options& options)
     }
 }
 
-
-
-
 FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
 {
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
@@ -309,10 +299,9 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
             // assert(phi(ahi) < phi(0));
             return std::max(ahi, alo);
         }
-        FLOAT aj = (alo+ ahi)/2.0;
+        FLOAT aj = (alo + ahi) / 2.0;
         FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
-        if ((phi(aj) > tmp) ||
-            (phi(aj) >= phi(alo)))
+        if ((phi(aj) > tmp) || (phi(aj) >= phi(alo)))
         {
             ahi = aj;
         }
@@ -327,7 +316,5 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
         }
     }
 }
-
-
 
 } // namespace NOL

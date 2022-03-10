@@ -20,17 +20,15 @@ using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 
-template<typename T>
-class MinStepSize
+template <typename T> class MinStepSize
 {
-public:
+  public:
     static constexpr T value = 1e-9;
 };
 
-template<>
-class MinStepSize<float>
+template <> class MinStepSize<float>
 {
-public:
+  public:
     static constexpr float value = 1e-5;
 };
 
@@ -73,7 +71,6 @@ enum class LineSearchType
     STRONGWOLFE
 };
 
-
 enum class QuasiNewtonSearchType
 {
     SR1,
@@ -96,7 +93,6 @@ class Options
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
-
 
   public:
     FLOAT parameter_line_search_advance_and_retreat_alpha = 1.0;

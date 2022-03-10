@@ -20,51 +20,73 @@ namespace NOL
 class LinearSearch
 {
   public:
-    LinearSearch(TargetFunctor* functor = nullptr);
+    /**
+     * @brief 构造函数
+     * @param functor 目标函数的指针
+     */
+    LinearSearch(TargetFunctor *functor = nullptr);
 
     /**
      * @brief 线搜索
      * @param alpha 初始步长
      * @param options 搜索选项
      * @return 线搜索的步长结果
-    */
-    FLOAT Search(FLOAT alpha, const Options& options);
+     */
+    FLOAT Search(FLOAT alpha, const Options &options);
 
     /**
      * @brief 设置当前迭代点
      * @param xk 迭代点位置
-    */
-    void SetXk(Vector xk) { _xk = xk; }
+     */
+    void SetXk(Vector xk)
+    {
+        _xk = xk;
+    }
 
     /**
      * @brief 设置线目标函数下降方向
      * @param dk 下降方向
-    */
-    void SetDk(Vector dk) { _dk = dk; }
+     */
+    void SetDk(Vector dk)
+    {
+        _dk = dk;
+    }
 
     /**
      * @brief 获取当前迭代位置
-     * @return 
-    */
-    Vector Xk()const { return _xk; }
+     * @return
+     */
+    Vector Xk() const
+    {
+        return _xk;
+    }
 
     /**
      * @brief 获取当前目标函数下降方向
-     * @return 
-    */
-    Vector Dk()const { return _dk; }
+     * @return
+     */
+    Vector Dk() const
+    {
+        return _dk;
+    }
 
     /**
      * @brief 设置目标函数
      * @param functor 目标函数指针
-    */
-    void SetTargetFunctor(TargetFunctor* functor) { _functor = functor; }
+     */
+    void SetTargetFunctor(TargetFunctor *functor)
+    {
+        _functor = functor;
+    }
 
     /**
      * @brief 获取目标函数
      * @return 目标函数指针
-    */
-    const TargetFunctor* TargetFunctorPointer()const { return _functor; }
+     */
+    const TargetFunctor *TargetFunctorPointer() const
+    {
+        return _functor;
+    }
 
   protected:
     /**
@@ -77,25 +99,39 @@ class LinearSearch
      * @return 线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长
      */
     FLOAT GoldenMethod(FLOAT alpha, const Options &options); //√
-    
 
+    /**
+     * @brief 非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间
+     *        在区间的迭代过程中，首先使用二次插值，若不满足条件，则进行三次插值
+     * @param alpha 步长
+     * @param options 参数选项
+     * @return 一维搜索的步长
+     */
     FLOAT Armijo(FLOAT alpha, const Options &options);
+
     FLOAT Goldstein(FLOAT alpha, const Options &options);
-    FLOAT Wolfe(FLOAT alpha, const Options& options);
-    FLOAT StrongWolfe(FLOAT alpha, const Options& options);
+
+    FLOAT Wolfe(FLOAT alpha, const Options &options);
+
+    /**
+     * @brief Strong Wolfe condition line search.  This implementation
+     *        is based on the pseudo-code algorithm presented in Nocedal & Wright [1] (p60-61)
+     *        [1] Nocedal J., Wright S., Numerical Optimization, 2nd Ed., Springer, 1999.
+     *
+     * @param alpha 步长
+     * @param options 参数选项
+     * @return 一维搜索的步长
+     */
+    FLOAT StrongWolfe(FLOAT alpha, const Options &options);
 
   protected:
-    void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b);//√
-    
-    FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);//√
-
+    void AdvanceAndRetreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b); //√
+    FLOAT GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon = 10e-3);            //√
     FLOAT QuadraticInterpolationMinimum(FLOAT a1, FLOAT a2);
     FLOAT CubicInterpolationMinimum(FLOAT last_alpha, FLOAT alpha);
-
     FLOAT Interpolation(FLOAT last_alpha, FLOAT alpha, int k = 0);
-    
 
-protected:
+  protected:
     /**
      * @brief 线搜索函数 phi(a) = f( xk + a*dk ), a>0,
      * 其中，xk 为优化函数 f(x) 当前迭代点，dk 为迭代下降方向，xk,dk可以通过类继承的方式定义为成员变量，
@@ -107,12 +143,12 @@ protected:
 
     virtual FLOAT dphi_da(FLOAT a);
 
-    FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options& options);
-   
-private:
+    FLOAT Zoom(FLOAT alpha_lo, FLOAT alpha_hi, const Options &options);
+
+  private:
     Vector _xk;
     Vector _dk;
-    TargetFunctor* _functor = nullptr;
+    TargetFunctor *_functor = nullptr;
 };
 } // namespace NOL
 #endif //__LINE_SEARCH_H__
