@@ -157,18 +157,13 @@ void example()
     std::cout << std::endl;
     
 
-    /*Vector x(2);
-    x(0) =  1;
-    x(1) = 2;
-    std::cout << functor.FirstOrderDerivatives(x) << std::endl;*/
     Options options;
     options.line_search_type = LineSearchType::GOLDSTEIN;
     options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
     options.parameter_line_search_armijo_rho = 1e-3;
     options.parameter_line_search_wolfe_rho = 1e-3;
     options.parameter_line_search_wolfe_sigma = 0.01;
-    //options.parameter_line_search_wolfe_alpha_max = 2000;
-    //options.optimized_performance = true;
+    
     options.init_x = x;
 
     LinearSearch line_search;
@@ -212,5 +207,5 @@ void example()
 	Timer timer;
 	Vector res = newton->Solve();
 	std::cout<<timer.Elapse()<<"ms"<<std::endl;
-    //std::cout << functor(newton->Solve()) << std::endl;
+    
 }
