@@ -105,10 +105,16 @@ class LinearSearch
      *        在区间的迭代过程中，首先使用二次插值，若不满足条件，则进行三次插值
      * @param alpha 步长
      * @param options 参数选项
-     * @return 一维搜索的步长
+     * @return 一维搜索的步长 $f(x) = x^2$
      */
     FLOAT Armijo(FLOAT alpha, const Options &options);
 
+    /**
+     * @brief 非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间
+     * @param alpha 步长
+     * @param options 参数选项
+     * @return 一维搜索的步长
+     */
     FLOAT Goldstein(FLOAT alpha, const Options &options);
 
     FLOAT Wolfe(FLOAT alpha, const Options &options);
