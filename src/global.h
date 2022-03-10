@@ -8,11 +8,12 @@
  */
 #ifndef __GLOBAL_H__
 #define __GLOBAL_H__
-#include "Eigen/Dense"
-#include <chrono>
 #include <iostream>
 #include <limits>
+#include <random>
 #include <sstream>
+#include <chrono>
+#include "Eigen/Dense"
 
 namespace NOL
 {
@@ -87,8 +88,9 @@ class Options
     Vector init_x;
     FLOAT gk_norm = 1e-6;
 
-    // If during the line search, the step_size falls below this
-    // value, it is truncated to zero.
+    /**
+     * If during the line search, the step_size falls below this value, it is truncated to zero.
+     */
     FLOAT min_step_size = MinStepSize<FLOAT>::value;
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
@@ -102,7 +104,7 @@ class Options
     FLOAT parameter_line_search_golden_section_size = 1e-3;
 
     FLOAT parameter_line_search_armijo_rho = 0.001;
-    FLOAT parameter_line_search_armijo_t = 2.0; // >1
+    FLOAT parameter_line_search_armijo_t = 2.0; 
 
     FLOAT parameter_line_search_goldstein_p = 0.25;
 
@@ -213,6 +215,16 @@ class Timer
   private:
     std::chrono::high_resolution_clock::time_point _start_time;
 };
+
+template <typename T, typename Distribution = std::uniform_real_distribution<T>>
+T RandomNumber(const T& lo = 0, const T& hi = 1)
+{
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    Distribution dist(lo, hi);
+    return dist(rng);
+
+}
 
 } // namespace NOL
 

@@ -150,11 +150,11 @@ void example()
     {
         if (i % 2 == 0)
         {
-            x(i) = rand()%100;
+            x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
         }
         else
         {
-            x(i) = -rand()%100;
+            x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
         }
         std::cout << x(i) << ", " ;
     }
