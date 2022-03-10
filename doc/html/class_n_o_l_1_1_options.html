@@ -5,13 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Numerical Optimization Library: NOL::Options Class Reference</title>
+<title>NOL: NOL::Options Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +31,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Numerical Optimization Library
+   <div id="projectname">NOL
    </div>
   </td>
  </tr>
@@ -81,427 +91,79 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a314f639e1077e890919212fbc34100cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a314f639e1077e890919212fbc34100cb">Summary</a> () const</td></tr>
-<tr class="memdesc:a314f639e1077e890919212fbc34100cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output iteration record of optimization process.  <a href="class_n_o_l_1_1_options.html#a314f639e1077e890919212fbc34100cb">More...</a><br /></td></tr>
+<tr class="memitem:a314f639e1077e890919212fbc34100cb"><td class="memItemLeft" align="right" valign="top"><a id="a314f639e1077e890919212fbc34100cb" name="a314f639e1077e890919212fbc34100cb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Summary</b> () const</td></tr>
+<tr class="memdesc:a314f639e1077e890919212fbc34100cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output iteration record of optimization process. <br /></td></tr>
 <tr class="separator:a314f639e1077e890919212fbc34100cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ff6f6221a69ee925b7c5d063fd594b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a2ff6f6221a69ee925b7c5d063fd594b1">ClearLog</a> ()</td></tr>
-<tr class="memdesc:a2ff6f6221a69ee925b7c5d063fd594b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear all records and logs.  <a href="class_n_o_l_1_1_options.html#a2ff6f6221a69ee925b7c5d063fd594b1">More...</a><br /></td></tr>
+<tr class="memitem:a2ff6f6221a69ee925b7c5d063fd594b1"><td class="memItemLeft" align="right" valign="top"><a id="a2ff6f6221a69ee925b7c5d063fd594b1" name="a2ff6f6221a69ee925b7c5d063fd594b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearLog</b> ()</td></tr>
+<tr class="memdesc:a2ff6f6221a69ee925b7c5d063fd594b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear all records and logs. <br /></td></tr>
 <tr class="separator:a2ff6f6221a69ee925b7c5d063fd594b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f1e4bba63051eb9debe9138508d56f8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9f1e4bba63051eb9debe9138508d56f8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a9f1e4bba63051eb9debe9138508d56f8">operator&lt;&lt;</a> (T content)</td></tr>
+<tr class="memitem:a9f1e4bba63051eb9debe9138508d56f8"><td class="memTemplParams" colspan="2"><a id="a9f1e4bba63051eb9debe9138508d56f8" name="a9f1e4bba63051eb9debe9138508d56f8"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9f1e4bba63051eb9debe9138508d56f8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&lt;&lt;</b> (T content)</td></tr>
 <tr class="separator:a9f1e4bba63051eb9debe9138508d56f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a129a999e9094d137903da9492ea37bb2"><td class="memItemLeft" align="right" valign="top">Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a129a999e9094d137903da9492ea37bb2">init_x</a></td></tr>
+<tr class="memitem:a129a999e9094d137903da9492ea37bb2"><td class="memItemLeft" align="right" valign="top"><a id="a129a999e9094d137903da9492ea37bb2" name="a129a999e9094d137903da9492ea37bb2"></a>
+Vector&#160;</td><td class="memItemRight" valign="bottom"><b>init_x</b></td></tr>
 <tr class="separator:a129a999e9094d137903da9492ea37bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedfc7619b754dee3f3740659ff12ee80"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#aedfc7619b754dee3f3740659ff12ee80">gk_norm</a> = 1e-6</td></tr>
+<tr class="memitem:aedfc7619b754dee3f3740659ff12ee80"><td class="memItemLeft" align="right" valign="top"><a id="aedfc7619b754dee3f3740659ff12ee80" name="aedfc7619b754dee3f3740659ff12ee80"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>gk_norm</b> = 1e-6</td></tr>
 <tr class="separator:aedfc7619b754dee3f3740659ff12ee80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36bc4687effc086cc4f15c064dc97bb2"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a36bc4687effc086cc4f15c064dc97bb2">min_step_size</a> = <a class="el" href="class_n_o_l_1_1_min_step_size.html">MinStepSize</a>&lt;FLOAT&gt;::value</td></tr>
+<tr class="memitem:a36bc4687effc086cc4f15c064dc97bb2"><td class="memItemLeft" align="right" valign="top"><a id="a36bc4687effc086cc4f15c064dc97bb2" name="a36bc4687effc086cc4f15c064dc97bb2"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>min_step_size</b> = <a class="el" href="class_n_o_l_1_1_min_step_size.html">MinStepSize</a>&lt;FLOAT&gt;::value</td></tr>
 <tr class="separator:a36bc4687effc086cc4f15c064dc97bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58e3b4e87db503ac717d39752969e89a"><td class="memItemLeft" align="right" valign="top">LineSearchType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a58e3b4e87db503ac717d39752969e89a">line_search_type</a> = LineSearchType::GOLDSTEIN</td></tr>
+<tr class="memitem:a58e3b4e87db503ac717d39752969e89a"><td class="memItemLeft" align="right" valign="top"><a id="a58e3b4e87db503ac717d39752969e89a" name="a58e3b4e87db503ac717d39752969e89a"></a>
+LineSearchType&#160;</td><td class="memItemRight" valign="bottom"><b>line_search_type</b> = LineSearchType::GOLDSTEIN</td></tr>
 <tr class="separator:a58e3b4e87db503ac717d39752969e89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacb53885aade7ab6ee0832a296e7337f"><td class="memItemLeft" align="right" valign="top">QuasiNewtonSearchType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#aacb53885aade7ab6ee0832a296e7337f">quasi_newton_type</a> = QuasiNewtonSearchType::DFP</td></tr>
+<tr class="memitem:aacb53885aade7ab6ee0832a296e7337f"><td class="memItemLeft" align="right" valign="top"><a id="aacb53885aade7ab6ee0832a296e7337f" name="aacb53885aade7ab6ee0832a296e7337f"></a>
+QuasiNewtonSearchType&#160;</td><td class="memItemRight" valign="bottom"><b>quasi_newton_type</b> = QuasiNewtonSearchType::DFP</td></tr>
 <tr class="separator:aacb53885aade7ab6ee0832a296e7337f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bd665a7efe701f4cc63ac5e75793bbd"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a9bd665a7efe701f4cc63ac5e75793bbd">parameter_line_search_advance_and_retreat_alpha</a> = 1.0</td></tr>
+<tr class="memitem:a9bd665a7efe701f4cc63ac5e75793bbd"><td class="memItemLeft" align="right" valign="top"><a id="a9bd665a7efe701f4cc63ac5e75793bbd" name="a9bd665a7efe701f4cc63ac5e75793bbd"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_advance_and_retreat_alpha</b> = 1.0</td></tr>
 <tr class="separator:a9bd665a7efe701f4cc63ac5e75793bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a180e35774c6912a8ac421e6a92d4251b"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a180e35774c6912a8ac421e6a92d4251b">parameter_line_search_advance_and_retreat_h</a> = 1.0</td></tr>
+<tr class="memitem:a180e35774c6912a8ac421e6a92d4251b"><td class="memItemLeft" align="right" valign="top"><a id="a180e35774c6912a8ac421e6a92d4251b" name="a180e35774c6912a8ac421e6a92d4251b"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_advance_and_retreat_h</b> = 1.0</td></tr>
 <tr class="separator:a180e35774c6912a8ac421e6a92d4251b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fd5428b9405c2ed9a5d44ab8d6bfcf9"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a4fd5428b9405c2ed9a5d44ab8d6bfcf9">parameter_line_search_advance_and_retreat_t</a> = 2</td></tr>
+<tr class="memitem:a4fd5428b9405c2ed9a5d44ab8d6bfcf9"><td class="memItemLeft" align="right" valign="top"><a id="a4fd5428b9405c2ed9a5d44ab8d6bfcf9" name="a4fd5428b9405c2ed9a5d44ab8d6bfcf9"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_advance_and_retreat_t</b> = 2</td></tr>
 <tr class="separator:a4fd5428b9405c2ed9a5d44ab8d6bfcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45db01bb726a43deb825ac793f88ad70"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a45db01bb726a43deb825ac793f88ad70">parameter_line_search_golden_section_size</a> = 1e-3</td></tr>
+<tr class="memitem:a45db01bb726a43deb825ac793f88ad70"><td class="memItemLeft" align="right" valign="top"><a id="a45db01bb726a43deb825ac793f88ad70" name="a45db01bb726a43deb825ac793f88ad70"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_golden_section_size</b> = 1e-3</td></tr>
 <tr class="separator:a45db01bb726a43deb825ac793f88ad70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56641cc1ff9c466d02d3ca129da8329f"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a56641cc1ff9c466d02d3ca129da8329f">parameter_line_search_armijo_rho</a> = 0.001</td></tr>
+<tr class="memitem:a56641cc1ff9c466d02d3ca129da8329f"><td class="memItemLeft" align="right" valign="top"><a id="a56641cc1ff9c466d02d3ca129da8329f" name="a56641cc1ff9c466d02d3ca129da8329f"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_armijo_rho</b> = 0.001</td></tr>
 <tr class="separator:a56641cc1ff9c466d02d3ca129da8329f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd7b3fcff7baa16076c7e3ee8851cb30"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#abd7b3fcff7baa16076c7e3ee8851cb30">parameter_line_search_armijo_t</a> = 2.0</td></tr>
+<tr class="memitem:abd7b3fcff7baa16076c7e3ee8851cb30"><td class="memItemLeft" align="right" valign="top"><a id="abd7b3fcff7baa16076c7e3ee8851cb30" name="abd7b3fcff7baa16076c7e3ee8851cb30"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_armijo_t</b> = 2.0</td></tr>
 <tr class="separator:abd7b3fcff7baa16076c7e3ee8851cb30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e4023c5d4c6944cc6d0fd7ed8528017"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a6e4023c5d4c6944cc6d0fd7ed8528017">parameter_line_search_goldstein_p</a> = 0.25</td></tr>
+<tr class="memitem:a6e4023c5d4c6944cc6d0fd7ed8528017"><td class="memItemLeft" align="right" valign="top"><a id="a6e4023c5d4c6944cc6d0fd7ed8528017" name="a6e4023c5d4c6944cc6d0fd7ed8528017"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_goldstein_p</b> = 0.25</td></tr>
 <tr class="separator:a6e4023c5d4c6944cc6d0fd7ed8528017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64835c4de390df6f825d9cc67994edbf"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a64835c4de390df6f825d9cc67994edbf">parameter_line_search_wolfe_rho</a> = 0.1</td></tr>
+<tr class="memitem:a64835c4de390df6f825d9cc67994edbf"><td class="memItemLeft" align="right" valign="top"><a id="a64835c4de390df6f825d9cc67994edbf" name="a64835c4de390df6f825d9cc67994edbf"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_wolfe_rho</b> = 0.1</td></tr>
 <tr class="separator:a64835c4de390df6f825d9cc67994edbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9960c88fa0e05bf319783e5d0c9d96ca"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a9960c88fa0e05bf319783e5d0c9d96ca">parameter_line_search_wolfe_sigma</a> = 0.5</td></tr>
+<tr class="memitem:a9960c88fa0e05bf319783e5d0c9d96ca"><td class="memItemLeft" align="right" valign="top"><a id="a9960c88fa0e05bf319783e5d0c9d96ca" name="a9960c88fa0e05bf319783e5d0c9d96ca"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_wolfe_sigma</b> = 0.5</td></tr>
 <tr class="separator:a9960c88fa0e05bf319783e5d0c9d96ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ab9a61cd050a5589f242b71269c2a9"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a89ab9a61cd050a5589f242b71269c2a9">parameter_line_search_wolfe_alpha_max</a> = std::numeric_limits&lt;FLOAT&gt;::max()</td></tr>
+<tr class="memitem:a89ab9a61cd050a5589f242b71269c2a9"><td class="memItemLeft" align="right" valign="top"><a id="a89ab9a61cd050a5589f242b71269c2a9" name="a89ab9a61cd050a5589f242b71269c2a9"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_wolfe_alpha_max</b> = std::numeric_limits&lt;FLOAT&gt;::max()</td></tr>
 <tr class="separator:a89ab9a61cd050a5589f242b71269c2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0ce72f95192e782c39944d3ac2de152"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#aa0ce72f95192e782c39944d3ac2de152">print_log_to_stdio</a> = true</td></tr>
-<tr class="memdesc:aa0ce72f95192e782c39944d3ac2de152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output to standard I / O device.  <a href="class_n_o_l_1_1_options.html#aa0ce72f95192e782c39944d3ac2de152">More...</a><br /></td></tr>
+<tr class="memitem:aa0ce72f95192e782c39944d3ac2de152"><td class="memItemLeft" align="right" valign="top"><a id="aa0ce72f95192e782c39944d3ac2de152" name="aa0ce72f95192e782c39944d3ac2de152"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>print_log_to_stdio</b> = true</td></tr>
+<tr class="memdesc:aa0ce72f95192e782c39944d3ac2de152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output to standard I / O device. <br /></td></tr>
 <tr class="separator:aa0ce72f95192e782c39944d3ac2de152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cbf40db744e5fa7ec8cee0825f75dad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a3cbf40db744e5fa7ec8cee0825f75dad">optimized_performance</a> = false</td></tr>
-<tr class="memdesc:a3cbf40db744e5fa7ec8cee0825f75dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">if true, no optimization process data will be output and recorded  <a href="class_n_o_l_1_1_options.html#a3cbf40db744e5fa7ec8cee0825f75dad">More...</a><br /></td></tr>
+<tr class="memitem:a3cbf40db744e5fa7ec8cee0825f75dad"><td class="memItemLeft" align="right" valign="top"><a id="a3cbf40db744e5fa7ec8cee0825f75dad" name="a3cbf40db744e5fa7ec8cee0825f75dad"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>optimized_performance</b> = false</td></tr>
+<tr class="memdesc:a3cbf40db744e5fa7ec8cee0825f75dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">if true, no optimization process data will be output and recorded <br /></td></tr>
 <tr class="separator:a3cbf40db744e5fa7ec8cee0825f75dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="class_n_o_l_1_1_options.html" title="Options for optimizing algorithms.">Options</a> for optimizing algorithms. </p>
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00084">84</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ff6f6221a69ee925b7c5d063fd594b1" name="a2ff6f6221a69ee925b7c5d063fd594b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ff6f6221a69ee925b7c5d063fd594b1">&#9670;&nbsp;</a></span>ClearLog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NOL::Options::ClearLog </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear all records and logs. </p>
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00136">136</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a9f1e4bba63051eb9debe9138508d56f8" name="a9f1e4bba63051eb9debe9138508d56f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f1e4bba63051eb9debe9138508d56f8">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp; NOL::Options::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>content</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00141">141</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a314f639e1077e890919212fbc34100cb" name="a314f639e1077e890919212fbc34100cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a314f639e1077e890919212fbc34100cb">&#9670;&nbsp;</a></span>Summary()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NOL::Options::Summary </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Output iteration record of optimization process. </p>
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00128">128</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aedfc7619b754dee3f3740659ff12ee80" name="aedfc7619b754dee3f3740659ff12ee80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedfc7619b754dee3f3740659ff12ee80">&#9670;&nbsp;</a></span>gk_norm</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::gk_norm = 1e-6</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00088">88</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a129a999e9094d137903da9492ea37bb2" name="a129a999e9094d137903da9492ea37bb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a129a999e9094d137903da9492ea37bb2">&#9670;&nbsp;</a></span>init_x</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Vector NOL::Options::init_x</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00087">87</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a58e3b4e87db503ac717d39752969e89a" name="a58e3b4e87db503ac717d39752969e89a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58e3b4e87db503ac717d39752969e89a">&#9670;&nbsp;</a></span>line_search_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">LineSearchType NOL::Options::line_search_type = LineSearchType::GOLDSTEIN</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00094">94</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a36bc4687effc086cc4f15c064dc97bb2" name="a36bc4687effc086cc4f15c064dc97bb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36bc4687effc086cc4f15c064dc97bb2">&#9670;&nbsp;</a></span>min_step_size</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::min_step_size = <a class="el" href="class_n_o_l_1_1_min_step_size.html">MinStepSize</a>&lt;FLOAT&gt;::value</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00092">92</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a3cbf40db744e5fa7ec8cee0825f75dad" name="a3cbf40db744e5fa7ec8cee0825f75dad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cbf40db744e5fa7ec8cee0825f75dad">&#9670;&nbsp;</a></span>optimized_performance</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool NOL::Options::optimized_performance = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>if true, no optimization process data will be output and recorded </p>
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00122">122</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a9bd665a7efe701f4cc63ac5e75793bbd" name="a9bd665a7efe701f4cc63ac5e75793bbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bd665a7efe701f4cc63ac5e75793bbd">&#9670;&nbsp;</a></span>parameter_line_search_advance_and_retreat_alpha</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_advance_and_retreat_alpha = 1.0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00098">98</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a180e35774c6912a8ac421e6a92d4251b" name="a180e35774c6912a8ac421e6a92d4251b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a180e35774c6912a8ac421e6a92d4251b">&#9670;&nbsp;</a></span>parameter_line_search_advance_and_retreat_h</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_advance_and_retreat_h = 1.0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00099">99</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a4fd5428b9405c2ed9a5d44ab8d6bfcf9" name="a4fd5428b9405c2ed9a5d44ab8d6bfcf9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fd5428b9405c2ed9a5d44ab8d6bfcf9">&#9670;&nbsp;</a></span>parameter_line_search_advance_and_retreat_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_advance_and_retreat_t = 2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00100">100</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a56641cc1ff9c466d02d3ca129da8329f" name="a56641cc1ff9c466d02d3ca129da8329f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56641cc1ff9c466d02d3ca129da8329f">&#9670;&nbsp;</a></span>parameter_line_search_armijo_rho</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_armijo_rho = 0.001</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00104">104</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="abd7b3fcff7baa16076c7e3ee8851cb30" name="abd7b3fcff7baa16076c7e3ee8851cb30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd7b3fcff7baa16076c7e3ee8851cb30">&#9670;&nbsp;</a></span>parameter_line_search_armijo_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_armijo_t = 2.0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00105">105</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a45db01bb726a43deb825ac793f88ad70" name="a45db01bb726a43deb825ac793f88ad70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45db01bb726a43deb825ac793f88ad70">&#9670;&nbsp;</a></span>parameter_line_search_golden_section_size</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_golden_section_size = 1e-3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00102">102</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a6e4023c5d4c6944cc6d0fd7ed8528017" name="a6e4023c5d4c6944cc6d0fd7ed8528017"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e4023c5d4c6944cc6d0fd7ed8528017">&#9670;&nbsp;</a></span>parameter_line_search_goldstein_p</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_goldstein_p = 0.25</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00107">107</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a89ab9a61cd050a5589f242b71269c2a9" name="a89ab9a61cd050a5589f242b71269c2a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89ab9a61cd050a5589f242b71269c2a9">&#9670;&nbsp;</a></span>parameter_line_search_wolfe_alpha_max</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_wolfe_alpha_max = std::numeric_limits&lt;FLOAT&gt;::max()</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00111">111</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a64835c4de390df6f825d9cc67994edbf" name="a64835c4de390df6f825d9cc67994edbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64835c4de390df6f825d9cc67994edbf">&#9670;&nbsp;</a></span>parameter_line_search_wolfe_rho</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_wolfe_rho = 0.1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00109">109</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a9960c88fa0e05bf319783e5d0c9d96ca" name="a9960c88fa0e05bf319783e5d0c9d96ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9960c88fa0e05bf319783e5d0c9d96ca">&#9670;&nbsp;</a></span>parameter_line_search_wolfe_sigma</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::Options::parameter_line_search_wolfe_sigma = 0.5</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00110">110</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="aa0ce72f95192e782c39944d3ac2de152" name="aa0ce72f95192e782c39944d3ac2de152"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0ce72f95192e782c39944d3ac2de152">&#9670;&nbsp;</a></span>print_log_to_stdio</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool NOL::Options::print_log_to_stdio = true</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Output to standard I / O device. </p>
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00117">117</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="aacb53885aade7ab6ee0832a296e7337f" name="aacb53885aade7ab6ee0832a296e7337f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacb53885aade7ab6ee0832a296e7337f">&#9670;&nbsp;</a></span>quasi_newton_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QuasiNewtonSearchType NOL::Options::quasi_newton_type = QuasiNewtonSearchType::DFP</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00095">95</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="global_8h_source.html">global.h</a></li>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/<a class="el" href="global_8h_source.html">global.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

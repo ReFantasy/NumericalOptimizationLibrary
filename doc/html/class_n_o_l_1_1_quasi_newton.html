@@ -5,13 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Numerical Optimization Library: NOL::QuasiNewton Class Reference</title>
+<title>NOL: NOL::QuasiNewton Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +31,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Numerical Optimization Library
+   <div id="projectname">NOL
    </div>
   </td>
  </tr>
@@ -117,67 +127,24 @@ virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Step</b> (co
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af7ae6d575ce82438646c7d5bb8bf8468"><td class="memItemLeft" align="right" valign="top">Matrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_quasi_newton.html#af7ae6d575ce82438646c7d5bb8bf8468">CorrectHk</a> (Matrix Hk, Vector sk, Vector yk)</td></tr>
+<tr class="memitem:af7ae6d575ce82438646c7d5bb8bf8468"><td class="memItemLeft" align="right" valign="top"><a id="af7ae6d575ce82438646c7d5bb8bf8468" name="af7ae6d575ce82438646c7d5bb8bf8468"></a>
+Matrix&#160;</td><td class="memItemRight" valign="bottom"><b>CorrectHk</b> (Matrix Hk, Vector sk, Vector yk)</td></tr>
 <tr class="separator:af7ae6d575ce82438646c7d5bb8bf8468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html">NOL::UnconstrainedOptimizationLineSearchBase</a></td></tr>
-<tr class="memitem:a5ebd68907d075ffaeb36e0da19f6802f inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html#a5ebd68907d075ffaeb36e0da19f6802f">_functor</a></td></tr>
+<tr class="memitem:a5ebd68907d075ffaeb36e0da19f6802f inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a id="a5ebd68907d075ffaeb36e0da19f6802f" name="a5ebd68907d075ffaeb36e0da19f6802f"></a>
+<a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_functor</b></td></tr>
 <tr class="separator:a5ebd68907d075ffaeb36e0da19f6802f inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6608fbb638631ab9698dc0bc491591cc inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_o_l_1_1_options.html">Options</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html#a6608fbb638631ab9698dc0bc491591cc">_options</a></td></tr>
+<tr class="memitem:a6608fbb638631ab9698dc0bc491591cc inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a id="a6608fbb638631ab9698dc0bc491591cc" name="a6608fbb638631ab9698dc0bc491591cc"></a>
+<a class="el" href="class_n_o_l_1_1_options.html">Options</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_options</b></td></tr>
 <tr class="separator:a6608fbb638631ab9698dc0bc491591cc inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dfc8c54efff215bfbd47dcb2c4a939e inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_o_l_1_1_linear_search.html">LinearSearch</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html#a2dfc8c54efff215bfbd47dcb2c4a939e">_line_search</a></td></tr>
+<tr class="memitem:a2dfc8c54efff215bfbd47dcb2c4a939e inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memItemLeft" align="right" valign="top"><a id="a2dfc8c54efff215bfbd47dcb2c4a939e" name="a2dfc8c54efff215bfbd47dcb2c4a939e"></a>
+<a class="el" href="class_n_o_l_1_1_linear_search.html">LinearSearch</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_line_search</b></td></tr>
 <tr class="separator:a2dfc8c54efff215bfbd47dcb2c4a939e inherit pub_attribs_class_n_o_l_1_1_unconstrained_optimization_line_search_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="newton_8h_source.html#l00028">28</a> of file <a class="el" href="newton_8h_source.html">newton.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af7ae6d575ce82438646c7d5bb8bf8468" name="af7ae6d575ce82438646c7d5bb8bf8468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7ae6d575ce82438646c7d5bb8bf8468">&#9670;&nbsp;</a></span>CorrectHk()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Matrix NOL::QuasiNewton::CorrectHk </td>
-          <td>(</td>
-          <td class="paramtype">Matrix&#160;</td>
-          <td class="paramname"><em>Hk</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector&#160;</td>
-          <td class="paramname"><em>sk</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector&#160;</td>
-          <td class="paramname"><em>yk</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="newton_8cpp_source.html#l00085">85</a> of file <a class="el" href="newton_8cpp_source.html">newton.cpp</a>.</p>
-
-</div>
-</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a19b8258ea6d49564e12532710359388f" name="a19b8258ea6d49564e12532710359388f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19b8258ea6d49564e12532710359388f">&#9670;&nbsp;</a></span>SearchDirection()</h2>
 
@@ -203,8 +170,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="class_n_o_l_1_1_newton_base.html">NOL::NewtonBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="newton_8cpp_source.html#l00078">78</a> of file <a class="el" href="newton_8cpp_source.html">newton.cpp</a>.</p>
 
 </div>
 </div>
@@ -243,13 +208,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html#aa07ff243e3cbe5c810dfa7018bd4bc66">NOL::UnconstrainedOptimizationLineSearchBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="newton_8cpp_source.html#l00043">43</a> of file <a class="el" href="newton_8cpp_source.html">newton.cpp</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="newton_8h_source.html">newton.h</a></li>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="newton_8cpp_source.html">newton.cpp</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/<a class="el" href="newton_8h_source.html">newton.h</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/newton.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

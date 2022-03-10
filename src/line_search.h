@@ -1,10 +1,6 @@
 /**
  *
- * 线搜索准则及其求步长的算法实现
- *
- * 原理：假定已得下降方向 dk，求步长 alpha 的问题为一维搜索或线搜索问题，
- *      具体来说就是求解优化的目标函数 f(x) 在 xk 位置，沿着 dk 方向，迭代到新的位置 x(k+1) = xk + alpha*dk，
- *      在 x(k+1)处时，使得 alpha 满足 f(xk(+1)) < f(xk)
+ * 一维线搜索
  *
  * Author  : ReFantasy
  * Date    : 2022-02-21
@@ -16,13 +12,16 @@
 
 namespace NOL
 {
-
+/**
+ * 假定已得下降方向 \f$ d_k \f$，求步长 \f$ \alpha \f$ ,  使得\f$ \varphi (\alpha) = f(x_k + \alpha d_k) < f(x_k) \f$的问题为一维搜索或线搜索问题。
+ *
+ */
 class LinearSearch
 {
   public:
     /**
      * @brief 构造函数
-     * @param functor 目标函数的指针
+     * @param functor 目标函数\f$ f \f$ 的指针
      */
     LinearSearch(TargetFunctor *functor = nullptr);
 
@@ -105,7 +104,7 @@ class LinearSearch
      *        在区间的迭代过程中，首先使用二次插值，若不满足条件，则进行三次插值
      * @param alpha 步长
      * @param options 参数选项
-     * @return 一维搜索的步长 $f(x) = x^2$
+     * @return 一维搜索的步长
      */
     FLOAT Armijo(FLOAT alpha, const Options &options);
 

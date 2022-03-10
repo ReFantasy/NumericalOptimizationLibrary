@@ -5,13 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Numerical Optimization Library: NOL::LinearSearch Class Reference</title>
+<title>NOL: NOL::LinearSearch Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +31,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Numerical Optimization Library
+   <div id="projectname">NOL
    </div>
   </td>
  </tr>
@@ -73,6 +83,8 @@ $(function() {
   <div class="headertitle"><div class="title">NOL::LinearSearch Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="line__search_8h_source.html">line_search.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for NOL::LinearSearch:</div>
 <div class="dyncontent">
@@ -121,33 +133,40 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae33e22b65a6fd976eda2d952a52017f9"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ae33e22b65a6fd976eda2d952a52017f9">Goldstein</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="memdesc:ae33e22b65a6fd976eda2d952a52017f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间  <a href="class_n_o_l_1_1_linear_search.html#ae33e22b65a6fd976eda2d952a52017f9">More...</a><br /></td></tr>
 <tr class="separator:ae33e22b65a6fd976eda2d952a52017f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf61f30eb6c994cfd4865dc211ef2518"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#abf61f30eb6c994cfd4865dc211ef2518">Wolfe</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
+<tr class="memitem:abf61f30eb6c994cfd4865dc211ef2518"><td class="memItemLeft" align="right" valign="top"><a id="abf61f30eb6c994cfd4865dc211ef2518" name="abf61f30eb6c994cfd4865dc211ef2518"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Wolfe</b> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="separator:abf61f30eb6c994cfd4865dc211ef2518"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4ecf2ceef7bb65e4c888f92b9b57697"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ac4ecf2ceef7bb65e4c888f92b9b57697">StrongWolfe</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="memdesc:ac4ecf2ceef7bb65e4c888f92b9b57697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strong Wolfe condition line search. This implementation is based on the pseudo-code algorithm presented in Nocedal &amp; Wright [1] (p60-61) [1] Nocedal J., Wright S., Numerical Optimization, 2nd Ed., Springer, 1999.  <a href="class_n_o_l_1_1_linear_search.html#ac4ecf2ceef7bb65e4c888f92b9b57697">More...</a><br /></td></tr>
 <tr class="separator:ac4ecf2ceef7bb65e4c888f92b9b57697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9d7cf3200d68b9c64c457149088b00a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ab9d7cf3200d68b9c64c457149088b00a">AdvanceAndRetreat</a> (FLOAT a0, FLOAT h0, FLOAT t, FLOAT &amp;secton_a, FLOAT &amp;secton_b)</td></tr>
+<tr class="memitem:ab9d7cf3200d68b9c64c457149088b00a"><td class="memItemLeft" align="right" valign="top"><a id="ab9d7cf3200d68b9c64c457149088b00a" name="ab9d7cf3200d68b9c64c457149088b00a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AdvanceAndRetreat</b> (FLOAT a0, FLOAT h0, FLOAT t, FLOAT &amp;secton_a, FLOAT &amp;secton_b)</td></tr>
 <tr class="separator:ab9d7cf3200d68b9c64c457149088b00a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a379ca80adf755b552746b73b10df2066"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a379ca80adf755b552746b73b10df2066">GoldenSection</a> (FLOAT secton_a, FLOAT secton_b, FLOAT epsilon=10e-3)</td></tr>
-<tr class="memdesc:a379ca80adf755b552746b73b10df2066"><td class="mdescLeft">&#160;</td><td class="mdescRight">convergence rate: k &gt; log_r{epsilon/(b-a)}  <a href="class_n_o_l_1_1_linear_search.html#a379ca80adf755b552746b73b10df2066">More...</a><br /></td></tr>
+<tr class="memitem:a379ca80adf755b552746b73b10df2066"><td class="memItemLeft" align="right" valign="top"><a id="a379ca80adf755b552746b73b10df2066" name="a379ca80adf755b552746b73b10df2066"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>GoldenSection</b> (FLOAT secton_a, FLOAT secton_b, FLOAT epsilon=10e-3)</td></tr>
+<tr class="memdesc:a379ca80adf755b552746b73b10df2066"><td class="mdescLeft">&#160;</td><td class="mdescRight">convergence rate: k &gt; log_r{epsilon/(b-a)} <br /></td></tr>
 <tr class="separator:a379ca80adf755b552746b73b10df2066"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a409710b2fc40911b103c7a105cc40516"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a409710b2fc40911b103c7a105cc40516">QuadraticInterpolationMinimum</a> (FLOAT a1, FLOAT a2)</td></tr>
+<tr class="memitem:a409710b2fc40911b103c7a105cc40516"><td class="memItemLeft" align="right" valign="top"><a id="a409710b2fc40911b103c7a105cc40516" name="a409710b2fc40911b103c7a105cc40516"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>QuadraticInterpolationMinimum</b> (FLOAT a1, FLOAT a2)</td></tr>
 <tr class="separator:a409710b2fc40911b103c7a105cc40516"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5b1d699ad0b2ae6cb5276546823855a"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ad5b1d699ad0b2ae6cb5276546823855a">CubicInterpolationMinimum</a> (FLOAT last_alpha, FLOAT alpha)</td></tr>
+<tr class="memitem:ad5b1d699ad0b2ae6cb5276546823855a"><td class="memItemLeft" align="right" valign="top"><a id="ad5b1d699ad0b2ae6cb5276546823855a" name="ad5b1d699ad0b2ae6cb5276546823855a"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>CubicInterpolationMinimum</b> (FLOAT last_alpha, FLOAT alpha)</td></tr>
 <tr class="separator:ad5b1d699ad0b2ae6cb5276546823855a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a433e07768e2b214e23418ce898d7e44d"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a433e07768e2b214e23418ce898d7e44d">Interpolation</a> (FLOAT last_alpha, FLOAT alpha, int k=0)</td></tr>
+<tr class="memitem:a433e07768e2b214e23418ce898d7e44d"><td class="memItemLeft" align="right" valign="top"><a id="a433e07768e2b214e23418ce898d7e44d" name="a433e07768e2b214e23418ce898d7e44d"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Interpolation</b> (FLOAT last_alpha, FLOAT alpha, int k=0)</td></tr>
 <tr class="separator:a433e07768e2b214e23418ce898d7e44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa71098a59eb3e385cba9cfe193467f9c"><td class="memItemLeft" align="right" valign="top">virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#aa71098a59eb3e385cba9cfe193467f9c">phi</a> (FLOAT a)</td></tr>
 <tr class="memdesc:aa71098a59eb3e385cba9cfe193467f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">线搜索函数 phi(a) = f( xk + a*dk ), a&gt;0, 其中，xk 为优化函数 f(x) 当前迭代点，dk 为迭代下降方向，xk,dk可以通过类继承的方式定义为成员变量， 然后针对具体问题，自定义并重载 float Phi(float) 函数  <a href="class_n_o_l_1_1_linear_search.html#aa71098a59eb3e385cba9cfe193467f9c">More...</a><br /></td></tr>
 <tr class="separator:aa71098a59eb3e385cba9cfe193467f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00425b7e633bf1e3753ac2d5bed7ff04"><td class="memItemLeft" align="right" valign="top">virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a00425b7e633bf1e3753ac2d5bed7ff04">dphi_da</a> (FLOAT a)</td></tr>
+<tr class="memitem:a00425b7e633bf1e3753ac2d5bed7ff04"><td class="memItemLeft" align="right" valign="top"><a id="a00425b7e633bf1e3753ac2d5bed7ff04" name="a00425b7e633bf1e3753ac2d5bed7ff04"></a>
+virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>dphi_da</b> (FLOAT a)</td></tr>
 <tr class="separator:a00425b7e633bf1e3753ac2d5bed7ff04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61b614cc38d3a2c54a2a0667d0505b34"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a61b614cc38d3a2c54a2a0667d0505b34">Zoom</a> (FLOAT alpha_lo, FLOAT alpha_hi, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
+<tr class="memitem:a61b614cc38d3a2c54a2a0667d0505b34"><td class="memItemLeft" align="right" valign="top"><a id="a61b614cc38d3a2c54a2a0667d0505b34" name="a61b614cc38d3a2c54a2a0667d0505b34"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Zoom</b> (FLOAT alpha_lo, FLOAT alpha_hi, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="separator:a61b614cc38d3a2c54a2a0667d0505b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00020">20</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
+<div class="textblock"><p >假定已得下降方向 \( d_k \)，求步长 \( \alpha \) , 使得 \( \varphi (\alpha) = f(x_k + \alpha d_k) &lt; f(x_k) \)的问题为一维搜索或线搜索问题。 </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="acd6463d8ae33e7c738759fd858c6a8c8" name="acd6463d8ae33e7c738759fd858c6a8c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd6463d8ae33e7c738759fd858c6a8c8">&#9670;&nbsp;</a></span>LinearSearch()</h2>
@@ -168,72 +187,14 @@ Protected Member Functions</h2></td></tr>
 <p>构造函数 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">functor</td><td>目标函数的指针 </td></tr>
+    <tr><td class="paramname">functor</td><td>目标函数 \( f \) 的指针 </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00007">7</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab9d7cf3200d68b9c64c457149088b00a" name="ab9d7cf3200d68b9c64c457149088b00a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d7cf3200d68b9c64c457149088b00a">&#9670;&nbsp;</a></span>AdvanceAndRetreat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NOL::LinearSearch::AdvanceAndRetreat </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>a0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>h0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT &amp;&#160;</td>
-          <td class="paramname"><em>secton_a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT &amp;&#160;</td>
-          <td class="paramname"><em>secton_b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00180">180</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a5d742f9c4f0f62599cd90d9464122a17" name="a5d742f9c4f0f62599cd90d9464122a17"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d742f9c4f0f62599cd90d9464122a17">&#9670;&nbsp;</a></span>Armijo()</h2>
 
@@ -276,47 +237,7 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>一维搜索的步长 $f(x) = x^2$ </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00046">46</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad5b1d699ad0b2ae6cb5276546823855a" name="ad5b1d699ad0b2ae6cb5276546823855a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5b1d699ad0b2ae6cb5276546823855a">&#9670;&nbsp;</a></span>CubicInterpolationMinimum()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::CubicInterpolationMinimum </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>last_alpha</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>alpha</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00072">72</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>一维搜索的步长 </dd></dl>
 
 </div>
 </div>
@@ -345,36 +266,6 @@ Protected Member Functions</h2></td></tr>
 
 <p>获取当前目标函数下降方向 </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00068">68</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
-
-</div>
-</div>
-<a id="a00425b7e633bf1e3753ac2d5bed7ff04" name="a00425b7e633bf1e3753ac2d5bed7ff04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00425b7e633bf1e3753ac2d5bed7ff04">&#9670;&nbsp;</a></span>dphi_da()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::dphi_da </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00175">175</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
 
 </div>
 </div>
@@ -424,54 +315,6 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>线搜索函数 FLOAT Phi(FLOAT a) 到达极值点时的搜索步长 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00038">38</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a379ca80adf755b552746b73b10df2066" name="a379ca80adf755b552746b73b10df2066"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a379ca80adf755b552746b73b10df2066">&#9670;&nbsp;</a></span>GoldenSection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::GoldenSection </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>secton_a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>secton_b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>epsilon</em> = <code>10e-3</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>convergence rate: k &gt; log_r{epsilon/(b-a)} </p>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00227">227</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <a id="ae33e22b65a6fd976eda2d952a52017f9" name="ae33e22b65a6fd976eda2d952a52017f9"></a>
@@ -518,52 +361,6 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>一维搜索的步长 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00101">101</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a433e07768e2b214e23418ce898d7e44d" name="a433e07768e2b214e23418ce898d7e44d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a433e07768e2b214e23418ce898d7e44d">&#9670;&nbsp;</a></span>Interpolation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::Interpolation </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>last_alpha</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>alpha</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>k</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00088">88</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <a id="aa71098a59eb3e385cba9cfe193467f9c" name="aa71098a59eb3e385cba9cfe193467f9c"></a>
@@ -600,46 +397,6 @@ Protected Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>搜索函数在步长 a 时的函数值，即待优化函数的下一个迭代点处的函数值 </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_n_o_l_1_1_line_search_for_s_d.html#a72f9e25deb728eba5cd74ba7ff5f77f5">NOL::LineSearchForSD</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00170">170</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a409710b2fc40911b103c7a105cc40516" name="a409710b2fc40911b103c7a105cc40516"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a409710b2fc40911b103c7a105cc40516">&#9670;&nbsp;</a></span>QuadraticInterpolationMinimum()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::QuadraticInterpolationMinimum </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>a1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>a2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00248">248</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
 
 </div>
 </div>
@@ -679,8 +436,6 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>线搜索的步长结果 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00011">11</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <a id="a86e00fbaeed9a6a0919c0783ae868168" name="a86e00fbaeed9a6a0919c0783ae868168"></a>
@@ -714,8 +469,6 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00050">50</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
 
 </div>
 </div>
@@ -751,8 +504,6 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00077">77</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
-
 </div>
 </div>
 <a id="a1cb77900e668fb8843fe5c53d957b5db" name="a1cb77900e668fb8843fe5c53d957b5db"></a>
@@ -786,8 +537,6 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00041">41</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
 
 </div>
 </div>
@@ -835,8 +584,6 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>一维搜索的步长 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00253">253</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <a id="a555ec9c9876ad53cf5fa490251febf55" name="a555ec9c9876ad53cf5fa490251febf55"></a>
@@ -864,46 +611,6 @@ Protected Member Functions</h2></td></tr>
 
 <p>获取目标函数 </p>
 <dl class="section return"><dt>Returns</dt><dd>目标函数指针 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00086">86</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
-
-</div>
-</div>
-<a id="abf61f30eb6c994cfd4865dc211ef2518" name="abf61f30eb6c994cfd4865dc211ef2518"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf61f30eb6c994cfd4865dc211ef2518">&#9670;&nbsp;</a></span>Wolfe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::Wolfe </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>alpha</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;&#160;</td>
-          <td class="paramname"><em>options</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00135">135</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
 
 </div>
 </div>
@@ -933,57 +640,11 @@ Protected Member Functions</h2></td></tr>
 <p>获取当前迭代位置 </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="line__search_8h_source.html#l00059">59</a> of file <a class="el" href="line__search_8h_source.html">line_search.h</a>.</p>
-
-</div>
-</div>
-<a id="a61b614cc38d3a2c54a2a0667d0505b34" name="a61b614cc38d3a2c54a2a0667d0505b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61b614cc38d3a2c54a2a0667d0505b34">&#9670;&nbsp;</a></span>Zoom()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">FLOAT NOL::LinearSearch::Zoom </td>
-          <td>(</td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>alpha_lo</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FLOAT&#160;</td>
-          <td class="paramname"><em>alpha_hi</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;&#160;</td>
-          <td class="paramname"><em>options</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="line__search_8cpp_source.html#l00290">290</a> of file <a class="el" href="line__search_8cpp_source.html">line_search.cpp</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="line__search_8h_source.html">line_search.h</a></li>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="line__search_8cpp_source.html">line_search.cpp</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/<a class="el" href="line__search_8h_source.html">line_search.h</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/line_search.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

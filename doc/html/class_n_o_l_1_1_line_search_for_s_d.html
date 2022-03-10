@@ -5,13 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Numerical Optimization Library: NOL::LineSearchForSD Class Reference</title>
+<title>NOL: NOL::LineSearchForSD Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +31,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Numerical Optimization Library
+   <div id="projectname">NOL
    </div>
   </td>
  </tr>
@@ -85,7 +95,8 @@ Inheritance diagram for NOL::LineSearchForSD:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7bd49084e37cd2a970817eac7b20d491"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_line_search_for_s_d.html#a7bd49084e37cd2a970817eac7b20d491">LineSearchForSD</a> (<a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *functor=nullptr)</td></tr>
+<tr class="memitem:a7bd49084e37cd2a970817eac7b20d491"><td class="memItemLeft" align="right" valign="top"><a id="a7bd49084e37cd2a970817eac7b20d491" name="a7bd49084e37cd2a970817eac7b20d491"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>LineSearchForSD</b> (<a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *functor=nullptr)</td></tr>
 <tr class="separator:a7bd49084e37cd2a970817eac7b20d491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_n_o_l_1_1_linear_search"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_n_o_l_1_1_linear_search')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_n_o_l_1_1_linear_search.html">NOL::LinearSearch</a></td></tr>
 <tr class="memitem:acd6463d8ae33e7c738759fd858c6a8c8 inherit pub_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#acd6463d8ae33e7c738759fd858c6a8c8">LinearSearch</a> (<a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *functor=nullptr)</td></tr>
@@ -130,62 +141,38 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae33e22b65a6fd976eda2d952a52017f9 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ae33e22b65a6fd976eda2d952a52017f9">Goldstein</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="memdesc:ae33e22b65a6fd976eda2d952a52017f9 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="mdescLeft">&#160;</td><td class="mdescRight">非精确线搜索 Armijo 准则。通过不断缩小参数范围，获取满足准则的可选参数区间  <a href="class_n_o_l_1_1_linear_search.html#ae33e22b65a6fd976eda2d952a52017f9">More...</a><br /></td></tr>
 <tr class="separator:ae33e22b65a6fd976eda2d952a52017f9 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf61f30eb6c994cfd4865dc211ef2518 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#abf61f30eb6c994cfd4865dc211ef2518">Wolfe</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
+<tr class="memitem:abf61f30eb6c994cfd4865dc211ef2518 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="abf61f30eb6c994cfd4865dc211ef2518" name="abf61f30eb6c994cfd4865dc211ef2518"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Wolfe</b> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="separator:abf61f30eb6c994cfd4865dc211ef2518 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4ecf2ceef7bb65e4c888f92b9b57697 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ac4ecf2ceef7bb65e4c888f92b9b57697">StrongWolfe</a> (FLOAT alpha, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="memdesc:ac4ecf2ceef7bb65e4c888f92b9b57697 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strong Wolfe condition line search. This implementation is based on the pseudo-code algorithm presented in Nocedal &amp; Wright [1] (p60-61) [1] Nocedal J., Wright S., Numerical Optimization, 2nd Ed., Springer, 1999.  <a href="class_n_o_l_1_1_linear_search.html#ac4ecf2ceef7bb65e4c888f92b9b57697">More...</a><br /></td></tr>
 <tr class="separator:ac4ecf2ceef7bb65e4c888f92b9b57697 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9d7cf3200d68b9c64c457149088b00a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ab9d7cf3200d68b9c64c457149088b00a">AdvanceAndRetreat</a> (FLOAT a0, FLOAT h0, FLOAT t, FLOAT &amp;secton_a, FLOAT &amp;secton_b)</td></tr>
+<tr class="memitem:ab9d7cf3200d68b9c64c457149088b00a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="ab9d7cf3200d68b9c64c457149088b00a" name="ab9d7cf3200d68b9c64c457149088b00a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AdvanceAndRetreat</b> (FLOAT a0, FLOAT h0, FLOAT t, FLOAT &amp;secton_a, FLOAT &amp;secton_b)</td></tr>
 <tr class="separator:ab9d7cf3200d68b9c64c457149088b00a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a379ca80adf755b552746b73b10df2066 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a379ca80adf755b552746b73b10df2066">GoldenSection</a> (FLOAT secton_a, FLOAT secton_b, FLOAT epsilon=10e-3)</td></tr>
-<tr class="memdesc:a379ca80adf755b552746b73b10df2066 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="mdescLeft">&#160;</td><td class="mdescRight">convergence rate: k &gt; log_r{epsilon/(b-a)}  <a href="class_n_o_l_1_1_linear_search.html#a379ca80adf755b552746b73b10df2066">More...</a><br /></td></tr>
+<tr class="memitem:a379ca80adf755b552746b73b10df2066 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="a379ca80adf755b552746b73b10df2066" name="a379ca80adf755b552746b73b10df2066"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>GoldenSection</b> (FLOAT secton_a, FLOAT secton_b, FLOAT epsilon=10e-3)</td></tr>
+<tr class="memdesc:a379ca80adf755b552746b73b10df2066 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="mdescLeft">&#160;</td><td class="mdescRight">convergence rate: k &gt; log_r{epsilon/(b-a)} <br /></td></tr>
 <tr class="separator:a379ca80adf755b552746b73b10df2066 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a409710b2fc40911b103c7a105cc40516 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a409710b2fc40911b103c7a105cc40516">QuadraticInterpolationMinimum</a> (FLOAT a1, FLOAT a2)</td></tr>
+<tr class="memitem:a409710b2fc40911b103c7a105cc40516 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="a409710b2fc40911b103c7a105cc40516" name="a409710b2fc40911b103c7a105cc40516"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>QuadraticInterpolationMinimum</b> (FLOAT a1, FLOAT a2)</td></tr>
 <tr class="separator:a409710b2fc40911b103c7a105cc40516 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5b1d699ad0b2ae6cb5276546823855a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#ad5b1d699ad0b2ae6cb5276546823855a">CubicInterpolationMinimum</a> (FLOAT last_alpha, FLOAT alpha)</td></tr>
+<tr class="memitem:ad5b1d699ad0b2ae6cb5276546823855a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="ad5b1d699ad0b2ae6cb5276546823855a" name="ad5b1d699ad0b2ae6cb5276546823855a"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>CubicInterpolationMinimum</b> (FLOAT last_alpha, FLOAT alpha)</td></tr>
 <tr class="separator:ad5b1d699ad0b2ae6cb5276546823855a inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a433e07768e2b214e23418ce898d7e44d inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a433e07768e2b214e23418ce898d7e44d">Interpolation</a> (FLOAT last_alpha, FLOAT alpha, int k=0)</td></tr>
+<tr class="memitem:a433e07768e2b214e23418ce898d7e44d inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="a433e07768e2b214e23418ce898d7e44d" name="a433e07768e2b214e23418ce898d7e44d"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Interpolation</b> (FLOAT last_alpha, FLOAT alpha, int k=0)</td></tr>
 <tr class="separator:a433e07768e2b214e23418ce898d7e44d inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa71098a59eb3e385cba9cfe193467f9c inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#aa71098a59eb3e385cba9cfe193467f9c">phi</a> (FLOAT a)</td></tr>
 <tr class="memdesc:aa71098a59eb3e385cba9cfe193467f9c inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="mdescLeft">&#160;</td><td class="mdescRight">线搜索函数 phi(a) = f( xk + a*dk ), a&gt;0, 其中，xk 为优化函数 f(x) 当前迭代点，dk 为迭代下降方向，xk,dk可以通过类继承的方式定义为成员变量， 然后针对具体问题，自定义并重载 float Phi(float) 函数  <a href="class_n_o_l_1_1_linear_search.html#aa71098a59eb3e385cba9cfe193467f9c">More...</a><br /></td></tr>
 <tr class="separator:aa71098a59eb3e385cba9cfe193467f9c inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00425b7e633bf1e3753ac2d5bed7ff04 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a00425b7e633bf1e3753ac2d5bed7ff04">dphi_da</a> (FLOAT a)</td></tr>
+<tr class="memitem:a00425b7e633bf1e3753ac2d5bed7ff04 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="a00425b7e633bf1e3753ac2d5bed7ff04" name="a00425b7e633bf1e3753ac2d5bed7ff04"></a>
+virtual FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>dphi_da</b> (FLOAT a)</td></tr>
 <tr class="separator:a00425b7e633bf1e3753ac2d5bed7ff04 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61b614cc38d3a2c54a2a0667d0505b34 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_linear_search.html#a61b614cc38d3a2c54a2a0667d0505b34">Zoom</a> (FLOAT alpha_lo, FLOAT alpha_hi, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
+<tr class="memitem:a61b614cc38d3a2c54a2a0667d0505b34 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memItemLeft" align="right" valign="top"><a id="a61b614cc38d3a2c54a2a0667d0505b34" name="a61b614cc38d3a2c54a2a0667d0505b34"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>Zoom</b> (FLOAT alpha_lo, FLOAT alpha_hi, const <a class="el" href="class_n_o_l_1_1_options.html">Options</a> &amp;options)</td></tr>
 <tr class="separator:a61b614cc38d3a2c54a2a0667d0505b34 inherit pro_methods_class_n_o_l_1_1_linear_search"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="steepest__descent_8cpp_source.html#l00009">9</a> of file <a class="el" href="steepest__descent_8cpp_source.html">steepest_descent.cpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7bd49084e37cd2a970817eac7b20d491" name="a7bd49084e37cd2a970817eac7b20d491"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd49084e37cd2a970817eac7b20d491">&#9670;&nbsp;</a></span>LineSearchForSD()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NOL::LineSearchForSD::LineSearchForSD </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *&#160;</td>
-          <td class="paramname"><em>functor</em> = <code>nullptr</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="steepest__descent_8cpp_source.html#l00012">12</a> of file <a class="el" href="steepest__descent_8cpp_source.html">steepest_descent.cpp</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7ba884f140efe6fef2d15d322911a611" name="a7ba884f140efe6fef2d15d322911a611"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ba884f140efe6fef2d15d322911a611">&#9670;&nbsp;</a></span>dphi_da()</h2>
@@ -212,8 +199,6 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="class_n_o_l_1_1_linear_search.html">NOL::LinearSearch</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="steepest__descent_8cpp_source.html#l00021">21</a> of file <a class="el" href="steepest__descent_8cpp_source.html">steepest_descent.cpp</a>.</p>
 
 </div>
 </div>
@@ -252,12 +237,10 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_n_o_l_1_1_linear_search.html#aa71098a59eb3e385cba9cfe193467f9c">NOL::LinearSearch</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="steepest__descent_8cpp_source.html#l00017">17</a> of file <a class="el" href="steepest__descent_8cpp_source.html">steepest_descent.cpp</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="steepest__descent_8cpp_source.html">steepest_descent.cpp</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/steepest_descent.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

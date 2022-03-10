@@ -5,13 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Numerical Optimization Library: NOL::Timer Class Reference</title>
+<title>NOL: NOL::Timer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +31,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Numerical Optimization Library
+   <div id="projectname">NOL
    </div>
   </td>
  </tr>
@@ -75,189 +85,25 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae86f85338522a6b9e401e35679e67d7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_timer.html#ae86f85338522a6b9e401e35679e67d7a">Start</a> ()</td></tr>
+<tr class="memitem:ae86f85338522a6b9e401e35679e67d7a"><td class="memItemLeft" align="right" valign="top"><a id="ae86f85338522a6b9e401e35679e67d7a" name="ae86f85338522a6b9e401e35679e67d7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Start</b> ()</td></tr>
 <tr class="separator:ae86f85338522a6b9e401e35679e67d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33d45812e4b2c0276523f7e34d17dfc5"><td class="memItemLeft" align="right" valign="top">std::chrono::high_resolution_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_timer.html#a33d45812e4b2c0276523f7e34d17dfc5">StartTime</a> ()</td></tr>
+<tr class="memitem:a33d45812e4b2c0276523f7e34d17dfc5"><td class="memItemLeft" align="right" valign="top"><a id="a33d45812e4b2c0276523f7e34d17dfc5" name="a33d45812e4b2c0276523f7e34d17dfc5"></a>
+std::chrono::high_resolution_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>StartTime</b> ()</td></tr>
 <tr class="separator:a33d45812e4b2c0276523f7e34d17dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36f107ea56a6a9c5aad5ae6f1c08f44f"><td class="memItemLeft" align="right" valign="top">std::chrono::high_resolution_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_timer.html#a36f107ea56a6a9c5aad5ae6f1c08f44f">CurrentTime</a> ()</td></tr>
+<tr class="memitem:a36f107ea56a6a9c5aad5ae6f1c08f44f"><td class="memItemLeft" align="right" valign="top"><a id="a36f107ea56a6a9c5aad5ae6f1c08f44f" name="a36f107ea56a6a9c5aad5ae6f1c08f44f"></a>
+std::chrono::high_resolution_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentTime</b> ()</td></tr>
 <tr class="separator:a36f107ea56a6a9c5aad5ae6f1c08f44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9608d00ae88052d3c1d6ceef6f03de9b"><td class="memTemplParams" colspan="2">template&lt;typename T  = std::chrono::milliseconds&gt; </td></tr>
-<tr class="memitem:a9608d00ae88052d3c1d6ceef6f03de9b"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_timer.html#a9608d00ae88052d3c1d6ceef6f03de9b">Elapse</a> () const</td></tr>
+<tr class="memitem:a9608d00ae88052d3c1d6ceef6f03de9b"><td class="memTemplParams" colspan="2"><a id="a9608d00ae88052d3c1d6ceef6f03de9b" name="a9608d00ae88052d3c1d6ceef6f03de9b"></a>
+template&lt;typename T  = std::chrono::milliseconds&gt; </td></tr>
+<tr class="memitem:a9608d00ae88052d3c1d6ceef6f03de9b"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Elapse</b> () const</td></tr>
 <tr class="separator:a9608d00ae88052d3c1d6ceef6f03de9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c97b40a63de39a246794f578aaafe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_timer.html#a64c97b40a63de39a246794f578aaafe7">ReSet</a> ()</td></tr>
+<tr class="memitem:a64c97b40a63de39a246794f578aaafe7"><td class="memItemLeft" align="right" valign="top"><a id="a64c97b40a63de39a246794f578aaafe7" name="a64c97b40a63de39a246794f578aaafe7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ReSet</b> ()</td></tr>
 <tr class="separator:a64c97b40a63de39a246794f578aaafe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00181">181</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6d75356309c21bbe88b1092538680041" name="a6d75356309c21bbe88b1092538680041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d75356309c21bbe88b1092538680041">&#9670;&nbsp;</a></span>Timer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NOL::Timer::Timer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00184">184</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a36f107ea56a6a9c5aad5ae6f1c08f44f" name="a36f107ea56a6a9c5aad5ae6f1c08f44f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36f107ea56a6a9c5aad5ae6f1c08f44f">&#9670;&nbsp;</a></span>CurrentTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::chrono::high_resolution_clock::time_point NOL::Timer::CurrentTime </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00198">198</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a9608d00ae88052d3c1d6ceef6f03de9b" name="a9608d00ae88052d3c1d6ceef6f03de9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9608d00ae88052d3c1d6ceef6f03de9b">&#9670;&nbsp;</a></span>Elapse()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T  = std::chrono::milliseconds&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NOL::Timer::Elapse </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00203">203</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a64c97b40a63de39a246794f578aaafe7" name="a64c97b40a63de39a246794f578aaafe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c97b40a63de39a246794f578aaafe7">&#9670;&nbsp;</a></span>ReSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NOL::Timer::ReSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00208">208</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="ae86f85338522a6b9e401e35679e67d7a" name="ae86f85338522a6b9e401e35679e67d7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae86f85338522a6b9e401e35679e67d7a">&#9670;&nbsp;</a></span>Start()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NOL::Timer::Start </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00189">189</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
-<a id="a33d45812e4b2c0276523f7e34d17dfc5" name="a33d45812e4b2c0276523f7e34d17dfc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33d45812e4b2c0276523f7e34d17dfc5">&#9670;&nbsp;</a></span>StartTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::chrono::high_resolution_clock::time_point NOL::Timer::StartTime </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="global_8h_source.html#l00194">194</a> of file <a class="el" href="global_8h_source.html">global.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>F:/ProjectCode/NumericalOptimizationLibrary/src/<a class="el" href="global_8h_source.html">global.h</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/<a class="el" href="global_8h_source.html">global.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
