@@ -109,11 +109,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a129a999e9094d137903da9492ea37bb2"><td class="memItemLeft" align="right" valign="top"><a id="a129a999e9094d137903da9492ea37bb2" name="a129a999e9094d137903da9492ea37bb2"></a>
 Vector&#160;</td><td class="memItemRight" valign="bottom"><b>init_x</b></td></tr>
 <tr class="separator:a129a999e9094d137903da9492ea37bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedfc7619b754dee3f3740659ff12ee80"><td class="memItemLeft" align="right" valign="top"><a id="aedfc7619b754dee3f3740659ff12ee80" name="aedfc7619b754dee3f3740659ff12ee80"></a>
+<tr class="memitem:a8759ee1861efb54558c37dfd875ca9da"><td class="memItemLeft" align="right" valign="top"><a id="a8759ee1861efb54558c37dfd875ca9da" name="a8759ee1861efb54558c37dfd875ca9da"></a>
+TerminationCriterionType&#160;</td><td class="memItemRight" valign="bottom"><b>termination_type</b> = TerminationCriterionType::GK_NORM</td></tr>
+<tr class="separator:a8759ee1861efb54558c37dfd875ca9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6869c158fc55c9d315f51834a49c1f37"><td class="memItemLeft" align="right" valign="top"><a id="a6869c158fc55c9d315f51834a49c1f37" name="a6869c158fc55c9d315f51834a49c1f37"></a>
 FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>termination_value</b> = 1e-6</td></tr>
-<tr class="separator:aedfc7619b754dee3f3740659ff12ee80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6869c158fc55c9d315f51834a49c1f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36bc4687effc086cc4f15c064dc97bb2"><td class="memItemLeft" align="right" valign="top">FLOAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_o_l_1_1_options.html#a36bc4687effc086cc4f15c064dc97bb2">min_step_size</a> = <a class="el" href="class_n_o_l_1_1_min_step_size.html">MinStepSize</a>&lt;FLOAT&gt;::value</td></tr>
 <tr class="separator:a36bc4687effc086cc4f15c064dc97bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95de0e9f41e2d54fa7d8fc06fc7a1531"><td class="memItemLeft" align="right" valign="top"><a id="a95de0e9f41e2d54fa7d8fc06fc7a1531" name="a95de0e9f41e2d54fa7d8fc06fc7a1531"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>max_solver_time_in_seconds</b> = 1.0</td></tr>
+<tr class="separator:a95de0e9f41e2d54fa7d8fc06fc7a1531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58e3b4e87db503ac717d39752969e89a"><td class="memItemLeft" align="right" valign="top"><a id="a58e3b4e87db503ac717d39752969e89a" name="a58e3b4e87db503ac717d39752969e89a"></a>
 LineSearchType&#160;</td><td class="memItemRight" valign="bottom"><b>line_search_type</b> = LineSearchType::GOLDSTEIN</td></tr>
 <tr class="separator:a58e3b4e87db503ac717d39752969e89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,6 +132,9 @@ FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_searc
 <tr class="memitem:a4fd5428b9405c2ed9a5d44ab8d6bfcf9"><td class="memItemLeft" align="right" valign="top"><a id="a4fd5428b9405c2ed9a5d44ab8d6bfcf9" name="a4fd5428b9405c2ed9a5d44ab8d6bfcf9"></a>
 FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_advance_and_retreat_t</b> = 1.5</td></tr>
 <tr class="separator:a4fd5428b9405c2ed9a5d44ab8d6bfcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe5079fb686ccef7cb2bc1cd31316cc3"><td class="memItemLeft" align="right" valign="top"><a id="abe5079fb686ccef7cb2bc1cd31316cc3" name="abe5079fb686ccef7cb2bc1cd31316cc3"></a>
+FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_min_gold_section</b> = 10e-3</td></tr>
+<tr class="separator:abe5079fb686ccef7cb2bc1cd31316cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56641cc1ff9c466d02d3ca129da8329f"><td class="memItemLeft" align="right" valign="top"><a id="a56641cc1ff9c466d02d3ca129da8329f" name="a56641cc1ff9c466d02d3ca129da8329f"></a>
 FLOAT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_line_search_armijo_rho</b> = 10e-3</td></tr>
 <tr class="separator:a56641cc1ff9c466d02d3ca129da8329f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,7 +178,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>optimized_performance
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/<a class="el" href="global_8h_source.html">global.h</a></li>
+<li>/Users/refantasy/Code/NumericalOptimizationLibrary/src/NOL/<a class="el" href="global_8h_source.html">global.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

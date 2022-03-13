@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NOL: /Users/refantasy/Code/NumericalOptimizationLibrary/src/steepest_descent.h Source File</title>
+<title>NOL: /Users/refantasy/Code/NumericalOptimizationLibrary/src/NOL/steepest_descent.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,7 +72,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_a454ddb175ad68c2ae0f485c546949af.html">NumericalOptimizationLibrary</a></li><li class="navelem"><a class="el" href="dir_b1d2d90ceedd000968dcc7b6a73403dd.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_a454ddb175ad68c2ae0f485c546949af.html">NumericalOptimizationLibrary</a></li><li class="navelem"><a class="el" href="dir_b1d2d90ceedd000968dcc7b6a73403dd.html">src</a></li><li class="navelem"><a class="el" href="dir_fdeb850f7179d201c95de444b506d62c.html">NOL</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,18 +90,21 @@ $(function() {
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_n_o_l_1_1_steepest_descent.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="class_n_o_l_1_1_steepest_descent.html">SteepestDescent</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html">UnconstrainedOptimizationLineSearchBase</a></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="class_n_o_l_1_1_steepest_descent.html">SteepestDescent</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">bool</span> IsTerminated(<span class="keyword">const</span> Vector &amp;xk, <span class="keywordtype">int</span> k) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    Vector SearchDirection(<span class="keyword">const</span> Vector &amp;xk) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    FLOAT Step(<span class="keyword">const</span> Vector &amp;xk, <span class="keyword">const</span> Vector &amp;dk) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace NOL</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif </span><span class="comment">//__SD_H__</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="class_n_o_l_1_1_steepest_descent.html">SteepestDescent</a>(<a class="code hl_class" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *functor);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_class" href="class_n_o_l_1_1_steepest_descent.html">SteepestDescent</a>(<a class="code hl_class" href="class_n_o_l_1_1_target_functor.html">TargetFunctor</a> *functor, <a class="code hl_class" href="class_n_o_l_1_1_options.html">Options</a> *);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="class_n_o_l_1_1_steepest_descent.html">~SteepestDescent</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    Vector SearchDirection(<span class="keyword">const</span> Vector &amp;xk) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    FLOAT Step(<span class="keyword">const</span> Vector &amp;xk, <span class="keyword">const</span> Vector &amp;dk) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace NOL</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#endif </span><span class="comment">//__SD_H__</span></div>
+<div class="ttc" id="aclass_n_o_l_1_1_options_html"><div class="ttname"><a href="class_n_o_l_1_1_options.html">NOL::Options</a></div><div class="ttdoc">Options for optimizing algorithms.</div><div class="ttdef"><b>Definition:</b> global.h:92</div></div>
 <div class="ttc" id="aclass_n_o_l_1_1_steepest_descent_html"><div class="ttname"><a href="class_n_o_l_1_1_steepest_descent.html">NOL::SteepestDescent</a></div><div class="ttdef"><b>Definition:</b> steepest_descent.h:18</div></div>
-<div class="ttc" id="aclass_n_o_l_1_1_unconstrained_optimization_line_search_base_html"><div class="ttname"><a href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html">NOL::UnconstrainedOptimizationLineSearchBase</a></div><div class="ttdoc">Base class of all unconstrained optimization algorithm classes.</div><div class="ttdef"><b>Definition:</b> global.h:158</div></div>
+<div class="ttc" id="aclass_n_o_l_1_1_target_functor_html"><div class="ttname"><a href="class_n_o_l_1_1_target_functor.html">NOL::TargetFunctor</a></div><div class="ttdoc">the base class of the function to be optimized</div><div class="ttdef"><b>Definition:</b> global.h:42</div></div>
+<div class="ttc" id="aclass_n_o_l_1_1_unconstrained_optimization_line_search_base_html"><div class="ttname"><a href="class_n_o_l_1_1_unconstrained_optimization_line_search_base.html">NOL::UnconstrainedOptimizationLineSearchBase</a></div><div class="ttdoc">Base class of all unconstrained optimization algorithm classes.</div><div class="ttdef"><b>Definition:</b> global.h:214</div></div>
 <div class="ttc" id="anamespace_n_o_l_html"><div class="ttname"><a href="namespace_n_o_l.html">NOL</a></div><div class="ttdef"><b>Definition:</b> global.cpp:5</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

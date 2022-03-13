@@ -8,7 +8,17 @@
 #include "global.h"
 
 using namespace NOL;
-
+/**
+ * The Rotated Hyper-Ellipsoid function is continuous, convex and unimodal.
+ * It is an extension of the Axis Parallel Hyper-Ellipsoid function, also referred to as the Sum Squares function.
+ * The plot shows its two-dimensional form.
+ *
+ * Dimensions: d
+ *
+ * \f$ f(x) = \sum_{i=1}^{d} \sum_{j=1}^i x_j^2 \f$
+ *
+ * http://www.sfu.ca/~ssurjano/rothyp.html
+ */
 class ROTATED_HYPER_ELLIPSOID : public TargetFunctor
 {
   public:
