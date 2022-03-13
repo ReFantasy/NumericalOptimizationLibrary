@@ -1,14 +1,8 @@
-#include <iostream>
-
 #include "example.h"
-#include <sstream>
-#include "global.h"
 
-using namespace NOL;
+//using namespace NOL;
 
-
-int main(int argc, char **argv)
+int main(int argc, char*argv[])
 {
-    example_3_1();
-    return 0;
+	example_3_1();
 }
