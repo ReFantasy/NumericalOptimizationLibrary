@@ -1,5 +1,5 @@
 #include "steepest_descent.h"
-#include "test_functions.h"
+#include "functions.h"
 #include <gtest/gtest.h>
 
 TEST(SD, ROTATED_HYPER_ELLIPSOID)

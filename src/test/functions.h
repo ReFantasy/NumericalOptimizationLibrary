@@ -2,8 +2,8 @@
 // Created by ReFantasy on 2022/3/13.
 //
 
-#ifndef OPTIMIZATION_TEST_FUNCTIONS_H
-#define OPTIMIZATION_TEST_FUNCTIONS_H
+#ifndef OPTIMIZATION_FUNCTIONS_H
+#define OPTIMIZATION_FUNCTIONS_H
 
 #include "global.h"
 
@@ -29,4 +29,4 @@ class ROTATED_HYPER_ELLIPSOID : public TargetFunctor
     [[nodiscard]] Matrix Hesse(const Vector &xk) const override;
 };
 
-#endif // OPTIMIZATION_TEST_FUNCTIONS_H
+#endif // OPTIMIZATION_FUNCTIONS_H

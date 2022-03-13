@@ -37,7 +37,7 @@ void example_3_1()
     x << -30, 100;
     options.init_x = x;
     options.termination_value = 10e-5;
-	options.optimized_performance = true;
+	//options.optimized_performance = true;
 
     
     SteepestDescent sd(&functor, &options);

@@ -2,7 +2,7 @@
 // Created by ReFantasy on 2022/3/13.
 //
 
-#include "test_functions.h"
+#include "functions.h"
 
 FLOAT ROTATED_HYPER_ELLIPSOID::operator()(const Vector &xk) const
 {
