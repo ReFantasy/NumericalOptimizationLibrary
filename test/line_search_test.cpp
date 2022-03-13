@@ -1,39 +1,37 @@
-#include <gtest/gtest.h>
-#include <iostream>
 #include "global.h"
 #include "line_search.h"
+#include <gtest/gtest.h>
+#include <iostream>
 
 using namespace NOL;
 
-
 TEST(UnitTestLineSearch, AdvanceAndRetreat)
 {
-    class TLineSearch :public LinearSearch
+    class TLineSearch : public LinearSearch
     {
-    public:
-        TLineSearch(TargetFunctor* functor = nullptr) : LinearSearch(functor)
+      public:
+        TLineSearch(TargetFunctor *functor = nullptr) : LinearSearch(functor)
         {
         }
-        void advance_and_retreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT& secton_a, FLOAT& secton_b)
+        void advance_and_retreat(FLOAT a0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
         {
             AdvanceAndRetreat(a0, h0, t, secton_a, secton_b);
         }
-    protected:
+
+      protected:
         // phi(x) = (x-3)^2-4
-        FLOAT phi(FLOAT x)override
+        FLOAT phi(FLOAT x) override
         {
             return (x - 3) * (x - 3) - 4;
         }
 
-        FLOAT dphi_da(FLOAT x)override
+        FLOAT dphi_da(FLOAT x) override
         {
             return 2 * (x - 3);
         }
     };
 
-
     TLineSearch line_search{nullptr};
-
 
     FLOAT a0 = 0;
     FLOAT h0 = 1;
@@ -73,5 +71,3 @@ TEST(UnitTestLineSearch, AdvanceAndRetreat)
     ASSERT_LE(a, 3.0);
     ASSERT_GE(b, 3.0);
 }
-
-

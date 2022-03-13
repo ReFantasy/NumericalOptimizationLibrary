@@ -5,7 +5,7 @@ ADD_DEFINITIONS(-DUNICODE)
 ADD_DEFINITIONS(-D_UNICODE) 
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_BUILD_TYPE Release)
 
 set(OptimizationLibraryName OptimizationLibrary)
 
@@ -30,6 +30,8 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 ENDIF()
 add_subdirectory(test)
 ENDIF()
+
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 add_executable(main  ${SRC_LIST} example.h )

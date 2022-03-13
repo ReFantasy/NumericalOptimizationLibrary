@@ -13,7 +13,8 @@
 namespace NOL
 {
 /**
- * 假定已得下降方向 \f$ d_k \f$，求步长 \f$ \alpha \f$ ,  使得\f$ \varphi (\alpha) = f(x_k + \alpha d_k) < f(x_k) \f$的问题为一维搜索或线搜索问题。
+ * 假定已得下降方向 \f$ d_k \f$，求步长 \f$ \alpha \f$ ,  使得\f$ \varphi (\alpha) = f(x_k + \alpha d_k) < f(x_k)
+ * \f$的问题为一维搜索或线搜索问题。
  *
  */
 class LinearSearch
@@ -113,7 +114,7 @@ class LinearSearch
      */
     FLOAT Goldstein(FLOAT alpha, const Options &options);
 
-	/**
+    /**
      * @brief 非精确线搜索 Wolfe 准则
      * @param alpha 步长
      * @param options 参数选项

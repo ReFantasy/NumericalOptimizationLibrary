@@ -18,9 +18,8 @@ class SteepestDescent : public UnconstrainedOptimizationLineSearchBase
 {
   public:
     SteepestDescent(TargetFunctor *functor);
-    SteepestDescent(TargetFunctor* functor, Options *);
-    ~SteepestDescent()override;
-    bool IsTerminated(const Vector &xk, int k) const override;
+    SteepestDescent(TargetFunctor *functor, Options *);
+    ~SteepestDescent() override;
 
     Vector SearchDirection(const Vector &xk) const override;
 

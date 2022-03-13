@@ -91,7 +91,7 @@ int main(int argc, char **argv)
     //x0 << -1.2, 1;
 
     //Options option;
-    //option.gk_norm = 1e-5;
+    //option.termination_value = 1e-5;
     //option.init_x = x0;
     ////option.optimized_performance = true;
     //option.quasi_newton_type = QuasiNewtonType::BFGS;

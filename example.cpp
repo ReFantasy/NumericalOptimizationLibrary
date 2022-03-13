@@ -36,13 +36,14 @@ void example_3_1()
     Vector x(2);
     x << -30, 100;
     options.init_x = x;
-    options.gk_norm = 10e-5;
+    options.termination_value = 10e-5;
+	options.optimized_performance = true;
 
     
     SteepestDescent sd(&functor, &options);
     Vector res = sd.Solve();
 
-    std::cout << std::endl << "Optimal solution : " << res.transpose() << std::endl;
+    std::cout << std::endl << "Optimal solution : " << res.transpose() <<"  time : "<<sd._timer.Elapse()<<"ms"<< std::endl;
 }
 
 void example_3_2()
@@ -80,8 +81,9 @@ void example_3_2()
     x0(1) = 4;
 
     Options option;
-    option.gk_norm = 10e-6;
+    option.termination_value = 10e-6;
     option.init_x = x0;
+	option.optimized_performance = true;
 
     NewtonBase newton;
 

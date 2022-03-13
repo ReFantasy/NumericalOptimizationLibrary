@@ -8,12 +8,12 @@
  */
 #ifndef __GLOBAL_H__
 #define __GLOBAL_H__
+#include "Eigen/Dense"
+#include <chrono>
 #include <iostream>
 #include <limits>
 #include <random>
 #include <sstream>
-#include <chrono>
-#include "Eigen/Dense"
 
 namespace NOL
 {
@@ -79,6 +79,12 @@ enum class QuasiNewtonSearchType
     BFGS
 };
 
+enum class TerminationCriterionType
+{
+    GK_NORM,
+    DELTA_XK,
+    DELTA_F
+};
 /**
  * @brief Options for optimizing algorithms
  */
@@ -86,12 +92,15 @@ class Options
 {
   public:
     Vector init_x;
-    FLOAT gk_norm = 1e-6;
+    TerminationCriterionType termination_type = TerminationCriterionType::GK_NORM;
+    FLOAT termination_value = 1e-6;
 
     /**
      * If during the line search, the step_size falls below this value, it is truncated to zero.
      */
     FLOAT min_step_size = MinStepSize<FLOAT>::value;
+
+    FLOAT max_solver_time_in_seconds = 1.0;
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
@@ -153,32 +162,6 @@ class Options
     std::stringstream ss;
 };
 
-/**
- * @brief Base class of all unconstrained optimization algorithm classes
- */
-class UnconstrainedOptimizationLineSearchBase
-{
-  public:
-      virtual ~UnconstrainedOptimizationLineSearchBase() {}
-    /**
-     * @brief Find the optimal solution of function
-     * @param fucntor Function object
-     * @param options Optimization parameters
-     * @return the point of the optimal solution
-     */
-    virtual Vector Solve();
-
-    virtual bool IsTerminated(const Vector &xk, int k) const = 0;
-
-    virtual Vector SearchDirection(const Vector &xk) const = 0;
-
-    virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
-
-    TargetFunctor *_functor = nullptr;
-    Options *_options = nullptr;
-    LinearSearch *_line_search = nullptr;
-};
-
 class Timer
 {
   public:
@@ -216,15 +199,43 @@ class Timer
 };
 
 template <typename T, typename Distribution = std::uniform_real_distribution<T>>
-T RandomNumber(const T& lo = 0, const T& hi = 1)
+T RandomNumber(const T &lo = 0, const T &hi = 1)
 {
     std::random_device dev;
     std::mt19937 rng(dev());
     Distribution dist(lo, hi);
     return dist(rng);
-
 }
 
+/**
+ * @brief Base class of all unconstrained optimization algorithm classes
+ */
+class UnconstrainedOptimizationLineSearchBase
+{
+  public:
+    virtual ~UnconstrainedOptimizationLineSearchBase()
+    {
+    }
+    /**
+     * @brief Find the optimal solution of function
+     * @param fucntor Function object
+     * @param options Optimization parameters
+     * @return the point of the optimal solution
+     */
+    virtual Vector Solve();
+
+    virtual bool IsTerminated(const Vector &xk, int k) const;
+
+    virtual Vector SearchDirection(const Vector &xk) const = 0;
+
+    virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
+
+    TargetFunctor *_functor = nullptr;
+    Options *_options = nullptr;
+    LinearSearch *_line_search = nullptr;
+
+    mutable Timer _timer;
+};
 } // namespace NOL
 
 #endif //__GLOBAL_H__

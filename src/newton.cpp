@@ -9,7 +9,7 @@ bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 {
     // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
     FLOAT xk_max_norm = _functor->Gradient(xk).norm();
-    if (xk_max_norm <= _options->gk_norm)
+    if (xk_max_norm <= _options->termination_value)
         return true;
     // <--------
     *_options << "k:" << k << " "

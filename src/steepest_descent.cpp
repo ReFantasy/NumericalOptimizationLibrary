@@ -5,14 +5,14 @@
 namespace NOL
 {
 
-SteepestDescent::SteepestDescent(TargetFunctor* functor)
+SteepestDescent::SteepestDescent(TargetFunctor *functor)
 {
     _functor = functor;
     _line_search = new LinearSearch{};
     _line_search->SetTargetFunctor(_functor);
 }
 
-SteepestDescent::SteepestDescent(TargetFunctor* functor, Options* options):SteepestDescent(functor)
+SteepestDescent::SteepestDescent(TargetFunctor *functor, Options *options) : SteepestDescent(functor)
 {
     _options = options;
 }
@@ -21,21 +21,6 @@ SteepestDescent::~SteepestDescent()
 {
     if (_line_search)
         delete _line_search;
-}
-
-bool SteepestDescent::IsTerminated(const Vector &xk, int k) const
-{
-    FLOAT gk_norm = _functor->Gradient(xk).norm();
-    if (gk_norm < _options->gk_norm)
-        return true;
-
-    // <--------
-    *_options << "k:" << k << " "
-              << "  xk:(" << xk.transpose() << ") "
-              << "  ||gk||: " << gk_norm << "\n";
-    // -------->
-
-    return false;
 }
 
 NOL::Vector SteepestDescent::SearchDirection(const Vector &xk) const
