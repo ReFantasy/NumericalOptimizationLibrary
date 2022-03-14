@@ -35,8 +35,6 @@ FLOAT SteepestDescent::Step(const Vector &xk, const Vector &dk) const
     _line_search->SetXk(xk);
     _line_search->SetDk(dk);
 
-    _options->line_search_type = LineSearchType::GOLDENSECTION;
-
     FLOAT alpha = _line_search->Search(1.0, *_options);
     return alpha;
 }

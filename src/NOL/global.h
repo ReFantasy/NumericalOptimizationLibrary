@@ -98,9 +98,10 @@ class Options
     /**
      * If during the line search, the step_size falls below this value, it is truncated to zero.
      */
-    FLOAT min_step_size = MinStepSize<FLOAT>::value;
+    FLOAT min_step_size = 0.001;
 
-    FLOAT max_solver_time_in_seconds = 1.0;
+    FLOAT max_solver_time_in_seconds = 100000000.0;
+	FLOAT max_line_search_time_in_milliseconds = 50;
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;

@@ -34,11 +34,11 @@ void example_3_1()
     Options options;
 
     Vector x(2);
-    x << -30, 100;
+    x << RandomNumber<FLOAT>(-10,10),RandomNumber<FLOAT>(-10,10);
     options.init_x = x;
     options.termination_value = 10e-5;
 	//options.optimized_performance = true;
-
+	options.line_search_type = LineSearchType::GOLDENSECTION;
     
     SteepestDescent sd(&functor, &options);
     Vector res = sd.Solve();

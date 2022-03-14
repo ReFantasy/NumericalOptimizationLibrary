@@ -53,8 +53,12 @@ FLOAT LinearSearch::Armijo(FLOAT alpha, const Options &options)
     FLOAT dphi0 = dphi_da(0.0);
     FLOAT last_alpha = 0;
     int k = 0;
+	Timer timer;
     while (true)
     {
+		if(timer.Elapse()>options.max_line_search_time_in_milliseconds)
+			return std::min(options.min_step_size, alpha);
+
         FLOAT phi_alpha = phi(alpha);
 
         if (phi_alpha < (phi0 + rho * dphi0 * alpha))
@@ -105,9 +109,14 @@ FLOAT LinearSearch::Goldstein(FLOAT alpha, const Options &options)
     FLOAT phi0 = phi(0.0);
     FLOAT dphi0 = dphi_da(0.0);
     int k = 0;
+	assert(options.parameter_line_search_goldstein_rho<0.5);
 
+	Timer timer;
     while (true)
     {
+		if(timer.Elapse()>options.max_line_search_time_in_milliseconds)
+			return std::max(options.min_step_size, alpha);
+
         FLOAT phi_alpha = phi(alpha);
         if (phi_alpha > (phi0 + options.parameter_line_search_goldstein_rho * dphi0 * alpha))
         {
@@ -140,8 +149,12 @@ FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options &options)
     FLOAT dphi0 = dphi_da(0.0);
     int k = 0;
 
+	Timer timer;
     while (true)
     {
+		if(timer.Elapse()>options.max_line_search_time_in_milliseconds)
+			return std::max(options.min_step_size, alpha);
+
         if (phi(alpha) > (phi0 + options.parameter_line_search_wolfe_rho * dphi0 * alpha))
         {
             b = alpha;
@@ -292,13 +305,15 @@ FLOAT LinearSearch::Zoom(FLOAT alo, FLOAT ahi, const Options &options)
     FLOAT c1 = options.parameter_line_search_wolfe_rho;
     FLOAT c2 = options.parameter_line_search_wolfe_sigma;
 
+	Timer timer;
     while (true)
     {
-        if (std::abs(ahi - alo) < options.min_step_size)
-        {
-            // assert(phi(ahi) < phi(0));
-            return std::max(ahi, alo);
-        }
+		if(timer.Elapse()>options.max_line_search_time_in_milliseconds)
+			return std::max(options.min_step_size, (ahi+alo)/2.0);
+//        if (std::abs(ahi - alo) < MinStepSize<FLOAT>::value)
+//        {
+//            return std::max(ahi, alo);
+//        }
         FLOAT aj = (alo + ahi) / 2.0;
         FLOAT tmp = phi(0) + c1 * aj * dphi_da(0);
         if ((phi(aj) > tmp) || (phi(aj) >= phi(alo)))

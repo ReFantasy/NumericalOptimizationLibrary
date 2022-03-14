@@ -24,7 +24,7 @@ class LinearSearch
      * @brief 构造函数
      * @param functor 目标函数\f$ f \f$ 的指针
      */
-    LinearSearch(TargetFunctor *functor = nullptr);
+    explicit LinearSearch(TargetFunctor *functor = nullptr);
 
     /**
      * @brief 线搜索
@@ -49,7 +49,7 @@ class LinearSearch
      */
     void SetDk(Vector dk)
     {
-        _dk = dk;
+        _dk = std::move(dk);
     }
 
     /**
