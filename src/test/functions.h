@@ -29,4 +29,25 @@ class ROTATED_HYPER_ELLIPSOID : public TargetFunctor
     [[nodiscard]] Matrix Hesse(const Vector &xk) const override;
 };
 
+
+/**
+ *The plot on the left shows the three-hump Camel function on its recommended input domain,
+ * and the plot on the right shows only a portion of this domain,
+ * to allow for easier viewing of the function's key characteristics. The function has three local minima.
+ *
+ * Dimensions: 2
+ *
+ * \f$ f(x) = 2 x_1^2-1.05 x_1^4+\frac{x_1^6}{6}+x_1 x_2+x_2^2 \f$
+ *
+ * http://www.sfu.ca/~ssurjano/camel3.html
+ */
+class THREE_HUMP_CAMEL : public TargetFunctor
+{
+public:
+	FLOAT operator()(const Vector &xk) const override;
+
+	Vector Gradient(const Vector &xk) const override;
+
+	Matrix Hesse(const Vector &xk) const override;
+};
 #endif // OPTIMIZATION_FUNCTIONS_H
