@@ -228,7 +228,6 @@ class UnconstrainedOptimizationLineSearchBase
 
   protected:
 	std::shared_ptr<TargetFunctor> _functor_ptr;
-  protected:
 	std::shared_ptr<Options> _options_ptr ;
 	std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable Timer _timer;
