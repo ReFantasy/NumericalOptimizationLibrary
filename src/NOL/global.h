@@ -20,6 +20,9 @@ using FLOAT = double;
 using Vector = Eigen::VectorXd;
 using Matrix = Eigen::MatrixXd;
 
+/**
+ * If during the line search, the step_size falls below this value, it is truncated to zero.
+ */
 template <typename T> class MinStepSize
 {
   public:
@@ -94,9 +97,6 @@ class Options
     TerminationCriterionType termination_type = TerminationCriterionType::GK_NORM;
     FLOAT termination_value = 1e-6;
 
-    /**
-     * If during the line search, the step_size falls below this value, it is truncated to zero.
-     */
     FLOAT min_step_size = 0.001;
 
     FLOAT max_solver_time_in_seconds = 100000000.0;
@@ -209,7 +209,7 @@ class UnconstrainedOptimizationLineSearchBase
 	Timer& GetTimer()const {return _timer;}
 
 	void SetFunctor(TargetFunctor *functor){_functor = functor;};
-	
+
 	TargetFunctor *GetFunctor()const{return _functor;}
 
 protected:
