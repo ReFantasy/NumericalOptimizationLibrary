@@ -24,7 +24,7 @@ class LinearSearch
      * @brief 构造函数
      * @param functor 目标函数\f$ f \f$ 的指针
      */
-    explicit LinearSearch(TargetFunctor *functor = nullptr);
+    explicit LinearSearch(std::shared_ptr<TargetFunctor> functor = nullptr);
 
     /**
      * @brief 线搜索
@@ -74,18 +74,18 @@ class LinearSearch
      * @brief 设置目标函数
      * @param \f$ functor \f$ 目标函数指针
      */
-    void SetTargetFunctor(TargetFunctor *functor)
+    void SetTargetFunctor(std::shared_ptr<TargetFunctor> functor)
     {
-        _functor = functor;
+        _functor_ptr = functor;
     }
 
     /**
      * @brief 获取目标函数
      * @return 目标函数指针\f$ f \f$
      */
-    const TargetFunctor *TargetFunctorPointer() const
+    const std::shared_ptr<TargetFunctor> TargetFunctorPointer() const
     {
-        return _functor;
+        return _functor_ptr;
     }
 
   protected:
@@ -156,7 +156,7 @@ class LinearSearch
   private:
     Vector _xk;
     Vector _dk;
-    TargetFunctor *_functor = nullptr;
+	std::shared_ptr<TargetFunctor> _functor_ptr;
 };
 } // namespace NOL
 #endif //__LINE_SEARCH_H__

@@ -5,36 +5,30 @@ namespace NOL
 {
 UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase()
 {
-    _line_search = new LinearSearch{};
-    _options = new Options;
+	_line_search_ptr = std::make_shared<LinearSearch>();
+	_options_ptr = std::make_shared<Options>();
 }
-UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(TargetFunctor *functor)
+UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(std::shared_ptr<TargetFunctor>  functor_ptr)
 {
-    _functor = functor;
-    _line_search = new LinearSearch{};
-    _line_search->SetTargetFunctor(_functor);
-    _options = new Options;
-}
-
-UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
-{
-    delete _line_search;
-    delete _options;
+    _functor_ptr = functor_ptr;
+    _line_search_ptr = std::make_shared<LinearSearch>();
+    _line_search_ptr->SetTargetFunctor(functor_ptr);
+	_options_ptr = std::make_shared<Options>();
 }
 
 Vector UnconstrainedOptimizationLineSearchBase::Solve()
 {
-    if (_functor == nullptr)
+    if (_functor_ptr == nullptr)
     {
         throw std::invalid_argument("functor pointer is null.");
     }
 
     int k = 0;
-    Vector xk = _options->init_x;
+    Vector xk = _options_ptr->init_x;
 
     // <--------
-    *_options << typeid(*this).name() << " initial x: ";
-    *_options << xk.transpose() << "\n\n";
+    *_options_ptr << typeid(*this).name() << " initial x: ";
+    *_options_ptr << xk.transpose() << "\n\n";
     // -------->
 
     while (true)
@@ -63,36 +57,39 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
     }
     bool is_termination = false;
     FLOAT epsilon = 0;
-    switch (_options->termination_type)
+    switch (_options_ptr->termination_type)
     {
     case TerminationCriterionType::GK_NORM:
-        if ((epsilon = _functor->Gradient(xk).norm()) < _options->termination_value)
+        if ((epsilon = _functor_ptr->Gradient(xk).norm()) < _options_ptr->termination_value)
             is_termination = true;
         break;
     case TerminationCriterionType::DELTA_XK:
-        if ((epsilon = (xk - last_xk).norm()) < _options->termination_value)
+        if ((epsilon = (xk - last_xk).norm()) < _options_ptr->termination_value)
             is_termination = true;
         break;
     case TerminationCriterionType::DELTA_F:
-        if ((epsilon = std::abs((*_functor)(xk) - (*_functor)(last_xk))) < _options->termination_value)
+        if ((epsilon = std::abs((*_functor_ptr)(xk) - (*_functor_ptr)(last_xk))) < _options_ptr->termination_value)
             is_termination = true;
         break;
     default:
         break;
     }
-    if (_timer.Elapse() / 1000.0 > _options->max_solver_time_in_seconds)
+    if (_timer.Elapse() / 1000.0 > _options_ptr->max_solver_time_in_seconds)
         is_termination = true;
     if (is_termination)
         return true;
 
     last_xk = xk;
     // <--------
-    *_options << "k:" << k << " "
+    *_options_ptr << "k:" << k << " "
               << "  xk:(" << xk.transpose() << ") "
               << "  estimation: " << epsilon << "\n";
     // -------->
 
     return false;
 }
+
+	//UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
+
 
 } // namespace NOL

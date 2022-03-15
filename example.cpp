@@ -28,23 +28,24 @@ void example_3_1()
     };
 
     // 构造目标函数对象
-    Functor functor;
-    functor.b << 2, 3;
-    functor.G << 21, 4, 4, 15;
+    //Functor functor;
+	std::shared_ptr<Functor> functor = std::make_shared<Functor>();
+	(*functor).b << 2, 3;
+	(*functor).G << 21, 4, 4, 15;
     // functor.G << 21, 4, 4, 1;
 
     // 构造求解器对象
-    SteepestDescent sd(&functor);
+    SteepestDescent sd(functor);
 
     // 获取求解器参数指针
-    Options &options = sd.GetOptions();
+    auto options = sd.GetOptions();
 
     // 设置求解参数
     Vector x(2);
     x << RandomNumber<FLOAT>(-10, 10), RandomNumber<FLOAT>(-10, 10);
-    options.init_x = x;
-    options.termination_value = 10e-5;
-    options.optimized_performance = true;
+    options->init_x = x;
+    options->termination_value = 10e-5;
+    options->optimized_performance = true;
 
     // 求解
     Vector res = sd.Solve();
@@ -82,19 +83,19 @@ void example_3_2()
         }
     };
 
-    Functor functor;
+    auto functor = std::make_shared<Functor>();
 
-    NewtonBase newton(&functor);
+    NewtonBase newton(functor);
 
-    Options &option = newton.GetOptions();
+    auto option = newton.GetOptions();
 
-    option.termination_value = 10e-6;
-    option.optimized_performance = true;
+    option->termination_value = 10e-6;
+    option->optimized_performance = true;
     Vector x0(2);
     // x0(0) = x0(1) = 1.5;
     x0(0) = -2;
     x0(1) = 4;
-    option.init_x = x0;
+    option->init_x = x0;
 
     std::cout << "example 3.2" << std::endl;
     std::cout << "initial x: " << x0.transpose() << std::endl;

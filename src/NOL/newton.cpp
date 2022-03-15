@@ -8,11 +8,11 @@ namespace NOL
 bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 {
     // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-    FLOAT xk_max_norm = _functor->Gradient(xk).norm();
-    if (xk_max_norm <= _options->termination_value)
+    FLOAT xk_max_norm = _functor_ptr->Gradient(xk).norm();
+    if (xk_max_norm <= _options_ptr->termination_value)
         return true;
     // <--------
-    *_options << "k:" << k << " "
+    *_options_ptr << "k:" << k << " "
               << "  xk:(" << xk.transpose() << ") "
               << "  ||gk||: " << xk_max_norm << "\n";
     // -------->
@@ -22,8 +22,8 @@ bool NewtonBase::IsTerminated(const Vector &xk, int k) const
 NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 {
     // compute dk
-    Matrix Gk = _functor->Hesse(xk);
-    Vector gk = _functor->Gradient(xk);
+    Matrix Gk = _functor_ptr->Hesse(xk);
+    Vector gk = _functor_ptr->Gradient(xk);
 
     // solve Gk*dk = -gk
     Vector dk;
@@ -34,21 +34,21 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 
 FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
 {
-    _line_search->SetTargetFunctor(_functor);
-    _line_search->SetXk(xk);
-    _line_search->SetDk(dk);
-    return _line_search->Search(1.0, *_options);
+    _line_search_ptr->SetTargetFunctor(_functor_ptr);
+    _line_search_ptr->SetXk(xk);
+    _line_search_ptr->SetDk(dk);
+    return _line_search_ptr->Search(1.0, *_options_ptr);
 }
 
 NOL::Vector QuasiNewton::Solve()
 {
     int k = 0;
-    Vector xk = _options->init_x;
+    Vector xk = _options_ptr->init_x;
     _Hk = Matrix::Identity(xk.size(), xk.size());
 
     // <--------
-    *_options << typeid(*this).name() << " initial x: ";
-    *_options << xk.transpose() << "\n\n";
+    *_options_ptr << typeid(*this).name() << " initial x: ";
+    *_options_ptr << xk.transpose() << "\n\n";
     // -------->
 
     while (true)
@@ -60,8 +60,8 @@ NOL::Vector QuasiNewton::Solve()
 
         double alpha = Step(xk, dk);
 
-        Vector yk1 = _functor->Gradient(xk);
-        Vector yk2 = _functor->Gradient(xk + alpha * dk);
+        Vector yk1 = _functor_ptr->Gradient(xk);
+        Vector yk2 = _functor_ptr->Gradient(xk + alpha * dk);
         xk = xk + alpha * dk;
 
         // Hk->Hk+1
@@ -77,26 +77,26 @@ NOL::Vector QuasiNewton::Solve()
 
 NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
 {
-    Vector gk = _functor->Gradient(xk);
+    Vector gk = _functor_ptr->Gradient(xk);
     Vector dk = -_Hk * gk;
     return dk;
 }
 
 Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
 {
-    if (_options->quasi_newton_type == QuasiNewtonSearchType::SR1)
+    if (_options_ptr->quasi_newton_type == QuasiNewtonSearchType::SR1)
     {
         // SR1
         Vector tmp = sk - Hk * yk;
         return Hk + (tmp * tmp.transpose()) / (tmp.transpose() * yk);
     }
-    else if (_options->quasi_newton_type == QuasiNewtonSearchType::DFP)
+    else if (_options_ptr->quasi_newton_type == QuasiNewtonSearchType::DFP)
     {
         // DFP
         return Hk + (sk * sk.transpose()) / (sk.transpose() * yk) -
                (Hk * yk * yk.transpose() * Hk) / (yk.transpose() * Hk * yk);
     }
-    else if (_options->quasi_newton_type == QuasiNewtonSearchType::BFGS)
+    else if (_options_ptr->quasi_newton_type == QuasiNewtonSearchType::BFGS)
     {
         // BFGS
         FLOAT d = yk.transpose() * sk;

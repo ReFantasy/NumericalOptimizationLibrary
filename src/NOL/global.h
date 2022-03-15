@@ -13,6 +13,8 @@
 #include <iostream>
 #include <limits>
 #include <sstream>
+#include <memory>
+#include <utility>
 
 namespace NOL
 {
@@ -172,8 +174,8 @@ class UnconstrainedOptimizationLineSearchBase
     /**
      * @param functor Function object pointer
      */
-    explicit UnconstrainedOptimizationLineSearchBase(TargetFunctor *functor);
-    virtual ~UnconstrainedOptimizationLineSearchBase();
+    explicit UnconstrainedOptimizationLineSearchBase(std::shared_ptr<TargetFunctor>  functor_ptr);
+    virtual ~UnconstrainedOptimizationLineSearchBase()= default;
 
     /**
      * Find the optimal solution of function
@@ -204,9 +206,9 @@ class UnconstrainedOptimizationLineSearchBase
      */
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
-    Options &GetOptions() const
+	std::shared_ptr<Options> GetOptions() const
     {
-        return *_options;
+        return _options_ptr;
     }
 
     Timer &GetTimer() const
@@ -214,22 +216,21 @@ class UnconstrainedOptimizationLineSearchBase
         return _timer;
     }
 
-    void SetFunctor(TargetFunctor *functor)
+    void SetFunctor(std::shared_ptr<TargetFunctor>  functor_ptr)
     {
-        _functor = functor;
+        _functor_ptr = std::move(functor_ptr);
     };
 
-    TargetFunctor *GetFunctor() const
+	std::shared_ptr<TargetFunctor> GetFunctor() const
     {
-        return _functor;
+        return _functor_ptr;
     }
 
   protected:
-    TargetFunctor *_functor = nullptr;
-
+	std::shared_ptr<TargetFunctor> _functor_ptr;
   protected:
-    Options *_options = nullptr;
-    LinearSearch *_line_search = nullptr;
+	std::shared_ptr<Options> _options_ptr ;
+	std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable Timer _timer;
 };
 } // namespace NOL

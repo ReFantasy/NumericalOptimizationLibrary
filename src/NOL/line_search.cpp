@@ -4,7 +4,7 @@
 namespace NOL
 {
 
-LinearSearch::LinearSearch(TargetFunctor *functor) : _functor(functor)
+LinearSearch::LinearSearch(std::shared_ptr<TargetFunctor> functor) : _functor_ptr(functor)
 {
 }
 
@@ -182,12 +182,12 @@ FLOAT LinearSearch::Wolfe(FLOAT alpha, const Options &options)
 
 FLOAT LinearSearch::phi(FLOAT a)
 {
-    return (*_functor)(_xk + a * _dk);
+    return (*_functor_ptr)(_xk + a * _dk);
 }
 
 FLOAT LinearSearch::dphi_da(FLOAT a)
 {
-    return _functor->Gradient(_xk + a * _dk).transpose() * _dk;
+    return _functor_ptr->Gradient(_xk + a * _dk).transpose() * _dk;
 }
 
 void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &secton_a, FLOAT &secton_b)
