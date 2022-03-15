@@ -3,9 +3,32 @@
 
 namespace NOL
 {
+	UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase()
+	{
+		_line_search = new LinearSearch{};
+		_options = new Options;
+	}
+	UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(TargetFunctor* functor)
+	{
+		_functor = functor;
+		_line_search = new LinearSearch{};
+		_line_search->SetTargetFunctor(_functor);
+		_options = new Options;
+	}
+
+	UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
+	{
+		delete _line_search;
+		delete _options;
+	}
 
 Vector UnconstrainedOptimizationLineSearchBase::Solve()
 {
+	if(_functor == nullptr)
+	{
+		throw std::invalid_argument("functor pointer is null.");
+	}
+
     int k = 0;
     Vector xk = _options->init_x;
 
@@ -71,5 +94,10 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
 
     return false;
 }
+
+
+
+
+
 
 } // namespace NOL

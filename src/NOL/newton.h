@@ -9,6 +9,8 @@ namespace NOL
 class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 {
   public:
+	using UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase;
+
     bool IsTerminated(const Vector &xk, int k) const override;
 
     Vector SearchDirection(const Vector &xk) const override;
@@ -22,12 +24,16 @@ class NewtonBase : public UnconstrainedOptimizationLineSearchBase
 class DampedNewton : public NewtonBase
 {
   public:
+	using NewtonBase = NewtonBase;
+
     FLOAT Step(const Vector &xk, const Vector &dk) const override;
 };
 
 class QuasiNewton : public DampedNewton
 {
   public:
+	using DampedNewton = DampedNewton;
+
     Vector Solve() override;
 
     Vector SearchDirection(const Vector &xk) const override;

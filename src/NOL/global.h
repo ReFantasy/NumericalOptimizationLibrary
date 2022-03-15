@@ -9,10 +9,9 @@
 #ifndef __GLOBAL_H__
 #define __GLOBAL_H__
 #include "Eigen/Dense"
-#include <chrono>
+#include "helper.h"
 #include <iostream>
 #include <limits>
-#include <random>
 #include <sstream>
 
 namespace NOL
@@ -163,79 +162,64 @@ class Options
     std::stringstream ss;
 };
 
-class Timer
-{
-  public:
-    Timer()
-    {
-        _start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    void Start()
-    {
-        ReSet();
-    }
-
-    std::chrono::high_resolution_clock::time_point StartTime()
-    {
-        return _start_time;
-    }
-    std::chrono::high_resolution_clock::time_point CurrentTime()
-    {
-        return std::chrono::high_resolution_clock::now();
-    }
-
-    template <typename T = std::chrono::milliseconds> int Elapse() const
-    {
-        return std::chrono::duration_cast<T>(std::chrono::high_resolution_clock::now() - _start_time).count();
-    }
-
-    void ReSet()
-    {
-        _start_time = std::chrono::high_resolution_clock::now();
-    }
-
-  private:
-    std::chrono::high_resolution_clock::time_point _start_time;
-};
-
-template <typename T, typename Distribution = std::uniform_real_distribution<T>>
-T RandomNumber(const T &lo = 0, const T &hi = 1)
-{
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    Distribution dist(lo, hi);
-    return dist(rng);
-}
-
 /**
  * @brief Base class of all unconstrained optimization algorithm classes
  */
 class UnconstrainedOptimizationLineSearchBase
 {
   public:
-    virtual ~UnconstrainedOptimizationLineSearchBase()
-    {
-    }
-    /**
-     * @brief Find the optimal solution of function
-     * @param fucntor Function object
-     * @param options Optimization parameters
-     * @return the point of the optimal solution
-     */
+	UnconstrainedOptimizationLineSearchBase();
+	/**
+	 * @param functor Function object pointer
+	 */
+	explicit UnconstrainedOptimizationLineSearchBase(TargetFunctor *functor);
+    virtual ~UnconstrainedOptimizationLineSearchBase();
+
+	/**
+	 * Find the optimal solution of function
+	 * @return the point of the optimal solution
+	 */
     virtual Vector Solve();
 
+	/**
+	 * whether the iteration stop condition is satisfied
+	 * @param xk current iteration point
+	 * @param k number of iteration
+	 * @return if it is satisfied, return true, otherwise false
+	 */
     virtual bool IsTerminated(const Vector &xk, int k) const;
 
+	/**
+	 * search the direction at point xk to be sure that function value is reduced
+	 * @param xk the point of where search is started
+	 * @return descend direction
+	 */
     virtual Vector SearchDirection(const Vector &xk) const = 0;
 
+	/**
+	 * compute the step length at point xk along the direction dk
+	 * @param xk point location
+	 * @param dk descend direction
+	 * @return  step length
+	 */
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
+	Options& GetOptions()const{return *_options;}
+
+	Timer& GetTimer()const {return _timer;}
+
+	void SetFunctor(TargetFunctor *functor){_functor = functor;};
+	
+	TargetFunctor *GetFunctor()const{return _functor;}
+
+protected:
     TargetFunctor *_functor = nullptr;
+
+protected:
     Options *_options = nullptr;
     LinearSearch *_line_search = nullptr;
+	mutable Timer _timer;
 
-    mutable Timer _timer;
 };
 } // namespace NOL
 
