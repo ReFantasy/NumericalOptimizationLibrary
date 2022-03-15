@@ -29,7 +29,6 @@ class ROTATED_HYPER_ELLIPSOID : public TargetFunctor
     [[nodiscard]] Matrix Hesse(const Vector &xk) const override;
 };
 
-
 /**
  *The plot on the left shows the three-hump Camel function on its recommended input domain,
  * and the plot on the right shows only a portion of this domain,
@@ -43,11 +42,11 @@ class ROTATED_HYPER_ELLIPSOID : public TargetFunctor
  */
 class THREE_HUMP_CAMEL : public TargetFunctor
 {
-public:
-	FLOAT operator()(const Vector &xk) const override;
+  public:
+    FLOAT operator()(const Vector &xk) const override;
 
-	Vector Gradient(const Vector &xk) const override;
+    Vector Gradient(const Vector &xk) const override;
 
-	Matrix Hesse(const Vector &xk) const override;
+    Matrix Hesse(const Vector &xk) const override;
 };
 #endif // OPTIMIZATION_FUNCTIONS_H

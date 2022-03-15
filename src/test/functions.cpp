@@ -37,25 +37,24 @@ Matrix ROTATED_HYPER_ELLIPSOID::Hesse(const Vector &xk) const
     return hesse;
 }
 
-
 FLOAT THREE_HUMP_CAMEL::operator()(const Vector &x) const
 {
-	return 2*x(0)*x(0)-1.05*std::pow(x(0),4)+std::pow(x(0),6)/6.0+x(0)*x(1)+x(1)*x(1);
+    return 2 * x(0) * x(0) - 1.05 * std::pow(x(0), 4) + std::pow(x(0), 6) / 6.0 + x(0) * x(1) + x(1) * x(1);
 }
 
 Vector THREE_HUMP_CAMEL::Gradient(const Vector &x) const
 {
-	Vector v(2);
-	v(0) = std::pow(x(0),5)-4.2*std::pow(x(0),3)+4*x(0)+x(1);
-	v(1) = x(0)+2*x(1);
-	return v;
+    Vector v(2);
+    v(0) = std::pow(x(0), 5) - 4.2 * std::pow(x(0), 3) + 4 * x(0) + x(1);
+    v(1) = x(0) + 2 * x(1);
+    return v;
 }
 
 Matrix THREE_HUMP_CAMEL::Hesse(const Vector &x) const
 {
-	Matrix  m(2,2);
-	m(1,0)= m(0,1)=1;
-	m(1,1) = 2;
-	m(0,0) = 5*std::pow(x(0),4)-12.6*x(0)*x(0)+4;
-	return m;
+    Matrix m(2, 2);
+    m(1, 0) = m(0, 1) = 1;
+    m(1, 1) = 2;
+    m(0, 0) = 5 * std::pow(x(0), 4) - 12.6 * x(0) * x(0) + 4;
+    return m;
 }

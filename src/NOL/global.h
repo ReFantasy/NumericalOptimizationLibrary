@@ -100,7 +100,7 @@ class Options
     FLOAT min_step_size = 0.001;
 
     FLOAT max_solver_time_in_seconds = 100000000.0;
-	FLOAT max_line_search_time_in_milliseconds = 50;
+    FLOAT max_line_search_time_in_milliseconds = 50;
 
     LineSearchType line_search_type = LineSearchType::GOLDSTEIN;
     QuasiNewtonSearchType quasi_newton_type = QuasiNewtonSearchType::DFP;
@@ -168,58 +168,69 @@ class Options
 class UnconstrainedOptimizationLineSearchBase
 {
   public:
-	UnconstrainedOptimizationLineSearchBase();
-	/**
-	 * @param functor Function object pointer
-	 */
-	explicit UnconstrainedOptimizationLineSearchBase(TargetFunctor *functor);
+    UnconstrainedOptimizationLineSearchBase();
+    /**
+     * @param functor Function object pointer
+     */
+    explicit UnconstrainedOptimizationLineSearchBase(TargetFunctor *functor);
     virtual ~UnconstrainedOptimizationLineSearchBase();
 
-	/**
-	 * Find the optimal solution of function
-	 * @return the point of the optimal solution
-	 */
+    /**
+     * Find the optimal solution of function
+     * @return the point of the optimal solution
+     */
     virtual Vector Solve();
 
-	/**
-	 * whether the iteration stop condition is satisfied
-	 * @param xk current iteration point
-	 * @param k number of iteration
-	 * @return if it is satisfied, return true, otherwise false
-	 */
+    /**
+     * whether the iteration stop condition is satisfied
+     * @param xk current iteration point
+     * @param k number of iteration
+     * @return if it is satisfied, return true, otherwise false
+     */
     virtual bool IsTerminated(const Vector &xk, int k) const;
 
-	/**
-	 * search the direction at point xk to be sure that function value is reduced
-	 * @param xk the point of where search is started
-	 * @return descend direction
-	 */
+    /**
+     * search the direction at point xk to be sure that function value is reduced
+     * @param xk the point of where search is started
+     * @return descend direction
+     */
     virtual Vector SearchDirection(const Vector &xk) const = 0;
 
-	/**
-	 * compute the step length at point xk along the direction dk
-	 * @param xk point location
-	 * @param dk descend direction
-	 * @return  step length
-	 */
+    /**
+     * compute the step length at point xk along the direction dk
+     * @param xk point location
+     * @param dk descend direction
+     * @return  step length
+     */
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
-	Options& GetOptions()const{return *_options;}
+    Options &GetOptions() const
+    {
+        return *_options;
+    }
 
-	Timer& GetTimer()const {return _timer;}
+    Timer &GetTimer() const
+    {
+        return _timer;
+    }
 
-	void SetFunctor(TargetFunctor *functor){_functor = functor;};
+    void SetFunctor(TargetFunctor *functor)
+    {
+        _functor = functor;
+    };
 
-	TargetFunctor *GetFunctor()const{return _functor;}
+    TargetFunctor *GetFunctor() const
+    {
+        return _functor;
+    }
 
-protected:
+  protected:
     TargetFunctor *_functor = nullptr;
 
-protected:
+  protected:
     Options *_options = nullptr;
     LinearSearch *_line_search = nullptr;
-	mutable Timer _timer;
-
+    mutable Timer _timer;
 };
 } // namespace NOL
 

@@ -17,7 +17,7 @@ namespace NOL
 class SteepestDescent : public UnconstrainedOptimizationLineSearchBase
 {
   public:
-	using UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase;
+    using UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase;
 
     Vector SearchDirection(const Vector &xk) const override;
 
