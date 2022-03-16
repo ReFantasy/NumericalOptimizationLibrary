@@ -32,7 +32,7 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
 
     // <--------
     *_options_ptr << typeid(*this).name() << " initial x: ";
-    *_options_ptr << xk.transpose() << "\n\n";
+    *_options_ptr <<std::fixed<< xk.transpose() << "\n\n";
     // -------->
 
     while (true)
@@ -85,7 +85,7 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
 
     last_xk = xk;
     // <--------
-    *_options_ptr << "k:" << k << " "
+    *_options_ptr << "k:" <<std::fixed<< k << " "
               << "  xk:(" << xk.transpose() << ") "
               << "  estimation: " << epsilon << "\n";
     // -------->

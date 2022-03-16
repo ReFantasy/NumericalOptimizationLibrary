@@ -85,16 +85,16 @@ void example_3_2()
 
     auto functor = std::make_shared<Functor>();
 
-	auto solver = OptimizationFactory::CreateSolver(OptimizationMethodType::QUASI_NEWTON, functor);
+	auto solver = OptimizationFactory::CreateSolver(OptimizationMethodType::NEWTON, functor);
 
     auto option = solver->GetOptions();
 
     option->termination_value = 10e-6;
     option->optimized_performance = true;
     Vector x0(2);
-    //x0(0) = x0(1) = 1.5;
-    x0(0) = -2;
-    x0(1) = 4;
+    x0(0) = x0(1) = 1.5;
+    //x0(0) = -2;
+    //x0(1) = 4;
 	//x0(0) = 0;
 	//x0(1) = 3;
     option->init_x = x0;
@@ -106,6 +106,63 @@ void example_3_2()
               << std::endl;
 }
 
+void example_3_3()
+{
+	struct Functor : TargetFunctor
+	{
+		virtual FLOAT operator()(const Vector &x) const override
+		{
+			return 3 * x(0) * x(0) + 3 * x(1) * x(1) - x(0) * x(0) * x(1);
+		}
+		virtual Vector Gradient(const Vector &x) const override
+		{
+			Vector dx(2);
+			dx(0) = 6 * x(0) - 2 * x(0) * x(1);
+			dx(1) = 6 * x(1) - x(0) * x(0);
+			return dx;
+		}
+		virtual Matrix Hesse(const Vector &x) const override
+		{
+			Matrix J(2, 2);
+			J(0, 0) = 6 - 2 * x(1);
+			J(0, 1) = -2 * x(0);
+			J(1, 0) = -2 * x(0);
+			J(1, 1) = 6;
+			return J;
+		}
+	};
+
+	auto functor = std::make_shared<Functor>();
+
+	auto solver = OptimizationFactory::CreateSolver(OptimizationMethodType::LM, functor);
+
+	auto option = solver->GetOptions();
+	option->line_search_type = LineSearchType::WOLFE;
+
+	option->termination_value = 10e-6;
+	option->optimized_performance = true;
+	Vector x0(2);
+	//x0(0) = x0(1) = 1.5;
+	//x0(0) = -2;
+	//x0(1) = 4;
+	x0(0) = 2;
+	x0(1) = 3;
+	option->init_x = x0;
+
+	float num = 1.25;
+
+//	std::cout.setf(std::ios::right); // 设置对齐方式
+//	std::cout.width(8); //设置输出宽度
+//	std::cout.fill('0'); //将多余的空格用0填充
+//	std::cout.precision(4); //设置输出精度，保留有效数字
+
+
+	std::cout << "example 3.3" << std::endl;
+	std::cout <<std::fixed<< "initial x: " << x0.transpose() << std::endl;
+	std::cout <<std::fixed<< "Optimal solution : " << solver->Solve().transpose() << "  time : " << solver->GetTimer()->Elapse()
+			  << "ms" << std::endl
+			  << std::endl;
+}
 // void example()
 //{
 //     struct Functor : TargetFunctor
