@@ -1,23 +1,10 @@
 #include "newton.h"
 #include "line_search.h"
 #include <iostream>
+#include "helper.h"
 
 namespace NOL
 {
-
-bool NewtonBase::IsTerminated(const Vector &xk, int k) const
-{
-    // FLOAT xk_max_norm = _functor->FirstOrderDerivatives(xk).cwiseAbs().maxCoeff();
-    FLOAT xk_max_norm = _functor_ptr->Gradient(xk).norm();
-    if (xk_max_norm <= _options_ptr->termination_value)
-        return true;
-    // <--------
-    *_options_ptr << "k:" << k << " "
-              << "  xk:(" << xk.transpose() << ") "
-              << "  ||gk||: " << xk_max_norm << "\n";
-    // -------->
-    return false;
-}
 
 NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 {
@@ -32,9 +19,28 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
     return dk;
 }
 
+Vector LM::SearchDirection(const Vector& xk) const
+{
+	// compute dk
+	Matrix Gk = _functor_ptr->Hesse(xk);
+	Vector gk = _functor_ptr->Gradient(xk);
+
+	//
+	while (Gk.determinant()<MinStepSize<FLOAT>::value)
+	{
+		Gk += _vk*Matrix::Identity(Gk.rows(),Gk.cols());
+		UpdateVk();
+	}
+
+	// solve Gk*dk = -gk
+	Vector dk;
+	dk = Gk.colPivHouseholderQr().solve(-gk);
+
+	return dk;
+}
+
 FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
 {
-    _line_search_ptr->SetTargetFunctor(_functor_ptr);
     _line_search_ptr->SetXk(xk);
     _line_search_ptr->SetDk(dk);
     return _line_search_ptr->Search(1.0, *_options_ptr);
@@ -109,5 +115,6 @@ Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
 
     throw std::invalid_argument("invalid quasi-newton type");
 }
+
 
 } // namespace NOL

@@ -1,7 +1,7 @@
 #include "example.h"
 #include "global.h"
 #include "line_search.h"
-
+#include "decorator.h"
 using namespace NOL;
 
 void example_3_1()
@@ -35,10 +35,10 @@ void example_3_1()
     // functor.G << 21, 4, 4, 1;
 
     // 构造求解器对象
-    SteepestDescent sd(functor);
+	auto sd = OptimizationFactory::CreateSolver(OptimizationMethodType::SD, functor);
 
     // 获取求解器参数指针
-    auto options = sd.GetOptions();
+    auto options = sd->GetOptions();
 
     // 设置求解参数
     Vector x(2);
@@ -48,12 +48,12 @@ void example_3_1()
     options->optimized_performance = true;
 
     // 求解
-    Vector res = sd.Solve();
+    Vector res = sd->Solve();
 
     // 输出结果
     std::cout << "example 3.1" << std::endl;
     std::cout << "initial x: " << x.transpose() << std::endl;
-    std::cout << "Optimal solution : " << res.transpose() << "  time : " << sd.GetTimer().Elapse() << "ms" << std::endl
+    std::cout << "Optimal solution : " << res.transpose() << "  time : " << sd->GetTimer()->Elapse() << "ms" << std::endl
               << std::endl;
 }
 
@@ -85,21 +85,23 @@ void example_3_2()
 
     auto functor = std::make_shared<Functor>();
 
-    NewtonBase newton(functor);
+	auto solver = OptimizationFactory::CreateSolver(OptimizationMethodType::QUASI_NEWTON, functor);
 
-    auto option = newton.GetOptions();
+    auto option = solver->GetOptions();
 
     option->termination_value = 10e-6;
     option->optimized_performance = true;
     Vector x0(2);
-    // x0(0) = x0(1) = 1.5;
+    //x0(0) = x0(1) = 1.5;
     x0(0) = -2;
     x0(1) = 4;
+	//x0(0) = 0;
+	//x0(1) = 3;
     option->init_x = x0;
 
     std::cout << "example 3.2" << std::endl;
     std::cout << "initial x: " << x0.transpose() << std::endl;
-    std::cout << "Optimal solution : " << newton.Solve().transpose() << "  time : " << newton.GetTimer().Elapse()
+    std::cout << "Optimal solution : " << solver->Solve().transpose() << "  time : " << solver->GetTimer()->Elapse()
               << "ms" << std::endl
               << std::endl;
 }

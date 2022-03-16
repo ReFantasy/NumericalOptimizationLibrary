@@ -1,5 +1,9 @@
 #include "global.h"
 #include "line_search.h"
+#include "steepest_descent.h"
+#include "newton.h"
+#include "decorator.h"
+
 
 namespace NOL
 {
@@ -52,7 +56,7 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
     static Vector last_xk(xk.size());
     if (k == 0)
     {
-        _timer.ReSet();
+        _timer_ptr->ReSet();
         last_xk(0) = std::numeric_limits<FLOAT>::max();
     }
     bool is_termination = false;
@@ -74,7 +78,7 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
     default:
         break;
     }
-    if (_timer.Elapse() / 1000.0 > _options_ptr->max_solver_time_in_seconds)
+    if (_timer_ptr->Elapse() / 1000.0 > _options_ptr->max_solver_time_in_seconds)
         is_termination = true;
     if (is_termination)
         return true;
@@ -92,4 +96,28 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
 	//UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
 
 
+	std::shared_ptr<UnconstrainedOptimizationLineSearchBase>
+	OptimizationFactory::CreateSolver(OptimizationMethodType type, const std::shared_ptr<TargetFunctor>& functor)
+	{
+		std::shared_ptr<UnconstrainedOptimizationLineSearchBase> solver;
+		switch(type)
+		{
+		case OptimizationMethodType::SD:
+			solver = std::make_shared<SteepestDescent>(functor);
+			break;
+		case OptimizationMethodType::NEWTON:
+			solver = std::make_shared<NewtonBase>(functor);
+			break;
+		case OptimizationMethodType::DAMPED_NEWTON:
+			solver = std::make_shared<DampedNewton>(functor);
+			break;
+		case OptimizationMethodType::LM:
+			solver = std::make_shared<LM>(functor);
+			break;
+		case OptimizationMethodType::QUASI_NEWTON:
+			solver = std::make_shared<QuasiNewton>(functor);
+			break;
+		}
+		return solver;
+	}
 } // namespace NOL

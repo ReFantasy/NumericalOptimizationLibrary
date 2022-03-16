@@ -11,8 +11,6 @@ class NewtonBase : public UnconstrainedOptimizationLineSearchBase
   public:
     using UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase;
 
-    bool IsTerminated(const Vector &xk, int k) const override;
-
     Vector SearchDirection(const Vector &xk) const override;
 
     FLOAT Step(const Vector &xk, const Vector &dk) const override
@@ -27,6 +25,23 @@ class DampedNewton : public NewtonBase
     using NewtonBase::NewtonBase;
 
     FLOAT Step(const Vector &xk, const Vector &dk) const override;
+};
+
+class LM : public DampedNewton
+{
+public:
+	using DampedNewton::DampedNewton;
+
+	Vector SearchDirection(const Vector &xk) const override;
+
+private:
+	// TODO update vk
+	FLOAT UpdateVk()const
+	{
+		_vk *=2.0;
+		return _vk;
+	}
+	mutable FLOAT _vk = 0.00000001;
 };
 
 class QuasiNewton : public DampedNewton

@@ -169,6 +169,7 @@ class Options
  */
 class UnconstrainedOptimizationLineSearchBase
 {
+	friend class Decorator;
   public:
     UnconstrainedOptimizationLineSearchBase();
     /**
@@ -206,22 +207,22 @@ class UnconstrainedOptimizationLineSearchBase
      */
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
-	std::shared_ptr<Options> GetOptions() const
+	virtual std::shared_ptr<Options> GetOptions() const
     {
         return _options_ptr;
     }
 
-    Timer &GetTimer() const
+	virtual std::shared_ptr<Timer> GetTimer() const
     {
-        return _timer;
+        return _timer_ptr;
     }
 
-    void SetFunctor(std::shared_ptr<TargetFunctor>  functor_ptr)
+	virtual void SetFunctor(std::shared_ptr<TargetFunctor>  functor_ptr)
     {
         _functor_ptr = std::move(functor_ptr);
     };
 
-	std::shared_ptr<TargetFunctor> GetFunctor() const
+	virtual std::shared_ptr<TargetFunctor> GetFunctor() const
     {
         return _functor_ptr;
     }
@@ -230,7 +231,23 @@ class UnconstrainedOptimizationLineSearchBase
 	std::shared_ptr<TargetFunctor> _functor_ptr;
 	std::shared_ptr<Options> _options_ptr ;
 	std::shared_ptr<LinearSearch> _line_search_ptr;
-    mutable Timer _timer;
+    mutable std::shared_ptr<Timer> _timer_ptr = std::make_shared<Timer>();
+};
+
+enum class OptimizationMethodType
+{
+	SD,
+	NEWTON,
+	DAMPED_NEWTON,
+	LM,
+	QUASI_NEWTON
+};
+
+class OptimizationFactory
+{
+public:
+	static std::shared_ptr<UnconstrainedOptimizationLineSearchBase>
+	        CreateSolver(OptimizationMethodType type, const std::shared_ptr<TargetFunctor>& functor = nullptr);
 };
 } // namespace NOL
 
