@@ -8,4 +8,4 @@ void example_3_1();
 void example_3_2();
 
 void example_3_3();
-// void example();
+void example();

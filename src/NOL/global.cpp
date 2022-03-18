@@ -47,6 +47,7 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
         k++;
     }
 
+	_K = k;
     return xk;
 }
 

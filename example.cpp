@@ -148,7 +148,6 @@ void example_3_3()
 	x0(1) = 3;
 	option->init_x = x0;
 
-	float num = 1.25;
 
 //	std::cout.setf(std::ios::right); // 设置对齐方式
 //	std::cout.width(8); //设置输出宽度
@@ -162,120 +161,92 @@ void example_3_3()
 			  << "ms" << std::endl
 			  << std::endl;
 }
-// void example()
-//{
-//     struct Functor : TargetFunctor
-//     {
-//         virtual FLOAT operator()(const Vector& x) const override
-//         {
-//             int n = x.size();
-//             FLOAT sum = 0;
-//             for (int i = 1; i < n; i += 2)
-//             {
-//                 sum = sum + 100 * std::pow(x(i - 1) * x(i - 1) - x(i), 2) + std::pow(x(i - 1) - 1, 2);
-//             }
-//             return sum;
-//
-//             //return 100 * std::pow((x(1) - x(0)* x(0)),2)  + std::pow((1 - x(0)),2);
-//         }
-//         virtual Vector Gradient(const Vector& x) const override
-//         {
-//             Vector v(x.size());
-//
-//             int n = x.size();
-//             for (int i = 1; i <= n; i++)
-//             {
-//                 if (i % 2 == 0)
-//                 {
-//                     v(i - 1) = 200 * (x(i - 1) - x(i - 2) * x(i - 2));
-//                 }
-//                 else
-//                 {
-//                     v(i - 1) = 400 * (std::pow(x(i - 1), 2) - x(i)) * x(i - 1) + 2 * x(i - 1) - 2;
-//                 }
-//             }
-//
-//             //v(0) = -400 * x(0) * x(1) + 400 * std::pow(x(0), 3) + 2 * x(0) - 2;
-//             //v(1) = 200 * x(1) - 200 * x(0) * x(0);
-//
-//             return v;
-//         }
-//         virtual Matrix Hesse(const Vector& x) const override
-//         {
-//             return Matrix{};
-//         }
-//
-//     };
-//
-//     Functor functor;
-//
-//     int n = 4;
-//     Vector x(n);
-//     //x << -10, 10;
-//     for (int i = 0; i < x.size(); i++)
-//     {
-//         if (i % 2 == 0)
-//         {
-//             x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
-//         }
-//         else
-//         {
-//             x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
-//         }
-//         std::cout << x(i) << ", " ;
-//     }
-//     std::cout << std::endl;
-//
-//
-//     Options options;
-//     options.line_search_type = LineSearchType::GOLDSTEIN;
-//     options.quasi_newton_type = QuasiNewtonSearchType::BFGS;
-//     options.parameter_line_search_armijo_rho = 1e-3;
-//     options.parameter_line_search_wolfe_rho = 1e-3;
-//     options.parameter_line_search_wolfe_sigma = 0.01;
-//
-//     options.init_x = x;
-//
-//     LinearSearch line_search;
-//
-//
-//     class TQuasiNewton :public QuasiNewton
-//     {
-//     public:
-//         bool IsTerminated(const Vector& xk, int k) const override
-//         {
-//
-//             static Vector last_xk = xk;
-//
-//             if (k != 0)
-//             {
-//                 /*if ((*_functor)(last_xk) - (*_functor)(xk) <= 10e-8)
-//                     return true;*/
-//                 /*if ((*_functor)(xk) < 1e-5)
-//                     return true;*/
-//                 if (_functor->Gradient(xk).norm() < 1e-7)
-//                     return true;
-//                 last_xk = xk;
-//             }
-//
-//             FLOAT xk_max_norm = _functor->Gradient(xk).cwiseAbs().maxCoeff();
-//
-//             // <--------
-//             *_options << "k:" << k << " "
-//                 << "  xk:(" << xk.transpose() << ") "
-//                 << "  ||gk_max_norm||: " << xk_max_norm <<"   fvalue:"<< (*_functor)(xk) << "\n";
-//             // -------->
-//             return false;
-//         }
-//     };
-//
-//     NewtonBase* newton = new TQuasiNewton;
-//     newton->_functor = &functor;
-//     newton->_line_search = &line_search;
-//     newton->_options = &options;
-//
-//	Timer timer;
-//	Vector res = newton->Solve();
-//	std::cout<<timer.Elapse()<<"ms"<<std::endl;
-//
-// }
+
+ void example()
+{
+     struct Functor : TargetFunctor
+     {
+         virtual FLOAT operator()(const Vector& x) const override
+         {
+             int n = x.size();
+             FLOAT sum = 0;
+             for (int i = 1; i < n; i += 2)
+             {
+                 sum = sum + 100 * std::pow(x(i - 1) * x(i - 1) - x(i), 2) + std::pow(x(i - 1) - 1, 2);
+             }
+             return sum;
+
+             //return 100 * std::pow((x(1) - x(0)* x(0)),2)  + std::pow((1 - x(0)),2);
+         }
+         virtual Vector Gradient(const Vector& x) const override
+         {
+             Vector v(x.size());
+
+             int n = x.size();
+             for (int i = 1; i <= n; i++)
+             {
+                 if (i % 2 == 0)
+                 {
+                     v(i - 1) = 200 * (x(i - 1) - x(i - 2) * x(i - 2));
+                 }
+                 else
+                 {
+                     v(i - 1) = 400 * (std::pow(x(i - 1), 2) - x(i)) * x(i - 1) + 2 * x(i - 1) - 2;
+                 }
+             }
+
+             return v;
+         }
+         virtual Matrix Hesse(const Vector& x) const override
+         {
+             return Matrix{};
+         }
+
+     };
+
+	auto functor = std::make_shared<Functor>();
+
+	auto solver = OptimizationFactory::CreateSolver(OptimizationMethodType::QUASI_NEWTON, functor);
+
+	auto option = solver->GetOptions();
+	option->line_search_type = LineSearchType::STRONGWOLFE;
+	option->quasi_newton_type = QuasiNewtonSearchType::BFGS;
+	option->termination_type = TerminationCriterionType::DELTA_F;
+	option->termination_value = 10e-8;
+	option->max_solver_time_in_seconds = 10;
+	option->parameter_line_search_wolfe_rho=10e-4;
+	option->parameter_line_search_wolfe_sigma=0.9;
+	option->optimized_performance = true;
+
+
+     int n = 40;
+     Vector x(n);
+     for (int i = 0; i < x.size(); i++)
+     {
+         if (i % 2 == 0)
+         {
+             //x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
+			 x(i) = -1.2;
+         }
+         else
+         {
+             //x(i) = RandomNumber<FLOAT>(-100.0, 100.0);
+			 x(i) =1.0;
+         }
+         //std::cout << x(i) << ", " ;
+     }
+	 option->init_x = x;
+
+
+	std::cout << "example 3.3" << std::endl;
+	std::cout <<std::fixed<< "dim: "<<x.size() <<"  initial x: " << x.transpose() << std::endl;
+	auto res = solver->Solve();
+	auto time = solver->GetTimer()->Elapse();
+	std::cout <<std::fixed<< "Optimal solution : " << res.transpose() <<std::endl<<"min f(x): "<<(*functor)(res)<<std::endl
+	<<"Iteration Number: "<<solver->NumOfIteration()<<std::endl
+	<< "time : " << time
+			  << "ms" << std::endl
+			  << std::endl;
+
+
+ }

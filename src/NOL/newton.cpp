@@ -77,6 +77,7 @@ NOL::Vector QuasiNewton::Solve()
         k++;
     }
 
+	_K = k;
     return xk;
 }
 

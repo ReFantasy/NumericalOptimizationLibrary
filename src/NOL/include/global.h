@@ -227,12 +227,13 @@ class UnconstrainedOptimizationLineSearchBase
     {
         return _functor_ptr;
     }
-
+	unsigned int NumOfIteration()const{return _K;}
   protected:
     std::shared_ptr<TargetFunctor> _functor_ptr;
     std::shared_ptr<Options> _options_ptr;
     std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable std::shared_ptr<Timer> _timer_ptr = std::make_shared<Timer>();
+	unsigned int _K = 0;
 };
 
 enum class OptimizationMethodType
