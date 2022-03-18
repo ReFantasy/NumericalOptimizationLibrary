@@ -76,14 +76,14 @@ class LinearSearch
      */
     void SetTargetFunctor(std::shared_ptr<TargetFunctor> functor)
     {
-        _functor_ptr = functor;
+        _functor_ptr = std::move(functor);
     }
 
     /**
      * @brief 获取目标函数
      * @return 目标函数指针\f$ f \f$
      */
-    const std::shared_ptr<TargetFunctor> TargetFunctorPointer() const
+    std::shared_ptr<TargetFunctor> TargetFunctorPointer() const
     {
         return _functor_ptr;
     }
@@ -156,7 +156,7 @@ class LinearSearch
   private:
     Vector _xk;
     Vector _dk;
-	std::shared_ptr<TargetFunctor> _functor_ptr;
+    std::shared_ptr<TargetFunctor> _functor_ptr;
 };
 } // namespace NOL
 #endif //__LINE_SEARCH_H__

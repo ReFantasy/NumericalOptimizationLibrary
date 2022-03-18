@@ -29,19 +29,19 @@ class DampedNewton : public NewtonBase
 
 class LM : public DampedNewton
 {
-public:
-	using DampedNewton::DampedNewton;
+  public:
+    using DampedNewton::DampedNewton;
 
-	Vector SearchDirection(const Vector &xk) const override;
+    Vector SearchDirection(const Vector &xk) const override;
 
-private:
-	// TODO update vk
-	FLOAT UpdateVk()const
-	{
-		_vk *=2.0;
-		return _vk;
-	}
-	mutable FLOAT _vk = 0.00000001;
+  private:
+    // TODO update vk
+    FLOAT UpdateVk() const
+    {
+        _vk *= 2.0;
+        return _vk;
+    }
+    mutable FLOAT _vk = 0.00000001;
 };
 
 class QuasiNewton : public DampedNewton
@@ -53,8 +53,10 @@ class QuasiNewton : public DampedNewton
 
     Vector SearchDirection(const Vector &xk) const override;
 
+    // FLOAT Step(const Vector &xk, const Vector &dk) const override;
+
   protected:
-    Matrix CorrectHk(Matrix Hk, Vector sk, Vector yk);
+    Matrix UpdateHk(const Matrix& Hk, const Vector& xk, const Vector& dk, FLOAT alpha);
 
   private:
     Matrix _Hk;

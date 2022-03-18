@@ -12,8 +12,8 @@
 #include "helper.h"
 #include <iostream>
 #include <limits>
-#include <sstream>
 #include <memory>
+#include <sstream>
 #include <utility>
 
 namespace NOL
@@ -169,14 +169,15 @@ class Options
  */
 class UnconstrainedOptimizationLineSearchBase
 {
-	friend class Decorator;
+    friend class Decorator;
+
   public:
     UnconstrainedOptimizationLineSearchBase();
     /**
      * @param functor Function object pointer
      */
-    explicit UnconstrainedOptimizationLineSearchBase(std::shared_ptr<TargetFunctor>  functor_ptr);
-    virtual ~UnconstrainedOptimizationLineSearchBase()= default;
+    explicit UnconstrainedOptimizationLineSearchBase(const std::shared_ptr<TargetFunctor>& functor_ptr);
+    virtual ~UnconstrainedOptimizationLineSearchBase() = default;
 
     /**
      * Find the optimal solution of function
@@ -207,47 +208,47 @@ class UnconstrainedOptimizationLineSearchBase
      */
     virtual FLOAT Step(const Vector &xk, const Vector &dk) const = 0;
 
-	virtual std::shared_ptr<Options> GetOptions() const
+    virtual std::shared_ptr<Options> GetOptions() const
     {
         return _options_ptr;
     }
 
-	virtual std::shared_ptr<Timer> GetTimer() const
+    virtual std::shared_ptr<Timer> GetTimer() const
     {
         return _timer_ptr;
     }
 
-	virtual void SetFunctor(std::shared_ptr<TargetFunctor>  functor_ptr)
+    virtual void SetFunctor(std::shared_ptr<TargetFunctor> functor_ptr)
     {
         _functor_ptr = std::move(functor_ptr);
     };
 
-	virtual std::shared_ptr<TargetFunctor> GetFunctor() const
+    virtual std::shared_ptr<TargetFunctor> GetFunctor() const
     {
         return _functor_ptr;
     }
 
   protected:
-	std::shared_ptr<TargetFunctor> _functor_ptr;
-	std::shared_ptr<Options> _options_ptr ;
-	std::shared_ptr<LinearSearch> _line_search_ptr;
+    std::shared_ptr<TargetFunctor> _functor_ptr;
+    std::shared_ptr<Options> _options_ptr;
+    std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable std::shared_ptr<Timer> _timer_ptr = std::make_shared<Timer>();
 };
 
 enum class OptimizationMethodType
 {
-	SD,
-	NEWTON,
-	DAMPED_NEWTON,
-	LM,
-	QUASI_NEWTON
+    SD,
+    NEWTON,
+    DAMPED_NEWTON,
+    LM,
+    QUASI_NEWTON
 };
 
 class OptimizationFactory
 {
-public:
-	static std::shared_ptr<UnconstrainedOptimizationLineSearchBase>
-	        CreateSolver(OptimizationMethodType type, const std::shared_ptr<TargetFunctor>& functor = nullptr);
+  public:
+    static std::shared_ptr<UnconstrainedOptimizationLineSearchBase> CreateSolver(
+        OptimizationMethodType type, const std::shared_ptr<TargetFunctor> &functor = nullptr);
 };
 } // namespace NOL
 

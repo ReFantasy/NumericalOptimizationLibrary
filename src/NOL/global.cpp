@@ -1,23 +1,22 @@
 #include "global.h"
 #include "line_search.h"
-#include "steepest_descent.h"
 #include "newton.h"
-#include "decorator.h"
-
+#include "steepest_descent.h"
 
 namespace NOL
 {
 UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase()
 {
-	_line_search_ptr = std::make_shared<LinearSearch>();
-	_options_ptr = std::make_shared<Options>();
+    _line_search_ptr = std::make_shared<LinearSearch>();
+    _options_ptr = std::make_shared<Options>();
 }
-UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(std::shared_ptr<TargetFunctor>  functor_ptr)
+UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(
+    const std::shared_ptr<TargetFunctor>& functor_ptr)
 {
     _functor_ptr = functor_ptr;
     _line_search_ptr = std::make_shared<LinearSearch>();
     _line_search_ptr->SetTargetFunctor(functor_ptr);
-	_options_ptr = std::make_shared<Options>();
+    _options_ptr = std::make_shared<Options>();
 }
 
 Vector UnconstrainedOptimizationLineSearchBase::Solve()
@@ -32,7 +31,7 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
 
     // <--------
     *_options_ptr << typeid(*this).name() << " initial x: ";
-    *_options_ptr <<std::fixed<< xk.transpose() << "\n\n";
+    *_options_ptr << std::fixed << xk.transpose() << "\n\n";
     // -------->
 
     while (true)
@@ -85,39 +84,38 @@ bool UnconstrainedOptimizationLineSearchBase::IsTerminated(const Vector &xk, int
 
     last_xk = xk;
     // <--------
-    *_options_ptr << "k:" <<std::fixed<< k << " "
-              << "  xk:(" << xk.transpose() << ") "
-              << "  estimation: " << epsilon << "\n";
+    *_options_ptr << "k:" << std::fixed << k << " "
+                  << "  xk:(" << xk.transpose() << ") "
+                  << "  estimation: " << epsilon << "\n";
     // -------->
 
     return false;
 }
 
-	//UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
+// UnconstrainedOptimizationLineSearchBase::~UnconstrainedOptimizationLineSearchBase()
 
-
-	std::shared_ptr<UnconstrainedOptimizationLineSearchBase>
-	OptimizationFactory::CreateSolver(OptimizationMethodType type, const std::shared_ptr<TargetFunctor>& functor)
-	{
-		std::shared_ptr<UnconstrainedOptimizationLineSearchBase> solver;
-		switch(type)
-		{
-		case OptimizationMethodType::SD:
-			solver = std::make_shared<SteepestDescent>(functor);
-			break;
-		case OptimizationMethodType::NEWTON:
-			solver = std::make_shared<NewtonBase>(functor);
-			break;
-		case OptimizationMethodType::DAMPED_NEWTON:
-			solver = std::make_shared<DampedNewton>(functor);
-			break;
-		case OptimizationMethodType::LM:
-			solver = std::make_shared<LM>(functor);
-			break;
-		case OptimizationMethodType::QUASI_NEWTON:
-			solver = std::make_shared<QuasiNewton>(functor);
-			break;
-		}
-		return solver;
-	}
+std::shared_ptr<UnconstrainedOptimizationLineSearchBase> OptimizationFactory::CreateSolver(
+    OptimizationMethodType type, const std::shared_ptr<TargetFunctor> &functor)
+{
+    std::shared_ptr<UnconstrainedOptimizationLineSearchBase> solver;
+    switch (type)
+    {
+    case OptimizationMethodType::SD:
+        solver = std::make_shared<SteepestDescent>(functor);
+        break;
+    case OptimizationMethodType::NEWTON:
+        solver = std::make_shared<NewtonBase>(functor);
+        break;
+    case OptimizationMethodType::DAMPED_NEWTON:
+        solver = std::make_shared<DampedNewton>(functor);
+        break;
+    case OptimizationMethodType::LM:
+        solver = std::make_shared<LM>(functor);
+        break;
+    case OptimizationMethodType::QUASI_NEWTON:
+        solver = std::make_shared<QuasiNewton>(functor);
+        break;
+    }
+    return solver;
+}
 } // namespace NOL

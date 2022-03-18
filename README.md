@@ -19,4 +19,5 @@
 - :white_check_mark:Optimization Method:  Newton 
 - :white_check_mark:Optimization Method:  damped Newton 
 - :white_check_mark:Optimization Method:  LM
+- :white_check_mark:Optimization Method:  QuasiNewton [SR1 DFP BFGS]
 

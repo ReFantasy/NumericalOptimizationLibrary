@@ -1,7 +1,6 @@
 #include "example.h"
 #include "global.h"
 #include "line_search.h"
-#include "decorator.h"
 using namespace NOL;
 
 void example_3_1()

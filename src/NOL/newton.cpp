@@ -1,7 +1,7 @@
 #include "newton.h"
+#include "helper.h"
 #include "line_search.h"
 #include <iostream>
-#include "helper.h"
 
 namespace NOL
 {
@@ -19,24 +19,24 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
     return dk;
 }
 
-Vector LM::SearchDirection(const Vector& xk) const
+Vector LM::SearchDirection(const Vector &xk) const
 {
-	// compute dk
-	Matrix Gk = _functor_ptr->Hesse(xk);
-	Vector gk = _functor_ptr->Gradient(xk);
+    // compute dk
+    Matrix Gk = _functor_ptr->Hesse(xk);
+    Vector gk = _functor_ptr->Gradient(xk);
 
-	//
-	while (Gk.determinant()<MinStepSize<FLOAT>::value)
-	{
-		Gk += _vk*Matrix::Identity(Gk.rows(),Gk.cols());
-		UpdateVk();
-	}
+    //
+    while (Gk.determinant() < MinStepSize<FLOAT>::value)
+    {
+        Gk += _vk * Matrix::Identity(Gk.rows(), Gk.cols());
+        UpdateVk();
+    }
 
-	// solve Gk*dk = -gk
-	Vector dk;
-	dk = Gk.colPivHouseholderQr().solve(-gk);
+    // solve Gk*dk = -gk
+    Vector dk;
+    dk = Gk.colPivHouseholderQr().solve(-gk);
 
-	return dk;
+    return dk;
 }
 
 FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
@@ -48,6 +48,11 @@ FLOAT DampedNewton::Step(const Vector &xk, const Vector &dk) const
 
 NOL::Vector QuasiNewton::Solve()
 {
+    if (_functor_ptr == nullptr)
+    {
+        throw std::invalid_argument("functor pointer is null.");
+    }
+
     int k = 0;
     Vector xk = _options_ptr->init_x;
     _Hk = Matrix::Identity(xk.size(), xk.size());
@@ -66,15 +71,9 @@ NOL::Vector QuasiNewton::Solve()
 
         double alpha = Step(xk, dk);
 
-        Vector yk1 = _functor_ptr->Gradient(xk);
-        Vector yk2 = _functor_ptr->Gradient(xk + alpha * dk);
+        _Hk = UpdateHk(_Hk, xk, dk, alpha);
+
         xk = xk + alpha * dk;
-
-        // Hk->Hk+1
-        Vector sk = alpha * dk;
-        Vector yk = yk2 - yk1;
-        _Hk = CorrectHk(_Hk, sk, yk);
-
         k++;
     }
 
@@ -88,8 +87,13 @@ NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
     return dk;
 }
 
-Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
+Matrix QuasiNewton::UpdateHk(const Matrix& Hk, const Vector& xk, const Vector& dk, FLOAT alpha)
 {
+    Vector yk1 = _functor_ptr->Gradient(xk);
+    Vector yk2 = _functor_ptr->Gradient(xk + alpha * dk);
+    Vector sk = alpha * dk;
+    Vector yk = yk2 - yk1;
+
     if (_options_ptr->quasi_newton_type == QuasiNewtonSearchType::SR1)
     {
         // SR1
@@ -115,6 +119,5 @@ Matrix QuasiNewton::CorrectHk(Matrix Hk, Vector sk, Vector yk)
 
     throw std::invalid_argument("invalid quasi-newton type");
 }
-
 
 } // namespace NOL
