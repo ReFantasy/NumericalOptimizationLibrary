@@ -56,7 +56,7 @@ class QuasiNewton : public DampedNewton
     // FLOAT Step(const Vector &xk, const Vector &dk) const override;
 
   protected:
-    Matrix UpdateHk(const Matrix& Hk, const Vector& xk, const Vector& dk, FLOAT alpha);
+    Matrix UpdateHk(const Matrix &Hk, const Vector &xk, const Vector &dk, FLOAT alpha);
 
   private:
     Matrix _Hk;

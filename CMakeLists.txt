@@ -16,7 +16,6 @@ set(OptimizationLibraryName nol)
 
 find_package (Eigen3 REQUIRED NO_MODULE HINTS ${CMAKE_SOURCE_DIR}/extern/eigen/share/eigen3/cmake)
 
-#include_directories(${CMAKE_SOURCE_DIR}/src/NOL)
 include_directories(${CMAKE_SOURCE_DIR}/src/NOL/include/)
 add_subdirectory(src)
 

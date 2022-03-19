@@ -176,7 +176,7 @@ class UnconstrainedOptimizationLineSearchBase
     /**
      * @param functor Function object pointer
      */
-    explicit UnconstrainedOptimizationLineSearchBase(const std::shared_ptr<TargetFunctor>& functor_ptr);
+    explicit UnconstrainedOptimizationLineSearchBase(const std::shared_ptr<TargetFunctor> &functor_ptr);
     virtual ~UnconstrainedOptimizationLineSearchBase() = default;
 
     /**
@@ -227,13 +227,17 @@ class UnconstrainedOptimizationLineSearchBase
     {
         return _functor_ptr;
     }
-	unsigned int NumOfIteration()const{return _K;}
+    unsigned int NumOfIteration() const
+    {
+        return _K;
+    }
+
   protected:
     std::shared_ptr<TargetFunctor> _functor_ptr;
     std::shared_ptr<Options> _options_ptr;
     std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable std::shared_ptr<Timer> _timer_ptr = std::make_shared<Timer>();
-	unsigned int _K = 0;
+    unsigned int _K = 0;
 };
 
 enum class OptimizationMethodType

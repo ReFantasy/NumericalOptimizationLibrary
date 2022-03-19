@@ -77,7 +77,7 @@ NOL::Vector QuasiNewton::Solve()
         k++;
     }
 
-	_K = k;
+    _K = k;
     return xk;
 }
 
@@ -88,7 +88,7 @@ NOL::Vector QuasiNewton::SearchDirection(const Vector &xk) const
     return dk;
 }
 
-Matrix QuasiNewton::UpdateHk(const Matrix& Hk, const Vector& xk, const Vector& dk, FLOAT alpha)
+Matrix QuasiNewton::UpdateHk(const Matrix &Hk, const Vector &xk, const Vector &dk, FLOAT alpha)
 {
     Vector yk1 = _functor_ptr->Gradient(xk);
     Vector yk2 = _functor_ptr->Gradient(xk + alpha * dk);

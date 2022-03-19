@@ -11,7 +11,7 @@ UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase
     _options_ptr = std::make_shared<Options>();
 }
 UnconstrainedOptimizationLineSearchBase::UnconstrainedOptimizationLineSearchBase(
-    const std::shared_ptr<TargetFunctor>& functor_ptr)
+    const std::shared_ptr<TargetFunctor> &functor_ptr)
 {
     _functor_ptr = functor_ptr;
     _line_search_ptr = std::make_shared<LinearSearch>();
@@ -47,7 +47,7 @@ Vector UnconstrainedOptimizationLineSearchBase::Solve()
         k++;
     }
 
-	_K = k;
+    _K = k;
     return xk;
 }
 
