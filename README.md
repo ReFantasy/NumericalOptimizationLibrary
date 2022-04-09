@@ -20,4 +20,5 @@
 - :white_check_mark:Optimization Method:  damped Newton 
 - :white_check_mark:Optimization Method:  LM
 - :white_check_mark:Optimization Method:  QuasiNewton [SR1 DFP BFGS]
+- :white_check_mark:Optimization Method:  Conjugate Gradient Method[FR PRP PRP+ CD DY]
 
