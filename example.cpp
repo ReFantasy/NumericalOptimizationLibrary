@@ -157,7 +157,7 @@ void example_cg()
 	options->conjugate_gradient_restart_num = 10;
 	options->optimized_performance = false;
 
-	int n = 8;
+	int n = 80;
 	Vector x(n);
 	for (int i = 0; i < x.size(); i++)
 	{
