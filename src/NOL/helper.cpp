@@ -32,7 +32,6 @@ Vector IterativeCycle(Matrix B, Matrix f, FLOAT epsilon, size_t max_iter_num)
     return x;
 }
 
-
 LinearEquationSolver::SOLVER_TYPE LinearEquationSolver::solver_type = LinearEquationSolver::SOLVER_TYPE::GAUSS_SEIDE;
 FLOAT LinearEquationSolver::EPSILON = 0.00001;
 size_t LinearEquationSolver::MAX_ITERATION = 100000;
@@ -40,25 +39,25 @@ FLOAT LinearEquationSolver::W = 1.4;
 
 Vector LinearEquationSolver::Solver(Matrix A, Vector b)
 {
-	Vector x;
-	switch (solver_type)
-	{
-	case SOLVER_TYPE::EIGEN_SOLVER:
-		x =  A.colPivHouseholderQr().solve(b);
-		break;
-	case SOLVER_TYPE::JACOBI:
-		x = Jacobi(A,b, EPSILON, MAX_ITERATION);
-		break;
-	case SOLVER_TYPE::GAUSS_SEIDE:
-		x = GaussSeide(A,b, EPSILON, MAX_ITERATION);
-		break;
-	case SOLVER_TYPE::SOR:
-		x = Sor(A,b,EPSILON,MAX_ITERATION,W);
-		break;
-	default:
-		x =  A.colPivHouseholderQr().solve(b);
-	}
-	return x;
+    Vector x;
+    switch (solver_type)
+    {
+    case SOLVER_TYPE::EIGEN_SOLVER:
+        x = A.colPivHouseholderQr().solve(b);
+        break;
+    case SOLVER_TYPE::JACOBI:
+        x = Jacobi(A, b, EPSILON, MAX_ITERATION);
+        break;
+    case SOLVER_TYPE::GAUSS_SEIDE:
+        x = GaussSeide(A, b, EPSILON, MAX_ITERATION);
+        break;
+    case SOLVER_TYPE::SOR:
+        x = Sor(A, b, EPSILON, MAX_ITERATION, W);
+        break;
+    default:
+        x = A.colPivHouseholderQr().solve(b);
+    }
+    return x;
 }
 Vector LinearEquationSolver::Jacobi(Matrix A, Vector b, FLOAT epsilon, size_t max_iter_num)
 {
@@ -104,4 +103,3 @@ Vector LinearEquationSolver::Sor(Matrix A, Vector b, FLOAT epsilon, size_t max_i
 
     return IterativeCycle(B, f, epsilon, max_iter_num);
 }
-

@@ -4,6 +4,15 @@
 #include <chrono>
 #include <iostream>
 #include <random>
+namespace NOL
+{
+#ifndef DATA_TYPE
+#define DATA_TYPE
+using FLOAT = double;
+using Vector = Eigen::VectorXd;
+using Matrix = Eigen::MatrixXd;
+#endif
+} // namespace NOL
 
 class Timer
 {
@@ -70,45 +79,34 @@ template <typename T, typename... args> bool ANY_OF(T b1, args... b2)
 
 /*****************************************************************************************************
  *
- *                             线性方程组 Ax=b 的数值求解（迭代法, A 为方阵）
+ *                             求解线性方程组 Ax=b
  *
  *****************************************************************************************************/
-
-namespace NOL
-{
-#ifndef DATA_TYPE
-#define DATA_TYPE
-	using FLOAT = double;
-	using Vector = Eigen::VectorXd;
-	using Matrix = Eigen::MatrixXd;
-#endif
-}
-
 class LinearEquationSolver
 {
-public:
-	enum class SOLVER_TYPE
-	{
-		EIGEN_SOLVER,
-		JACOBI,
-		GAUSS_SEIDE,
-		SOR
-	};
-	static NOL::Vector Solver(NOL::Matrix A, NOL::Vector b);
+  public:
+    enum class SOLVER_TYPE
+    {
+        EIGEN_SOLVER,
+        JACOBI,
+        GAUSS_SEIDE,
+        SOR
+    };
+    static NOL::Vector Solver(NOL::Matrix A, NOL::Vector b);
 
-public:
-	static SOLVER_TYPE solver_type;
-	static NOL::FLOAT EPSILON;
-	static size_t MAX_ITERATION;
-	static NOL::FLOAT W;
+  public:
+    static SOLVER_TYPE solver_type;
+    static NOL::FLOAT EPSILON;
+    static size_t MAX_ITERATION;
+    static NOL::FLOAT W;
 
-protected:
-	static NOL::Vector Jacobi(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100);
+  protected:
+    static NOL::Vector Jacobi(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100);
 
-	static NOL::Vector GaussSeide(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100);
+    static NOL::Vector GaussSeide(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001,
+                                  size_t max_iter_num = 100);
 
-	static NOL::Vector Sor(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100,
-			NOL::FLOAT w = 1.4);
-
+    static NOL::Vector Sor(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100,
+                           NOL::FLOAT w = 1.4);
 };
 #endif //__HELPER_H__

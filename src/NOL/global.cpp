@@ -1,8 +1,8 @@
 #include "global.h"
+#include "conjugate_gradient.h"
 #include "line_search.h"
 #include "newton.h"
 #include "steepest_descent.h"
-#include "conjugate_gradient.h"
 
 namespace NOL
 {
@@ -117,9 +117,9 @@ std::shared_ptr<UnconstrainedOptimizationLineSearchBase> OptimizationFactory::Cr
     case OptimizationMethodType::QUASI_NEWTON:
         solver = std::make_shared<QuasiNewton>(functor);
         break;
-	case OptimizationMethodType::ConjugateGradient:
-		solver = std::make_shared<ConjugateGradient>(functor);
-		break;
+    case OptimizationMethodType::ConjugateGradient:
+        solver = std::make_shared<ConjugateGradient>(functor);
+        break;
     }
     return solver;
 }
