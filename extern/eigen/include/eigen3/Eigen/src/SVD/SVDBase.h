@@ -161,7 +161,7 @@ public:
     * This is not used for the SVD decomposition itself.
     *
     * When it needs to get the threshold value, Eigen calls threshold().
-    * The default is \c NumTraits<Scalar>::epsilon()
+    * The default is \c NumTraits<Scalar>::EPSILON()
     *
     * \param threshold The new value to use as the threshold.
     *

@@ -520,7 +520,7 @@ ComputationInfo computeFromTridiagonal_impl(DiagType& diag, SubDiagType& subdiag
       if (numext::abs(subdiag[i]) < considerAsZero) {
         subdiag[i] = RealScalar(0);
       } else {
-        // abs(subdiag[i]) <= epsilon * sqrt(abs(diag[i]) + abs(diag[i+1]))
+        // abs(subdiag[i]) <= EPSILON * sqrt(abs(diag[i]) + abs(diag[i+1]))
         // Scaled to prevent underflows.
         const RealScalar scaled_subdiag = precision_inv * subdiag[i];
         if (scaled_subdiag * scaled_subdiag <= (numext::abs(diag[i])+numext::abs(diag[i+1]))) {

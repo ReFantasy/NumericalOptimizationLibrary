@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
+
 class Timer
 {
   public:
@@ -75,12 +76,39 @@ template <typename T, typename... args> bool ANY_OF(T b1, args... b2)
 
 namespace NOL
 {
-Eigen::VectorXf Jacobi(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100);
+#ifndef DATA_TYPE
+#define DATA_TYPE
+	using FLOAT = double;
+	using Vector = Eigen::VectorXd;
+	using Matrix = Eigen::MatrixXd;
+#endif
+}
 
-Eigen::VectorXf GaussSeide(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100);
+class LinearEquationSolver
+{
+public:
+	enum class SOLVER_TYPE
+	{
+		EIGEN_SOLVER,
+		JACOBI,
+		GAUSS_SEIDE,
+		SOR
+	};
+	static NOL::Vector Solver(NOL::Matrix A, NOL::Vector b);
 
-Eigen::VectorXf SOR(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100,
-                    double w = 1.4);
+public:
+	static SOLVER_TYPE solver_type;
+	static NOL::FLOAT EPSILON;
+	static size_t MAX_ITERATION;
+	static NOL::FLOAT W;
 
-} // namespace NOL
+protected:
+	static NOL::Vector Jacobi(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100);
+
+	static NOL::Vector GaussSeide(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100);
+
+	static NOL::Vector Sor(NOL::Matrix A, NOL::Vector b, NOL::FLOAT epsilon = 0.000001, size_t max_iter_num = 100,
+			NOL::FLOAT w = 1.4);
+
+};
 #endif //__HELPER_H__

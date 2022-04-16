@@ -14,7 +14,11 @@ NOL::Vector NewtonBase::SearchDirection(const Vector &xk) const
 
     // solve Gk*dk = -gk
     Vector dk;
-    dk = Gk.colPivHouseholderQr().solve(-gk);
+
+	// use LinearEquationSolver::solver_type = LinearEquationSolver::SOLVER_TYPE::JACOBI
+	// to set solver type
+	dk = LinearEquationSolver::Solver(Gk, -gk);
+
 
     return dk;
 }

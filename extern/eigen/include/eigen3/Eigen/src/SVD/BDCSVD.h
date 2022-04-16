@@ -679,8 +679,8 @@ void BDCSVD<MatrixType>::computeSVDofM(Eigen::Index firstCol, Eigen::Index n, Ma
   assert(m_computed.allFinite());
   assert(U.allFinite());
   assert(V.allFinite());
-//   assert((U.transpose() * U - MatrixXr(MatrixXr::Identity(U.cols(),U.cols()))).norm() < 100*NumTraits<RealScalar>::epsilon() * n);
-//   assert((V.transpose() * V - MatrixXr(MatrixXr::Identity(V.cols(),V.cols()))).norm() < 100*NumTraits<RealScalar>::epsilon() * n);
+//   assert((U.transpose() * U - MatrixXr(MatrixXr::Identity(U.cols(),U.cols()))).norm() < 100*NumTraits<RealScalar>::EPSILON() * n);
+//   assert((V.transpose() * V - MatrixXr(MatrixXr::Identity(V.cols(),V.cols()))).norm() < 100*NumTraits<RealScalar>::EPSILON() * n);
 #endif
   
   // Because of deflation, the singular values might not be completely sorted.
@@ -974,8 +974,8 @@ void BDCSVD<MatrixType>::computeSingVals(const ArrayRef& col0, const ArrayRef& d
     // perturb singular value slightly if it equals diagonal entry to avoid division by zero later
     // (deflation is supposed to avoid this from happening)
     // - this does no seem to be necessary anymore -
-//     if (singVals[k] == left) singVals[k] *= 1 + NumTraits<RealScalar>::epsilon();
-//     if (singVals[k] == right) singVals[k] *= 1 - NumTraits<RealScalar>::epsilon();
+//     if (singVals[k] == left) singVals[k] *= 1 + NumTraits<RealScalar>::EPSILON();
+//     if (singVals[k] == right) singVals[k] *= 1 - NumTraits<RealScalar>::EPSILON();
   }
 }
 
@@ -1133,7 +1133,7 @@ void BDCSVD<MatrixType>::deflation43(Eigen::Index firstCol, Eigen::Index shift, 
 
 
 // page 13
-// i,j >= 1, i!=j and |di - dj| < epsilon * norm2(M)
+// i,j >= 1, i!=j and |di - dj| < EPSILON * norm2(M)
 // We apply two rotations to have zj = 0;
 // TODO deflation44 is still broken and not properly tested
 template <typename MatrixType>
@@ -1329,7 +1329,7 @@ void BDCSVD<MatrixType>::deflation(Eigen::Index firstCol, Eigen::Index lastCol, 
        if( (diag(i) - diag(i-1)) < NumTraits<RealScalar>::epsilon()*maxDiag )
       {
 #ifdef EIGEN_BDCSVD_DEBUG_VERBOSE
-        std::cout << "deflation 4.4 with i = " << i << " because " << diag(i) << " - " << diag(i-1) << " == " << (diag(i) - diag(i-1)) << " < " << NumTraits<RealScalar>::epsilon()*/*diag(i)*/maxDiag << "\n";
+        std::cout << "deflation 4.4 with i = " << i << " because " << diag(i) << " - " << diag(i-1) << " == " << (diag(i) - diag(i-1)) << " < " << NumTraits<RealScalar>::EPSILON()*/*diag(i)*/maxDiag << "\n";
 #endif
         eigen_internal_assert(abs(diag(i) - diag(i-1))<epsilon_coarse && " diagonal entries are not properly sorted");
         deflation44(firstCol, firstCol + shift, firstRowW, firstColW, i-1, i, length);

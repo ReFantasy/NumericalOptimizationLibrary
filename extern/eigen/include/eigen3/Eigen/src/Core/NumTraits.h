@@ -15,7 +15,7 @@ namespace Eigen {
 namespace internal {
 
 // default implementation of digits10(), based on numeric_limits if specialized,
-// 0 for integer types, and log10(epsilon()) otherwise.
+// 0 for integer types, and log10(EPSILON()) otherwise.
 template< typename T,
           bool use_numeric_limits = std::numeric_limits<T>::is_specialized,
           bool is_integer = NumTraits<T>::IsInteger>
@@ -46,7 +46,7 @@ struct default_digits10_impl<T,false,true> // Integer
 
 
 // default implementation of digits(), based on numeric_limits if specialized,
-// 0 for integer types, and log2(epsilon()) otherwise.
+// 0 for integer types, and log2(EPSILON()) otherwise.
 template< typename T,
           bool use_numeric_limits = std::numeric_limits<T>::is_specialized,
           bool is_integer = NumTraits<T>::IsInteger>
@@ -130,9 +130,9 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC Tgt bit_cast(const Src& src) {
   * \li An enum value \a IsSigned. It is equal to \c 1 if \a T is a signed type and to 0 if \a T is unsigned.
   * \li An enum value \a RequireInitialization. It is equal to \c 1 if the constructor of the numeric type \a T must
   *     be called, and to 0 if it is safe not to call it. Default is 0 if \a T is an arithmetic type, and 1 otherwise.
-  * \li An epsilon() function which, unlike <a href="http://en.cppreference.com/w/cpp/types/numeric_limits/epsilon">std::numeric_limits::epsilon()</a>,
+  * \li An EPSILON() function which, unlike <a href="http://en.cppreference.com/w/cpp/types/numeric_limits/EPSILON">std::numeric_limits::EPSILON()</a>,
   *     it returns a \a Real instead of a \a T.
-  * \li A dummy_precision() function returning a weak epsilon value. It is mainly used as a default
+  * \li A dummy_precision() function returning a weak EPSILON value. It is mainly used as a default
   *     value by the fuzzy comparison operators.
   * \li highest() and lowest() functions returning the highest and lowest possible values respectively.
   * \li digits() function returning the number of radix digits (non-sign digits for integers, mantissa for floating-point). This is

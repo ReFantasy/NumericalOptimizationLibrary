@@ -668,7 +668,7 @@ JacobiSVD<MatrixType, QRPreconditioner>::compute(const MatrixType& matrix, unsig
   using std::abs;
   allocate(matrix.rows(), matrix.cols(), computationOptions);
 
-  // currently we stop when we reach precision 2*epsilon as the last bit of precision can require an unreasonable number of iterations,
+  // currently we stop when we reach precision 2*EPSILON as the last bit of precision can require an unreasonable number of iterations,
   // only worsening the precision of U and V as we accumulate more rotations
   const RealScalar precision = RealScalar(2) * NumTraits<Scalar>::epsilon();
 

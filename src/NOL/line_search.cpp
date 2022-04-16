@@ -235,7 +235,7 @@ void LinearSearch::AdvanceAndRetreat(FLOAT alpha0, FLOAT h0, FLOAT t, FLOAT &sec
 }
 
 /**
- * @brief convergence rate: k > log_r{epsilon/(b-a)}
+ * @brief convergence rate: k > log_r{EPSILON/(b-a)}
  */
 FLOAT LinearSearch::GoldenSection(FLOAT secton_a, FLOAT secton_b, FLOAT epsilon)
 {

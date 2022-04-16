@@ -286,7 +286,7 @@ namespace device {
 template<typename T> struct numeric_limits
 {
   EIGEN_DEVICE_FUNC
-  static EIGEN_CONSTEXPR T epsilon() { return 0; }
+  static EIGEN_CONSTEXPR T EPSILON() { return 0; }
   static T (max)() { assert(false && "Highest not supported for this type"); }
   static T (min)() { assert(false && "Lowest not supported for this type"); }
   static T infinity() { assert(false && "Infinity not supported for this type"); }
@@ -295,7 +295,7 @@ template<typename T> struct numeric_limits
 template<> struct numeric_limits<float>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static float epsilon() { return __FLT_EPSILON__; }
+  static float EPSILON() { return __FLT_EPSILON__; }
   EIGEN_DEVICE_FUNC
   static float (max)() {
   #if defined(EIGEN_CUDA_ARCH)
@@ -326,7 +326,7 @@ template<> struct numeric_limits<float>
 template<> struct numeric_limits<double>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static double epsilon() { return __DBL_EPSILON__; }
+  static double EPSILON() { return __DBL_EPSILON__; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static double (max)() { return DBL_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -351,7 +351,7 @@ template<> struct numeric_limits<double>
 template<> struct numeric_limits<int>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static int epsilon() { return 0; }
+  static int EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static int (max)() { return INT_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -360,7 +360,7 @@ template<> struct numeric_limits<int>
 template<> struct numeric_limits<unsigned int>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static unsigned int epsilon() { return 0; }
+  static unsigned int EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static unsigned int (max)() { return UINT_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -369,7 +369,7 @@ template<> struct numeric_limits<unsigned int>
 template<> struct numeric_limits<long>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static long epsilon() { return 0; }
+  static long EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static long (max)() { return LONG_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -378,7 +378,7 @@ template<> struct numeric_limits<long>
 template<> struct numeric_limits<unsigned long>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static unsigned long epsilon() { return 0; }
+  static unsigned long EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static unsigned long (max)() { return ULONG_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -387,7 +387,7 @@ template<> struct numeric_limits<unsigned long>
 template<> struct numeric_limits<long long>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static long long epsilon() { return 0; }
+  static long long EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static long long (max)() { return LLONG_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -396,7 +396,7 @@ template<> struct numeric_limits<long long>
 template<> struct numeric_limits<unsigned long long>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static unsigned long long epsilon() { return 0; }
+  static unsigned long long EPSILON() { return 0; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static unsigned long long (max)() { return ULLONG_MAX; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
@@ -405,7 +405,7 @@ template<> struct numeric_limits<unsigned long long>
 template<> struct numeric_limits<bool>
 {
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
-  static bool epsilon() { return false; }
+  static bool EPSILON() { return false; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR
   static bool (max)() { return true; }
   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR 

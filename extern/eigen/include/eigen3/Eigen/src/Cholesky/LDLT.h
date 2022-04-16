@@ -586,8 +586,8 @@ void LDLT<_MatrixType,_UpLo>::_solve_impl_transposed(const RhsType &rhs, DstType
   using std::abs;
   const typename Diagonal<const MatrixType>::RealReturnType vecD(vectorD());
   // In some previous versions, tolerance was set to the max of 1/highest (or rather numeric_limits::min())
-  // and the maximal diagonal entry * epsilon as motivated by LAPACK's xGELSS:
-  // RealScalar tolerance = numext::maxi(vecD.array().abs().maxCoeff() * NumTraits<RealScalar>::epsilon(),RealScalar(1) / NumTraits<RealScalar>::highest());
+  // and the maximal diagonal entry * EPSILON as motivated by LAPACK's xGELSS:
+  // RealScalar tolerance = numext::maxi(vecD.array().abs().maxCoeff() * NumTraits<RealScalar>::EPSILON(),RealScalar(1) / NumTraits<RealScalar>::highest());
   // However, LDLT is not rank revealing, and so adjusting the tolerance wrt to the highest
   // diagonal element is not well justified and leads to numerical issues in some cases.
   // Moreover, Lapack's xSYTRS routines use 0 for the tolerance.
