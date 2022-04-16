@@ -1,5 +1,6 @@
 #ifndef __HELPER_H__
 #define __HELPER_H__
+#include "Eigen/Dense"
 #include <chrono>
 #include <iostream>
 #include <random>
@@ -65,4 +66,21 @@ template <typename T, typename... args> bool ANY_OF(T b1, args... b2)
 {
     return b1 || ANY_OF(b2...);
 }
+
+/*****************************************************************************************************
+ *
+ *                             线性方程组 Ax=b 的数值求解（迭代法, A 为方阵）
+ *
+ *****************************************************************************************************/
+
+namespace NOL
+{
+Eigen::VectorXf Jacobi(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100);
+
+Eigen::VectorXf GaussSeide(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100);
+
+Eigen::VectorXf SOR(Eigen::MatrixXf A, Eigen::VectorXf b, double epsilon = 0.000001, size_t max_iter_num = 100,
+                    double w = 1.4);
+
+} // namespace NOL
 #endif //__HELPER_H__
