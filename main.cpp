@@ -1,3 +1,4 @@
+#include <iostream>
 #include "example.h"
 #include "least_square_method.h"
 using namespace NOL;
@@ -32,7 +33,7 @@ public:
 		g(0) = 2*lambda*xk(0)+1;
 		return g;
 	}
-	FLOAT lambda = 0.3;
+	FLOAT lambda = 0.9;
 };
 
 int main(int argc, char *argv[])
@@ -46,41 +47,44 @@ int main(int argc, char *argv[])
         // example();
 
         // 求解线性方程组
-//        Eigen::Matrix3f A;
+        Eigen::Matrix3f A;
 //        Eigen::Vector3f b;
-//        A<<8,-3,2,4,11,-1,6,3,12;
+        A<<8,-3,2,4,11,-1,6,3,12;
 //        b <<20,33,36;
 //		A.row(0) = b;
         // Eigen::Vector3f  x = SOR(A, b);
         //std::cout<<A.row(0)<<std::endl;
 
-
-		//LeastSquareFunctorRx functor;
-		//functor.push_back_rx(std::make_shared<F1>());
-		//functor.push_back_rx(std::make_shared<F2>());
-		Vector  x(1);
-		x(0) = 300.0;
-		//std::cout<<functor.J(x)<<std::endl;
-
-
-		auto functor = std::make_shared<LeastSquareFunctorRx>();
-		(*functor).push_back_rx(std::make_shared<F1>());
-		(*functor).push_back_rx(std::make_shared<F2>());
-
-		LSGaussNewton solver;
-		solver.SetFunctor(functor);
-
-		auto options = solver.GetOptions();
-
-		options->line_search_type = LineSearchType::STRONGWOLFE;
-		options->optimized_performance = false;
-		options->init_x = x;
-
-		LinearEquationSolver::solver_type = LinearEquationSolver::SOLVER_TYPE::GAUSS_SEIDE;
+// QR分解
+		Eigen::HouseholderQR<Eigen::MatrixXf> qr;
+		qr.compute(A);
+		Eigen::MatrixXf R = qr.matrixQR().triangularView<Eigen::Upper>();
+		Eigen::MatrixXf Q = qr.householderQ();
+// 显示
+		std::cout << "A = " << std::endl << A << std::endl << std::endl;
+		std::cout << "Q = " << std::endl << Q << std::endl << std::endl;
+		std::cout << "R = " << std::endl << R << std::endl << std::endl;
 
 
-
-		auto res = solver.Solve();
+//		Vector  x(1);
+//		x(0) = 300.0;
+//
+//		auto functor = std::make_shared<LeastSquareFunctorRx>();
+//		(*functor).push_back_rx(std::make_shared<F1>());
+//		(*functor).push_back_rx(std::make_shared<F2>());
+//
+//		LSGaussNewton solver;
+//		solver.SetFunctor(functor);
+//
+//		auto options = solver.GetOptions();
+//
+//
+//		options->optimized_performance = false;
+//		options->init_x = x;
+//
+//		LinearEquationSolver::solver_type = LinearEquationSolver::SOLVER_TYPE::GAUSS_SEIDE;
+//
+//		auto res = solver.Solve();
 //
 //		std::cout << std::fixed << "Optimal solution : " << res.transpose() << std::endl
 //				  << "min f(x): " << (*functor)(res) << std::endl
