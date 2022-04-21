@@ -46,26 +46,6 @@ int main(int argc, char *argv[])
         // example_3_3();
         // example();
 
-        // 求解线性方程组
-        Eigen::Matrix3f A;
-//        Eigen::Vector3f b;
-        A<<8,-3,2,4,11,-1,6,3,12;
-//        b <<20,33,36;
-//		A.row(0) = b;
-        // Eigen::Vector3f  x = SOR(A, b);
-        //std::cout<<A.row(0)<<std::endl;
-
-// QR分解
-		Eigen::HouseholderQR<Eigen::MatrixXf> qr;
-		qr.compute(A);
-		Eigen::MatrixXf R = qr.matrixQR().triangularView<Eigen::Upper>();
-		Eigen::MatrixXf Q = qr.householderQ();
-// 显示
-		std::cout << "A = " << std::endl << A << std::endl << std::endl;
-		std::cout << "Q = " << std::endl << Q << std::endl << std::endl;
-		std::cout << "R = " << std::endl << R << std::endl << std::endl;
-
-
 //		Vector  x(1);
 //		x(0) = 300.0;
 //
@@ -91,6 +71,7 @@ int main(int argc, char *argv[])
 //				  << "Iteration Number: " << solver.NumOfIteration() << std::endl
 //				  << "time : " << time << "ms" << std::endl
 //				  << std::endl;
+
     }
     catch (std::exception &e)
     {
