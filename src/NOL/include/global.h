@@ -16,16 +16,9 @@
 #include <memory>
 #include <sstream>
 #include <utility>
-
+#include "types.h"
 namespace NOL
 {
-#ifndef DATA_TYPE
-#define DATA_TYPE
-using FLOAT = double;
-using Vector = Eigen::VectorXd;
-using Matrix = Eigen::MatrixXd;
-#endif
-
 /**
  * If during the line search, the step_size falls below this value, it is truncated to zero.
  */
