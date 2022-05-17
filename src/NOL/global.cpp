@@ -3,6 +3,7 @@
 #include "line_search.h"
 #include "newton.h"
 #include "steepest_descent.h"
+#include "types.h"
 
 namespace NOL
 {

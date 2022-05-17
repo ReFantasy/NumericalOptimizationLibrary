@@ -11,12 +11,12 @@
 
 #include "Eigen/Dense"
 #include "helper.h"
+#include "types.h"
 #include <iostream>
 #include <limits>
 #include <memory>
 #include <sstream>
 #include <utility>
-#include "types.h"
 namespace NOL
 {
 /**
@@ -61,50 +61,20 @@ class TargetFunctor
      * @param x The point of derivative
      * @return Derivative value (Jacobian)
      */
-    virtual Matrix Hesse(const Vector &xk) const {return Matrix {};};
+    virtual Matrix Hesse(const Vector &xk) const
+    {
+        return Matrix{};
+    };
 
-	virtual Matrix J(const Vector& x)const
-	{
-		return {};
-	}
+    virtual Matrix J(const Vector &x) const
+    {
+        return {};
+    }
 
-	virtual Vector r(const Vector& x)const
-	{
-		return {};
-	}
-
-};
-
-enum class LineSearchType
-{
-    GOLDENSECTION,
-    ARMIJO,
-    GOLDSTEIN,
-    WOLFE,
-    STRONGWOLFE
-};
-
-enum class QuasiNewtonSearchType
-{
-    SR1,
-    DFP,
-    BFGS
-};
-
-enum class ConjugateGradientType
-{
-    FR,
-    PRP,
-    PRP_PLUS,
-    CD,
-    DY
-};
-
-enum class TerminationCriterionType
-{
-    GK_NORM,
-    DELTA_XK,
-    DELTA_F
+    virtual Vector r(const Vector &x) const
+    {
+        return {};
+    }
 };
 
 /**
@@ -263,16 +233,6 @@ class UnconstrainedOptimizationLineSearchBase
     std::shared_ptr<LinearSearch> _line_search_ptr;
     mutable std::shared_ptr<Timer> _timer_ptr = std::make_shared<Timer>();
     unsigned int _K = 0;
-};
-
-enum class OptimizationMethodType
-{
-    SD,
-    NEWTON,
-    DAMPED_NEWTON,
-    LM,
-    QUASI_NEWTON,
-    ConjugateGradient
 };
 
 class OptimizationFactory

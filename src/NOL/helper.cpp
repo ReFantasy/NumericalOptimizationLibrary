@@ -40,21 +40,21 @@ FLOAT LinearEquationSolver::W = 1.4;
 Vector LinearEquationSolver::Solver(Matrix A, Vector b)
 {
     Vector x;
-    
+
     // 优化 Ax=b 的求解
     // MAx = Mb
     auto diag = A.diagonal();
-    Matrix M(diag.size(),diag.size());
-    if(diag.dot(diag)!=0)
+    Matrix M(diag.size(), diag.size());
+    if (diag.dot(diag) != 0)
     {
-        for(int i = 0;i<diag.size();i++)
+        for (int i = 0; i < diag.size(); i++)
         {
-            M(i,i) = 1.0/diag(i);
+            M(i, i) = 1.0 / diag(i);
         }
     }
-    A = M*A;
-    b = M*b;
-    
+    A = M * A;
+    b = M * b;
+
     switch (solver_type)
     {
     case SOLVER_TYPE::EIGEN_SOLVER:
